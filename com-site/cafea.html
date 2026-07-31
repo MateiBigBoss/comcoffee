@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>com. — Cafea</title>
+  <link rel="icon" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="logo" href="index.html"><img src="assets/logo.png" alt="com."></a>
+    <nav class="site-nav" aria-label="Navigare principală">
+      <a href="index.html">Acasă</a>
+      <a href="cafea.html" aria-current="page">Cafea</a>
+      <a href="#">Evenimente</a>
+      <a href="#">Unde ne găsești</a>
+      <a href="#">Despre</a>
+    </nav>
+    <a class="btn-outline" href="#">Cere ofertă</a>
+  </header>
+
+  <main>
+    <section class="coffee-hero">
+      <h1>Cafea</h1>
+      <p>Lista scurtă a standului. Fiecare cafea vine cu originea, prăjirea și notele ei — nu doar un preț.</p>
+    </section>
+
+    <section aria-label="Lista de cafele">
+      <div class="coffee-table-head" aria-hidden="true">
+        <span></span><span>cafea</span><span>origine</span><span>prăjire</span><span>note</span><span style="text-align: right;">preț</span>
+      </div>
+      <div class="coffee-row">
+        <span class="coffee-swatch" style="background: #A87C4F;"></span>
+        <span class="coffee-name">Etiopia <em>Yirgacheffe</em></span>
+        <div class="coffee-cells">
+          <span class="coffee-cell">Gedeb, Etiopia</span>
+          <span class="coffee-cell">deschisă</span>
+          <span class="coffee-cell">iasomie, lămâie, ceai negru</span>
+        </div>
+        <span class="coffee-price">18 lei</span>
+      </div>
+      <div class="coffee-row">
+        <span class="coffee-swatch" style="background: #59392B;"></span>
+        <span class="coffee-name">Columbia <em>Huila</em></span>
+        <div class="coffee-cells">
+          <span class="coffee-cell">Pitalito, Columbia</span>
+          <span class="coffee-cell">medie</span>
+          <span class="coffee-cell">caramel, măr roșu, cacao</span>
+        </div>
+        <span class="coffee-price">17 lei</span>
+      </div>
+      <div class="coffee-note">
+        <span class="badge-todo">⚠ DE COMPLETAT</span>
+        <p>Meniul real, per cafea: nume, origine, prăjire, note, preț (lei) și culoarea swatch-ului. Cele două rânduri de mai sus sunt doar demo pentru mecanică — lista asta definește și setul de clipuri exit/enter din hero.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer-slim">
+    <span class="footer-wordmark">com.</span>
+    <span class="footer-copy">© 2026 com. — stand de cafea specialty, mobil.</span>
+  </footer>
+
+</body>
+</html>

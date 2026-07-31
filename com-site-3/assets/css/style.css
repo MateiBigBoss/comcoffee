@@ -1,0 +1,1075 @@
+/* ============================================================
+   com. — stil global
+   Paletă derivată din lumea reală a standului: hârtie rece,
+   cerneală caldă, un singur accent salvie (suprafața flat-lay).
+   Fără crem cald + teracotă (interzis prin brief, §0).
+   ============================================================ */
+
+:root {
+  /* culori — 6 valori numite, un singur accent */
+  --hartie: #f7f7f5;        /* fundal general (alb hârtie, rece) */
+  --alb: #fdfdfc;           /* panouri / carduri */
+  --ink: #141412;           /* text principal (negru cald, ca logo-ul) */
+  --ink-2: #55534e;         /* text secundar — 7:1 pe hârtie */
+  --salvie: #55604f;        /* accentul unic — verde salvie stins */
+  --salvie-2: #414a3c;      /* accent hover / apăsat */
+  --platou: #a8ada0;        /* suprafața scenei foto (gri-verde mat) */
+  --linie: #e2e1db;         /* separatoare discrete */
+  --eroare: #a03b2e;        /* stări de eroare — 6,6:1 pe alb */
+
+  /* tipografie */
+  --font-titlu: "Archivo", "Inter", system-ui, sans-serif;
+  --font-text: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* scară de spațiere 8px */
+  --s1: 8px;
+  --s2: 16px;
+  --s3: 24px;
+  --s4: 32px;
+  --s5: 48px;
+  --s6: 64px;
+  --s7: 96px;
+
+  /* straturi */
+  --z-nav: 100;
+  --z-skip: 1000;
+
+  --latime: 1200px;
+  --margine: clamp(20px, 4vw, 48px);
+  --raza: 4px;
+
+  /* ritmul mișcării — un singur set de tokeni, peste tot */
+  --durata-mica: 180ms;
+  --durata-exit: 360ms;
+  --durata-enter: 420ms;
+  --suprapunere: 180ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.55, 0, 0.68, 0.2);
+}
+
+/* ---------- reset scurt ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-text);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--hartie);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-titlu);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  margin: 0 0 var(--s3);
+  overflow-wrap: break-word;
+}
+
+p {
+  margin: 0 0 var(--s2);
+  max-width: 62ch;
+}
+
+a {
+  color: var(--ink);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+:focus-visible {
+  outline: 2px solid var(--salvie);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--salvie);
+  color: #fff;
+}
+
+.container {
+  max-width: var(--latime);
+  margin-inline: auto;
+  padding-inline: var(--margine);
+}
+
+/* etichetă mono, folosită pentru overline-uri, contor, date */
+.eticheta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--salvie);
+}
+
+/* marcaj vizibil pentru conținut de completat de către proprietar */
+.de-completat {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--ink-2);
+  border: 1px dashed var(--linie);
+  border-radius: var(--raza);
+  padding: 2px 8px;
+  display: inline-block;
+}
+
+/* ---------- skip link ---------- */
+.skip-link {
+  position: absolute;
+  z-index: var(--z-skip);
+  left: var(--s2);
+  top: -100px;
+  background: var(--ink);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: var(--raza);
+  text-decoration: none;
+  transition: top var(--durata-mica) var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  top: var(--s2);
+}
+
+/* ---------- navigație ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-nav);
+  background: color-mix(in srgb, var(--hartie) 96%, transparent);
+  border-bottom: 1px solid var(--linie);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  min-height: 64px;
+}
+
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  margin-right: auto;
+}
+
+.nav-logo img {
+  height: 22px;
+  width: auto;
+}
+
+.nav-meniu {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-meniu a {
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink-2);
+  padding: 10px 2px;
+  border-bottom: 2px solid transparent;
+  transition: color var(--durata-mica) var(--ease-out);
+}
+
+.nav-meniu a:hover {
+  color: var(--ink);
+}
+
+.nav-meniu a[aria-current="page"] {
+  color: var(--ink);
+  border-bottom-color: var(--salvie);
+}
+
+.nav-social {
+  display: flex;
+  align-items: center;
+  gap: var(--s1);
+}
+
+.nav-social a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--ink-2);
+  transition: color var(--durata-mica) var(--ease-out),
+    background-color var(--durata-mica) var(--ease-out);
+}
+
+.nav-social a:hover {
+  color: var(--ink);
+  background: var(--linie);
+}
+
+.meniu-btn {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--linie);
+  border-radius: var(--raza);
+  background: transparent;
+  place-items: center;
+  color: var(--ink);
+}
+
+@media (max-width: 920px) {
+  .meniu-btn {
+    display: grid;
+  }
+
+  .nav-meniu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--hartie);
+    border-bottom: 1px solid var(--linie);
+    padding: var(--s1) var(--margine) var(--s2);
+    display: none;
+  }
+
+  .nav-meniu.deschis,
+  .no-js .nav-meniu {
+    display: flex;
+  }
+
+  .nav-meniu a {
+    padding: 12px 4px;
+    border-bottom: none;
+  }
+
+  .nav-meniu a[aria-current="page"] {
+    color: var(--salvie);
+  }
+}
+
+/* ---------- butoane ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 var(--s3);
+  border-radius: var(--raza);
+  border: 1px solid transparent;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  transition: background-color var(--durata-mica) var(--ease-out),
+    border-color var(--durata-mica) var(--ease-out),
+    color var(--durata-mica) var(--ease-out);
+}
+
+.btn-primar {
+  background: var(--salvie);
+  color: #fff;
+}
+
+.btn-primar:hover {
+  background: var(--salvie-2);
+}
+
+.btn-contur {
+  background: transparent;
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.btn-contur:hover {
+  background: var(--ink);
+  color: var(--hartie);
+}
+
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   EROU — comutatorul de soiuri (elementul îndrăzneț, unic)
+   Stânga: scena flat-lay (strat de fundal persistent + recuzită).
+   Dreapta: panou cu contor, nume, descriere, CTA.
+   Pe cusătură: swatch-urile soiurilor.
+   ============================================================ */
+.erou {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100dvh - 65px);
+}
+
+/* --- scena (stratul de suprafață este PERSISTENT — doar recuzita se mișcă) --- */
+.scena {
+  position: relative;
+  background:
+    radial-gradient(120% 90% at 30% 20%, rgba(255, 255, 255, 0.14), transparent 60%),
+    var(--platou);
+  overflow: hidden;
+  min-height: 420px;
+  /* tonurile cafelei active — setate din JS per soi */
+  --cafea: #241610;
+  --crema: #8a5a36;
+}
+
+.prop {
+  position: absolute;
+  transition: transform var(--durata-enter) var(--ease-out),
+    opacity var(--durata-enter) var(--ease-out);
+  will-change: transform, opacity;
+}
+
+/* fiecare piesă de recuzită are propria traiectorie de ieșire */
+.scena.iese .prop {
+  transition: transform var(--durata-exit) var(--ease-in),
+    opacity var(--durata-exit) var(--ease-in);
+}
+
+.scena.gol .prop {
+  opacity: 0;
+  transform: var(--traiectorie, translate(0, 40px));
+}
+
+/* ceașca — văzută de sus */
+.ceasca {
+  left: 50%;
+  top: 47%;
+  width: min(52%, 320px);
+  aspect-ratio: 1;
+  margin: 0;
+  translate: -50% -50%;
+  --traiectorie: translate(-140%, 6%) rotate(-6deg);
+}
+
+.ceasca-toarta {
+  position: absolute;
+  right: -8.5%;
+  top: 50%;
+  width: 26%;
+  aspect-ratio: 1;
+  translate: 0 -50%;
+  border: 12px solid #eceae4;
+  border-radius: 50%;
+}
+
+.ceasca-corp {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #eceae4;
+  box-shadow: 0 22px 44px rgba(20, 20, 18, 0.2),
+    inset 0 -2px 6px rgba(20, 20, 18, 0.08);
+  display: grid;
+  place-items: center;
+}
+
+.ceasca-cafea {
+  width: 79%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 40% 36%, var(--crema) 0%, transparent 46%),
+    var(--cafea);
+  box-shadow: inset 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+/* lingurița */
+.lingurita {
+  left: 13%;
+  top: 24%;
+  width: 9%;
+  rotate: -14deg;
+  --traiectorie: translate(-60%, -160%) rotate(-38deg);
+}
+
+.lingurita svg {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 14px rgba(20, 20, 18, 0.22));
+}
+
+/* frunza uscată */
+.frunza {
+  right: 12%;
+  top: 12%;
+  width: 14%;
+  rotate: 24deg;
+  --traiectorie: translate(90%, -140%) rotate(60deg);
+}
+
+/* boabele — poziții individuale */
+.boaba {
+  width: 4.6%;
+  filter: drop-shadow(0 6px 8px rgba(20, 20, 18, 0.25));
+}
+
+.boaba-1 { left: 20%; bottom: 20%; rotate: 20deg;  --traiectorie: translate(-240%, 160%) rotate(90deg); }
+.boaba-2 { left: 30%; bottom: 11%; rotate: -35deg; --traiectorie: translate(-120%, 240%) rotate(-70deg); }
+.boaba-3 { right: 24%; bottom: 16%; rotate: 60deg; --traiectorie: translate(220%, 180%) rotate(120deg); }
+.boaba-4 { right: 14%; top: 38%; rotate: -10deg;   --traiectorie: translate(260%, -60%) rotate(-60deg); }
+.boaba-5 { left: 14%; top: 52%; rotate: 45deg;     --traiectorie: translate(-260%, 40%) rotate(100deg); }
+
+/* semnătura discretă de pe marginea scenei */
+.scena-semnatura {
+  position: absolute;
+  left: var(--s2);
+  bottom: var(--s3);
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: rgba(20, 20, 18, 0.45);
+}
+
+/* --- swatch-urile de pe cusătură --- */
+.swatch-uri {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.swatch {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid var(--alb);
+  background: var(--tona, var(--ink));
+  box-shadow: 0 2px 8px rgba(20, 20, 18, 0.25);
+  transition: transform var(--durata-mica) var(--ease-out);
+}
+
+/* zonă de atingere de 44px, fără a mări punctul vizual */
+.swatch::after {
+  content: "";
+  position: absolute;
+  inset: -12px;
+}
+
+.swatch-uri li {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.swatch:hover {
+  transform: scale(1.18);
+}
+
+.swatch[aria-current="true"] {
+  transform: scale(1.45);
+  border-color: var(--ink);
+}
+
+/* --- panoul din dreapta --- */
+.panou {
+  position: relative;
+  background: var(--alb);
+  display: grid;
+  align-content: center;
+  min-width: 0;
+  padding: var(--s6) clamp(var(--s4), 7vw, var(--s7));
+}
+
+.panou-continut {
+  min-width: 0;
+}
+
+.panou-continut {
+  transition: opacity var(--durata-exit) var(--ease-in),
+    transform var(--durata-exit) var(--ease-in);
+}
+
+.panou-continut.schimb {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.panou-continut.intra {
+  transition: opacity var(--durata-enter) var(--ease-out),
+    transform var(--durata-enter) var(--ease-out);
+}
+
+/* contorul de poziție — marchează locul real în listă */
+.contor {
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-2);
+  margin-bottom: var(--s3);
+}
+
+.contor-linie {
+  width: 26px;
+  height: 1px;
+  background: var(--ink-2);
+  rotate: -55deg;
+}
+
+.contor-acum {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.erou-titlu {
+  font-size: clamp(34px, 5vw, 76px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--s2);
+}
+
+.erou-meta {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--salvie);
+  margin-bottom: var(--s2);
+}
+
+.erou-descriere {
+  color: var(--ink-2);
+  max-width: 44ch;
+  margin-bottom: var(--s3);
+}
+
+.erou-pret {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  margin-bottom: var(--s4);
+}
+
+/* săgețile sus/jos — colț dreapta-jos */
+.erou-sageti {
+  position: absolute;
+  right: var(--s3);
+  bottom: var(--s3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
+}
+
+.sageata {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--linie);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  transition: border-color var(--durata-mica) var(--ease-out),
+    background-color var(--durata-mica) var(--ease-out);
+}
+
+.sageata:hover {
+  border-color: var(--ink);
+}
+
+.sageata:active {
+  background: var(--linie);
+}
+
+.sageata[disabled] {
+  opacity: 0.38;
+  cursor: default;
+}
+
+@media (max-width: 920px) {
+  .erou {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .scena {
+    min-height: min(88vw, 480px);
+  }
+
+  .swatch-uri {
+    position: static;
+    translate: none;
+    flex-direction: row;
+    justify-content: center;
+    padding: var(--s2) 0 0;
+    background: var(--alb);
+  }
+
+  .panou {
+    padding: var(--s3) var(--margine) var(--s6);
+  }
+
+  .erou-sageti {
+    display: none; /* pe mobil comută swatch-urile; săgețile ar sta peste conținut */
+  }
+}
+
+/* ============================================================
+   secțiuni de conținut
+   ============================================================ */
+.sectiune {
+  padding-block: var(--s7);
+}
+
+.sectiune-cap {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s3);
+  flex-wrap: wrap;
+  margin-bottom: var(--s5);
+}
+
+.sectiune-cap h2 {
+  font-size: clamp(28px, 4vw, 44px);
+  margin: 0;
+}
+
+.sectiune-cap .eticheta {
+  display: block;
+  margin-bottom: var(--s1);
+}
+
+/* --- banda „următoarele opriri” --- */
+.opriri {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(240px, 1fr);
+  gap: var(--s2);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding-bottom: var(--s1);
+}
+
+.oprire {
+  scroll-snap-align: start;
+  background: var(--alb);
+  border: 1px solid var(--linie);
+  border-radius: var(--raza);
+  padding: var(--s3);
+}
+
+.oprire-data {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.oprire-zi {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--salvie);
+  margin: 2px 0 var(--s2);
+}
+
+.oprire-loc {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.oprire-oras,
+.oprire-program {
+  color: var(--ink-2);
+  font-size: 14px;
+  margin: 0;
+}
+
+/* --- grila de evenimente 2×2 --- */
+.evenimente-grila {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s3);
+}
+
+@media (max-width: 720px) {
+  .evenimente-grila {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card-eveniment {
+  background: var(--alb);
+  border: 1px solid var(--linie);
+  border-radius: var(--raza);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-foto {
+  aspect-ratio: 4 / 3;
+  background:
+    radial-gradient(110% 80% at 30% 20%, rgba(255, 255, 255, 0.12), transparent 60%),
+    var(--platou);
+  display: grid;
+  place-items: center;
+}
+
+.card-corp {
+  padding: var(--s3);
+  display: grid;
+  gap: var(--s1);
+  justify-items: start;
+}
+
+.card-corp h3 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.card-corp p {
+  color: var(--ink-2);
+  font-size: 15px;
+  margin: 0 0 var(--s2);
+}
+
+/* --- teaser poveste --- */
+.poveste {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s6);
+  align-items: center;
+}
+
+@media (max-width: 920px) {
+  .poveste {
+    grid-template-columns: 1fr;
+  }
+}
+
+.poveste-vizual {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--raza);
+  background:
+    radial-gradient(110% 80% at 70% 20%, rgba(255, 255, 255, 0.12), transparent 60%),
+    var(--platou);
+  display: grid;
+  place-items: center;
+}
+
+/* ============================================================
+   pagini interioare
+   ============================================================ */
+.pagina-cap {
+  padding-block: var(--s6) var(--s5);
+  border-bottom: 1px solid var(--linie);
+}
+
+.pagina-cap h1 {
+  font-size: clamp(40px, 6vw, 72px);
+  letter-spacing: -0.03em;
+  margin-bottom: var(--s2);
+}
+
+.pagina-cap p {
+  color: var(--ink-2);
+  font-size: 18px;
+}
+
+/* --- lista de cafele --- */
+.cafele {
+  display: grid;
+  gap: 0;
+}
+
+.cafea-rand {
+  display: grid;
+  grid-template-columns: 44px 1.2fr 1fr auto;
+  gap: var(--s3);
+  align-items: center;
+  padding: var(--s4) 0;
+  border-bottom: 1px solid var(--linie);
+}
+
+@media (max-width: 720px) {
+  .cafea-rand {
+    grid-template-columns: 32px 1fr auto;
+  }
+
+  .cafea-note {
+    grid-column: 2 / -1;
+  }
+}
+
+.cafea-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--tona);
+  box-shadow: inset 0 0 0 1px rgba(20, 20, 18, 0.12);
+}
+
+.cafea-nume {
+  font-family: var(--font-titlu);
+  font-weight: 800;
+  font-size: clamp(22px, 3vw, 32px);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.cafea-origine {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.05em;
+  color: var(--salvie);
+  margin: 4px 0 0;
+}
+
+.cafea-note {
+  color: var(--ink-2);
+  font-size: 15px;
+  margin: 0;
+}
+
+.cafea-pret {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+/* --- formular --- */
+.formular {
+  max-width: 640px;
+}
+
+.formular fieldset {
+  border: none;
+  margin: 0 0 var(--s4);
+  padding: 0;
+}
+
+.formular legend {
+  font-family: var(--font-titlu);
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: var(--s3);
+  padding: 0;
+}
+
+.camp {
+  margin-bottom: var(--s3);
+}
+
+.camp label {
+  display: block;
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.camp .optional {
+  font-weight: 400;
+  color: var(--ink-2);
+}
+
+.camp input,
+.camp select,
+.camp textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 14px;
+  font: inherit;
+  color: var(--ink);
+  background: var(--alb);
+  border: 1px solid var(--linie);
+  border-radius: var(--raza);
+  transition: border-color var(--durata-mica) var(--ease-out);
+}
+
+.camp textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.camp input:focus-visible,
+.camp select:focus-visible,
+.camp textarea:focus-visible {
+  outline: 2px solid var(--salvie);
+  outline-offset: 0;
+  border-color: var(--salvie);
+}
+
+.camp-ajutor {
+  font-size: 13px;
+  color: var(--ink-2);
+  margin: 6px 0 0;
+}
+
+.camp.cu-eroare input,
+.camp.cu-eroare select,
+.camp.cu-eroare textarea {
+  border-color: var(--eroare);
+}
+
+.camp-eroare {
+  display: none;
+  font-size: 13.5px;
+  color: var(--eroare);
+  margin: 6px 0 0;
+}
+
+.camp.cu-eroare .camp-eroare {
+  display: block;
+}
+
+.formular-succes {
+  background: var(--alb);
+  border: 1px solid var(--linie);
+  border-left: 3px solid var(--salvie);
+  border-radius: var(--raza);
+  padding: var(--s4);
+}
+
+.formular-succes h2 {
+  font-size: 24px;
+  margin-bottom: var(--s1);
+}
+
+/* --- unde ne găsești: hartă --- */
+.harta-substituent {
+  aspect-ratio: 16 / 8;
+  border-radius: var(--raza);
+  border: 1px solid var(--linie);
+  background:
+    radial-gradient(110% 80% at 30% 20%, rgba(255, 255, 255, 0.12), transparent 60%),
+    var(--platou);
+  display: grid;
+  place-items: center;
+  margin-top: var(--s5);
+}
+
+/* ---------- subsol ---------- */
+.subsol {
+  border-top: 1px solid var(--linie);
+  padding-block: var(--s6) var(--s4);
+  margin-top: var(--s7);
+}
+
+.subsol-grila {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: var(--s4);
+}
+
+@media (max-width: 920px) {
+  .subsol-grila {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .subsol-grila {
+    grid-template-columns: 1fr;
+  }
+}
+
+.subsol h3 {
+  font-size: 14px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-2);
+  margin-bottom: var(--s2);
+}
+
+.subsol ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+  font-size: 15px;
+}
+
+.subsol a {
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color var(--durata-mica) var(--ease-out);
+}
+
+.subsol a:hover {
+  color: var(--ink);
+}
+
+.subsol-logo img {
+  height: 26px;
+  width: auto;
+  margin-bottom: var(--s2);
+}
+
+.subsol-jos {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s2);
+  flex-wrap: wrap;
+  border-top: 1px solid var(--linie);
+  margin-top: var(--s5);
+  padding-top: var(--s3);
+  font-size: 13.5px;
+  color: var(--ink-2);
+}
+
+/* ---------- mișcare redusă: totul devine instant / static ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="com. vine cu standul de cafea de specialitate la nunți, evenimente corporate, târguri, festivaluri și petreceri private. Cere o ofertă.">
+  <meta name="theme-color" content="#FAFAF8">
+  <title>com. — Evenimente</title>
+  <link rel="icon" href="assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/img/favicon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <a class="wordmark" href="index.html"><img src="assets/img/logo.png" alt="com."></a>
+    <nav aria-label="Navigație principală">
+      <a href="index.html">Acasă</a>
+      <a href="cafea.html">Cafea</a>
+      <a href="evenimente.html" aria-current="page">Evenimente</a>
+      <a href="despre.html">Despre</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section" aria-labelledby="titlu-evenimente">
+      <div class="section-head">
+        <p class="overline">Evenimente</p>
+        <h2 id="titlu-evenimente" class="display">Cafea bună, oriunde o duci</h2>
+        <p class="lead">Standul com. se montează în o oră și servește de la 30 la câteva sute de invitați. Tu alegi locul, noi aducem restul.</p>
+        <p><span class="todo-note">⚠️ DE COMPLETAT — confirmă tipurile reale de evenimente și ce include fiecare pachet (fotografiile la Nunți &amp; Corporate sunt provizorii) (§12.8)</span></p>
+      </div>
+
+      <div class="events-grid">
+        <article class="event-card" id="nunti">
+          <div class="event-photo"><img src="assets/img/foto/ev-nunti.jpg" alt="Invitați adunați lângă barul de cafea com. la un eveniment" loading="lazy"></div>
+          <div class="event-body">
+            <p class="overline">Ziua cea mare</p>
+            <h3>Nunți</h3>
+            <p>Bar de cafea de specialitate pentru invitații tăi, de la ceremonie până târziu.</p>
+            <p><span class="todo-note">⚠️ DE COMPLETAT — ce include pachetul</span></p>
+            <a class="btn btn-outline" href="contact.html#formular">Cere ofertă</a>
+          </div>
+        </article>
+
+        <article class="event-card" id="corporate">
+          <div class="event-photo"><img src="assets/img/foto/ev-corporate.jpg" alt="Barista com. pregătește cafea pentru un participant la un eveniment" loading="lazy"></div>
+          <div class="event-body">
+            <p class="overline">La birou sau la conferință</p>
+            <h3>Corporate</h3>
+            <p>Standul vine la sediu sau la eveniment. Cafea bună, echipă trează.</p>
+            <p><span class="todo-note">⚠️ DE COMPLETAT — ce include pachetul</span></p>
+            <a class="btn btn-outline" href="contact.html#formular">Cere ofertă</a>
+          </div>
+        </article>
+
+        <article class="event-card" id="targuri-festivaluri">
+          <div class="event-photo"><img src="assets/img/foto/ev-targuri.jpg" alt="Coadă de vizitatori la standul com. sub cort, la un târg" loading="lazy"></div>
+          <div class="event-body">
+            <p class="overline">În mijlocul orașului</p>
+            <h3>Târguri &amp; festivaluri</h3>
+            <p>Prezență de durată, volum mare, aceeași grijă pentru fiecare ceașcă.</p>
+            <p><span class="todo-note">⚠️ DE COMPLETAT — ce include pachetul</span></p>
+            <a class="btn btn-outline" href="contact.html#formular">Cere ofertă</a>
+          </div>
+        </article>
+
+        <article class="event-card" id="petreceri-private">
+          <div class="event-photo"><img src="assets/img/foto/ev-petreceri.jpg" alt="Copii și părinți la tejgheaua com. la o petrecere de familie" loading="lazy"></div>
+          <div class="event-body">
+            <p class="overline">Acasă la tine</p>
+            <h3>Petreceri private</h3>
+            <p>Aniversări, botezuri, grădini. Standul se potrivește oriunde încape.</p>
+            <p><span class="todo-note">⚠️ DE COMPLETAT — ce include pachetul</span></p>
+            <a class="btn btn-outline" href="contact.html#formular">Cere ofertă</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Galerie — dovadă socială (§8) -->
+    <section class="section section--alt" aria-labelledby="titlu-galerie">
+      <div class="section-head">
+        <p class="overline">Galerie</p>
+        <h2 id="titlu-galerie">De la opririle trecute</h2>
+        <p>Momente de la evenimentele unde a fost standul com.</p>
+      </div>
+      <!-- Bandă orizontală (§8): pe scroll-ul vertical al paginii, banda se
+           translatează stânga→dreapta (assets/js/main.js) fără să blocheze
+           pagina. Alternanță strictă de aspect ratio: 1:1 · 3:4 · 1:1 · 3:4 …
+           Fiecare <li> primește o singură <img> (object-fit: cover ține ratio-ul
+           slotului, indiferent de dimensiunea pozei sursă). -->
+      <div class="gallery-scroller" data-gallery-scroll>
+        <ul class="gallery-track">
+          <li class="gallery-item gallery-item--square"><img src="assets/img/foto/galerie-1.jpg" alt="Cei doi baristi com. zâmbind în spatele tejghelei" loading="lazy"></li>
+          <li class="gallery-item gallery-item--portrait"><img src="assets/img/foto/galerie-2.jpg" alt="Barista toarnă lapte spumat într-o ceașcă com." loading="lazy"></li>
+          <li class="gallery-item gallery-item--square"><img src="assets/img/foto/galerie-3.jpg" alt="Latte art într-o ceașcă de cafea, văzut de sus" loading="lazy"></li>
+          <li class="gallery-item gallery-item--portrait"><img src="assets/img/foto/galerie-4.jpg" alt="Barista com. servește un copil la tejghea" loading="lazy"></li>
+          <li class="gallery-item gallery-item--square"><img src="assets/img/foto/galerie-5.jpg" alt="Espressorul și ceștile com. pregătite pe blatul standului" loading="lazy"></li>
+          <li class="gallery-item gallery-item--portrait"><img src="assets/img/foto/galerie-6.jpg" alt="Standul com. cu logo, montat sub cort la un eveniment" loading="lazy"></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Cum decurge — pași simpli; ține și loc de conținut sub galerie
+         (spațiu de scroll ca banda orizontală să-și termine mișcarea). -->
+    <section class="section" aria-labelledby="titlu-cum">
+      <div class="section-head">
+        <p class="overline">Cum decurge</p>
+        <h2 id="titlu-cum">De la mesaj la prima ceașcă</h2>
+        <p>Trei pași și standul e la tine. Fără bătăi de cap.</p>
+      </div>
+
+      <ol class="steps">
+        <li class="step">
+          <span class="step-num">01</span>
+          <h3>Ne spui detaliile</h3>
+          <p>Data, locul și câți invitați aștepți. Un mesaj scurt e de ajuns pentru început.</p>
+        </li>
+        <li class="step">
+          <span class="step-num">02</span>
+          <h3>Primești o ofertă</h3>
+          <p>Revenim cu un pachet concret și un preț, potrivit tipului tău de eveniment.</p>
+        </li>
+        <li class="step">
+          <span class="step-num">03</span>
+          <h3>Venim cu standul</h3>
+          <p>Montăm în aproximativ o oră și facem cafea de specialitate pentru invitații tăi.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- CTA final — conversia duce acum la formularul de pe /contact -->
+    <section class="section section--alt" aria-labelledby="titlu-cta-ev">
+      <div class="section-head">
+        <h2 id="titlu-cta-ev">Gata să chemi standul la tine?</h2>
+        <p>Spune-ne data și locul — revenim cu o ofertă concretă.</p>
+      </div>
+      <a class="btn btn-primary" href="contact.html#formular">Cere o ofertă</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <a class="wordmark" href="index.html"><img src="assets/img/logo.png" alt="com."></a>
+      <p>Stand mobil cu cafea de specialitate. Venim la evenimentul tău.</p>
+    </div>
+    <div>
+      <h4>Program</h4>
+      <p>În funcție de eveniment — scrie-ne și venim.</p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p><a class="social-link" href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener">@com.coffee.events</a></p>
+      <p><a class="phone-link" href="tel:+40771793146">+40 771 793 146</a></p>
+      <p><span class="todo-note">⚠️ DE COMPLETAT — email (§12.3)</span></p>
+    </div>
+    <p class="footer-legal">© 2026 com. · cafea de specialitate</p>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

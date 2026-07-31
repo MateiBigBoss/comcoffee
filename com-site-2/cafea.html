@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Băuturile de la com. — de la espresso la flat white. Fiecare are rețeta ei și un motiv pentru care e în meniu.">
+  <meta name="theme-color" content="#FAFAF8">
+  <title>com. — Cafea</title>
+  <link rel="icon" href="assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/img/favicon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <a class="wordmark" href="index.html"><img src="assets/img/logo.png" alt="com."></a>
+    <nav aria-label="Navigație principală">
+      <a href="index.html">Acasă</a>
+      <a href="cafea.html" aria-current="page">Cafea</a>
+      <a href="evenimente.html">Evenimente</a>
+      <a href="despre.html">Despre</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ========================================================
+         Switcher-ul de băuturi (§7) — mutat de pe Acasă; acum
+         ESTE meniul. Panoul de text e pre-randat cu băutura 1,
+         deci fără JS pagina rămâne completă (stare statică, §7).
+         Swatch-urile se țin în sincron cu assets/js/data.js.
+         ======================================================== -->
+    <section class="hero" data-switcher tabindex="0" aria-label="Băuturile de la stand">
+
+      <div class="hero-stage">
+        <canvas data-scene aria-hidden="true"></canvas>
+        <noscript>
+          <div style="position:absolute; inset:0; display:grid; place-items:center; padding:24px; text-align:center;">
+            <p style="font-family:'IBM Plex Mono',monospace; font-size:0.8rem; color:#FAFAF8;">
+              Flat-lay: ceașca de espresso pe suprafața standului.
+            </p>
+          </div>
+        </noscript>
+        <p class="hero-hint" aria-hidden="true">scroll · schimbă cafeaua</p>
+      </div>
+
+      <div class="hero-swatches" role="group" aria-label="Alege cafeaua">
+        <button type="button" class="swatch is-active" data-swatch style="background:#4A2E1E" aria-pressed="true"  aria-label="Espresso, cafeaua 1 din 7"></button>
+        <button type="button" class="swatch" data-swatch style="background:#B98A5C" aria-pressed="false" aria-label="Cappuccino, cafeaua 2 din 7"></button>
+        <button type="button" class="swatch" data-swatch style="background:#DCC09A" aria-pressed="false" aria-label="Iced Latte / Latte, cafeaua 3 din 7"></button>
+        <button type="button" class="swatch" data-swatch style="background:#C29B70" aria-pressed="false" aria-label="Flat White, cafeaua 4 din 7"></button>
+        <button type="button" class="swatch" data-swatch style="background:#9C6B44" aria-pressed="false" aria-label="Cortado, cafeaua 5 din 7"></button>
+        <button type="button" class="swatch" data-swatch style="background:#6B4529" aria-pressed="false" aria-label="Macchiato, cafeaua 6 din 7"></button>
+        <button type="button" class="swatch" data-swatch style="background:#3E2417" aria-pressed="false" aria-label="Long Black, cafeaua 7 din 7"></button>
+      </div>
+
+      <div class="hero-panel" data-panel>
+        <p class="hero-counter" data-counter data-panel-item>01 / 07</p>
+        <h1 class="display hero-name" data-name data-panel-item aria-live="polite">Espresso</h1>
+        <p class="hero-notes lead" data-notes data-panel-item>Scurt, intens, cu crema densă. Toată cafeaua, fără nimic în plus.</p>
+        <p class="hero-meta" data-meta data-panel-item>espresso simplu · 30 ml</p>
+        <p class="hero-cta-row">
+          <a class="btn btn-primary" href="contact.html#formular">Cere ofertă</a>
+        </p>
+        <p><span class="todo-note">⚠️ DE COMPLETAT — descrierile sunt demonstrative (assets/js/data.js); secvențele foto reale înlocuiesc randarea provizorie (§11)</span></p>
+      </div>
+
+      <div class="hero-socials">
+        <a class="social-link" href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener">com.coffee.events</a>
+      </div>
+
+      <div class="hero-arrows">
+        <button type="button" class="arrow-btn" data-prev aria-label="Cafeaua anterioară">↑</button>
+        <button type="button" class="arrow-btn" data-next aria-label="Cafeaua următoare">↓</button>
+      </div>
+
+    </section>
+
+    <section class="section section--alt" aria-labelledby="titlu-cta-cafea">
+      <div class="section-head">
+        <h2 id="titlu-cta-cafea">Vrei cafeaua asta la evenimentul tău?</h2>
+        <p>Spune-ne data și locul — venim cu standul, cu boabele și cu tot ce trebuie.</p>
+      </div>
+      <a class="btn btn-primary" href="contact.html#formular">Cere ofertă</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <a class="wordmark" href="index.html"><img src="assets/img/logo.png" alt="com."></a>
+      <p>Stand mobil cu cafea de specialitate. Venim la evenimentul tău.</p>
+    </div>
+    <div>
+      <h4>Program</h4>
+      <p>În funcție de eveniment — scrie-ne și venim.</p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p><a class="social-link" href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener">@com.coffee.events</a></p>
+      <p><a class="phone-link" href="tel:+40771793146">+40 771 793 146</a></p>
+      <p><span class="todo-note">⚠️ DE COMPLETAT — email (§12.3)</span></p>
+    </div>
+    <p class="footer-legal">© 2026 com. · cafea de specialitate</p>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/switcher.js"></script>
+</body>
+</html>
