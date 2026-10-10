@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Băuturile de la com. — de la espresso la flat white. Fiecare are rețeta ei și un motiv pentru care e în meniu.">
   <meta name="theme-color" content="#FAFAF8">
-  <title>com. — Cafea</title>
+  <title>com. — Meniul nostru</title>
   <link rel="icon" href="assets/img/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
   <link rel="apple-touch-icon" href="assets/img/favicon-180.png">
@@ -13,80 +13,57 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/menu.css">
 </head>
-<body>
+<body class="menu-page">
+  <a class="menu-skip" href="#continut">Sari la conținut</a>
 
   <header class="nav">
     <a class="wordmark" href="index.html"><img src="assets/img/logo.png" alt="com."></a>
     <nav aria-label="Navigație principală">
       <a href="index.html">Acasă</a>
-      <a href="cafea.html" aria-current="page">Cafea</a>
+      <a href="cafea.html" aria-current="page">Meniu</a>
       <a href="evenimente.html">Evenimente</a>
       <a href="despre.html">Despre</a>
       <a href="contact.html">Contact</a>
     </nav>
   </header>
 
-  <main>
-    <!-- ========================================================
-         Switcher-ul de băuturi (§7) — mutat de pe Acasă; acum
-         ESTE meniul. Panoul de text e pre-randat cu băutura 1,
-         deci fără JS pagina rămâne completă (stare statică, §7).
-         Swatch-urile se țin în sincron cu assets/js/data.js.
-         ======================================================== -->
-    <section class="hero" data-switcher tabindex="0" aria-label="Băuturile de la stand">
 
-      <div class="hero-stage">
-        <canvas data-scene aria-hidden="true"></canvas>
-        <noscript>
-          <div style="position:absolute; inset:0; display:grid; place-items:center; padding:24px; text-align:center;">
-            <p style="font-family:'IBM Plex Mono',monospace; font-size:0.8rem; color:#FAFAF8;">
-              Flat-lay: ceașca de espresso pe suprafața standului.
-            </p>
-          </div>
-        </noscript>
-        <p class="hero-hint" aria-hidden="true">scroll · schimbă cafeaua</p>
+  <main id="continut">
+    <section class="coffee-menu" aria-labelledby="menu-title" data-menu>
+      <div class="menu-heading"><p class="menu-eyebrow">De la primul espresso la ultima poveste.</p><h1 id="menu-title">Meniul nostru<span aria-hidden="true">.</span></h1><p>Alege o culoare. Găsește-ți cafeaua.</p></div>
+      <div class="menu-experience">
+        <div class="drink-stage" id="drink-presentation" aria-label="Băutura selectată">
+          <span class="stage-label" aria-hidden="true">com. / coffee collection</span>
+          <span class="stage-number" aria-hidden="true" data-stage-number>01</span>
+          <div class="drink-shadow" aria-hidden="true"></div>
+          <img class="drink-photo" data-drink-photo src="assets/img/menu/espresso.png" alt="Espresso în paharul com." width="1254" height="1254" fetchpriority="high">
+          <span class="stage-caption" aria-hidden="true">Cafea bună. În felul tău.</span>
+        </div>
+        <div class="menu-controls">
+          <div class="menu-tabs" role="group" aria-label="Categoria meniului" hidden data-interactive><button type="button" data-category="0" aria-pressed="true">Meniu clasic <span>07</span></button><button type="button" data-category="1" aria-pressed="false">Selecția Signature <span>05</span></button></div>
+          <div class="drink-copy" aria-live="polite" aria-atomic="true"><p class="menu-eyebrow" data-drink-counter>01 / 07 · Meniu clasic</p><h2 data-drink-name>Espresso</h2><p data-drink-note>Scurt. Intens. Fără ocolișuri.</p><div class="drink-specs">
+              <dl class="drink-volumes"><div><dt>Cantitate</dt><dd data-drink-volume>60 ml</dd></div><div><dt data-coffee-label>Espresso</dt><dd data-coffee-volume>60 ml</dd></div></dl>
+              <span class="drink-beans" data-drink-beans data-beans="2" role="img" aria-label="2 shoturi de espresso"><svg viewBox="0 0 40 48" aria-hidden="true"><path d="M18 3C6 5 1 19 4 32c2 8 7 13 12 13 3-9 2-16-2-23-4-8-3-12 4-19ZM22 3c-6 10-6 15-2 23 4 7 4 12 1 19 10-2 15-11 15-22C36 12 30 4 22 3Z"/><path class="bean-slash" d="M3 44 37 4"/></svg><svg class="bean-second" viewBox="0 0 40 48" aria-hidden="true"><path d="M18 3C6 5 1 19 4 32c2 8 7 13 12 13 3-9 2-16-2-23-4-8-3-12 4-19ZM22 3c-6 10-6 15-2 23 4 7 4 12 1 19 10-2 15-11 15-22C36 12 30 4 22 3Z"/></svg></span>
+            </div></div>
+          <div class="drink-picker" hidden data-interactive><p class="picker-label">Ce îți turnăm astăzi?</p><div class="drink-choices" data-choices="0" role="group" aria-label="Meniu clasic"><button type="button" class="drink-choice" data-drink="0" data-slug="espresso" data-volume="60" data-coffee-label="Espresso" data-coffee-ml="60" data-beans="2" data-note="Scurt. Intens. Fără ocolișuri." aria-pressed="true" aria-controls="drink-presentation"><span class="drink-dot" style="--drink-color:#513222" aria-hidden="true"></span><span>Espresso</span></button>
+<button type="button" class="drink-choice" data-drink="1" data-slug="cortado" data-volume="120" data-coffee-label="Espresso" data-coffee-ml="60" data-beans="2" data-note="O pauză mică, în echilibru." aria-pressed="false" aria-controls="drink-presentation"><span class="drink-dot" style="--drink-color:#a57450" aria-hidden="true"></span><span>Cortado</span></button>
+<button type="button" class="drink-choice" data-drink="2" data-slug="macchiato" data-volume="60" data-coffee-label="Espresso" data-coffee-ml="30" data-beans="1" data-note="Puțin lapte. Mult caracter." aria-pressed="false" aria-controls="drink-presentation"><span class="drink-dot" style="--drink-color:#79513b" aria-hidden="true"></span><span>Macchiato</span></button>
+<button type="button" class="drink-choice" data-drink="3" data-slug="flat-white" data-volume="180" data-coffee-label="Espresso" data-coffee-ml="60" data-beans="2" data-note="Cafea cu prezență. Textură fină." aria-pressed="false" aria-controls="drink-presentation"><span class="drink-dot" style="--drink-color:#bd956e" aria-hidden="true"></span><span>Flat White</span></button>
+<button type="button" class="drink-choice" data-drink="4" data-slug="cappuccino" data-volume="180" data-coffee-label="Espresso" data-coffee-ml="30" data-beans="1" data-note="Clasicul la care te întorci." aria-pressed="false" aria-controls="drink-presentation"><span class="drink-dot" style="--drink-color:#c6a784" aria-hidden="true"></span><span>Cappuccino</span></button>
+<button type="button" class="drink-choice" data-drink="5" data-slug="long-black" data-volume="200" data-coffee-label="Espresso" data-coffee-ml="60" data-beans="2" data-note="Un moment de cafea, pe îndelete." aria-pressed="false" aria-controls="drink-presentation"><span class="drink-dot" style="--drink-color:#342b25" aria-hidden="true"></span><span>Long Black</span></button>
+<button type="button" class="drink-choice" data-drink="6" data-slug="latte" data-volume="250" data-coffee-label="Espresso" data-coffee-ml="30" data-beans="1" data-note="Blând. Catifelat. Fără grabă." aria-pressed="false" aria-controls="drink-presentation"><span class="drink-dot" style="--drink-color:#ddc6a7" aria-hidden="true"></span><span>Latte</span></button></div><div class="drink-choices" data-choices="1" role="group" aria-label="Selecția Signature" hidden><button type="button" class="drink-choice" data-drink="7" data-slug="iced-latte" data-volume="350" data-coffee-label="Espresso" data-coffee-ml="30" data-beans="1" data-note="Pauza ta de cafea, cu gheață." aria-pressed="false" aria-controls="drink-presentation"><span class="drink-dot" style="--drink-color:#b79c7d" aria-hidden="true"></span><span>Iced Latte</span></button>
+<button type="button" class="drink-choice" data-drink="8" data-slug="espresso-tonic" data-volume="300" data-coffee-label="Espresso" data-coffee-ml="60" data-beans="2" data-note="Un contrast care te trezește." aria-pressed="false" aria-controls="drink-presentation"><span class="drink-dot" style="--drink-color:#bd9a4b" aria-hidden="true"></span><span>Espresso Tonic</span></button>
+<button type="button" class="drink-choice" data-drink="9" data-slug="cold-brew" data-volume="250" data-coffee-label="Cold brew" data-coffee-ml="250" data-beans="none" data-note="Cafeaua își ia timpul ei." aria-pressed="false" aria-controls="drink-presentation"><span class="drink-dot" style="--drink-color:#663c27" aria-hidden="true"></span><span>Cold Brew</span></button>
+<button type="button" class="drink-choice" data-drink="10" data-slug="cold-brew-tonic" data-volume="300" data-coffee-label="Cold brew" data-coffee-ml="120" data-beans="none" data-note="Rece, efervescent, altfel." aria-pressed="false" aria-controls="drink-presentation"><span class="drink-dot" style="--drink-color:#947044" aria-hidden="true"></span><span>Cold Brew Tonic</span></button>
+<button type="button" class="drink-choice" data-drink="11" data-slug="babyccino" data-volume="150" data-coffee-label="Cafea" data-coffee-ml="0" data-beans="0" data-note="Un moment mic, alături de cei mari." aria-pressed="false" aria-controls="drink-presentation"><span class="drink-dot" style="--drink-color:#e2d8c6" aria-hidden="true"></span><span>Babyccino</span></button></div></div>
+          <p class="menu-status" role="status" data-menu-status></p>
+          <div class="menu-bottom"><a class="menu-contact" href="contact.html#formular">La evenimentul tău <span aria-hidden="true">↗</span></a><div class="drink-arrows" hidden data-interactive><button type="button" data-drink-prev aria-label="Băutura anterioară" disabled>←</button><button type="button" data-drink-next aria-label="Băutura următoare">→</button></div></div>
+        </div>
       </div>
-
-      <div class="hero-swatches" role="group" aria-label="Alege cafeaua">
-        <button type="button" class="swatch is-active" data-swatch style="background:#4A2E1E" aria-pressed="true"  aria-label="Espresso, cafeaua 1 din 7"></button>
-        <button type="button" class="swatch" data-swatch style="background:#B98A5C" aria-pressed="false" aria-label="Cappuccino, cafeaua 2 din 7"></button>
-        <button type="button" class="swatch" data-swatch style="background:#DCC09A" aria-pressed="false" aria-label="Iced Latte / Latte, cafeaua 3 din 7"></button>
-        <button type="button" class="swatch" data-swatch style="background:#C29B70" aria-pressed="false" aria-label="Flat White, cafeaua 4 din 7"></button>
-        <button type="button" class="swatch" data-swatch style="background:#9C6B44" aria-pressed="false" aria-label="Cortado, cafeaua 5 din 7"></button>
-        <button type="button" class="swatch" data-swatch style="background:#6B4529" aria-pressed="false" aria-label="Macchiato, cafeaua 6 din 7"></button>
-        <button type="button" class="swatch" data-swatch style="background:#3E2417" aria-pressed="false" aria-label="Long Black, cafeaua 7 din 7"></button>
-      </div>
-
-      <div class="hero-panel" data-panel>
-        <p class="hero-counter" data-counter data-panel-item>01 / 07</p>
-        <h1 class="display hero-name" data-name data-panel-item aria-live="polite">Espresso</h1>
-        <p class="hero-notes lead" data-notes data-panel-item>Scurt, intens, cu crema densă. Toată cafeaua, fără nimic în plus.</p>
-        <p class="hero-meta" data-meta data-panel-item>espresso simplu · 30 ml</p>
-        <p class="hero-cta-row">
-          <a class="btn btn-primary" href="contact.html#formular">Cere ofertă</a>
-        </p>
-        <p><span class="todo-note">⚠️ DE COMPLETAT — descrierile sunt demonstrative (assets/js/data.js); secvențele foto reale înlocuiesc randarea provizorie (§11)</span></p>
-      </div>
-
-      <div class="hero-socials">
-        <a class="social-link" href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener">com.coffee.events</a>
-      </div>
-
-      <div class="hero-arrows">
-        <button type="button" class="arrow-btn" data-prev aria-label="Cafeaua anterioară">↑</button>
-        <button type="button" class="arrow-btn" data-next aria-label="Cafeaua următoare">↓</button>
-      </div>
-
     </section>
-
-    <section class="section section--alt" aria-labelledby="titlu-cta-cafea">
-      <div class="section-head">
-        <h2 id="titlu-cta-cafea">Vrei cafeaua asta la evenimentul tău?</h2>
-        <p>Spune-ne data și locul — venim cu standul, cu boabele și cu tot ce trebuie.</p>
-      </div>
-      <a class="btn btn-primary" href="contact.html#formular">Cere ofertă</a>
-    </section>
+    <section class="complete-menu" aria-labelledby="complete-menu-title"><div><p class="menu-eyebrow">Toate preferatele, într-un singur loc.</p><h2 id="complete-menu-title">Ce găsești la com.</h2><a class="menu-contact" href="contact.html#formular">Hai să vorbim <span aria-hidden="true">↗</span></a></div><div><h3>Meniu clasic</h3><ul><li>Espresso</li><li>Cortado</li><li>Macchiato</li><li>Flat White</li><li>Cappuccino</li><li>Long Black</li><li>Latte</li></ul></div><div><h3>Selecția Signature</h3><ul><li>Iced Latte</li><li>Espresso Tonic</li><li>Cold Brew</li><li>Cold Brew Tonic</li><li>Babyccino</li></ul></div></section>
   </main>
 
   <footer class="footer">
@@ -102,13 +79,13 @@
       <h4>Contact</h4>
       <p><a class="social-link" href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener">@com.coffee.events</a></p>
       <p><a class="phone-link" href="tel:+40771793146">+40 771 793 146</a></p>
-      <p><span class="todo-note">⚠️ DE COMPLETAT — email (§12.3)</span></p>
+
     </div>
     <p class="footer-legal">© 2026 com. · cafea de specialitate</p>
   </footer>
 
-  <script src="assets/js/data.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/switcher.js"></script>
+
+
+  <script src="assets/js/menu.js"></script>
 </body>
 </html>

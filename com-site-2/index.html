@@ -7,130 +7,85 @@
   <meta name="theme-color" content="#FAFAF8">
   <title>com. — cafea de specialitate, la evenimentul tău</title>
   <link rel="icon" href="assets/img/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
   <link rel="apple-touch-icon" href="assets/img/favicon-180.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Tipografie provizorie (§4): Archivo până se verifică Franklyn (ș/ț cu virgulă) -->
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/home.css">
 </head>
-<body>
-
-  <header class="nav">
-    <a class="wordmark" href="index.html"><img src="assets/img/logo.png" alt="com."></a>
+<body class="home">
+  <a class="skip-link" href="#continut">Sari la conținut</a>
+  <header class="nav home-nav">
+    <a class="wordmark" href="index.html" aria-label="com. — Acasă"><img src="assets/img/logo.png" alt="com." width="98" height="28"></a>
     <nav aria-label="Navigație principală">
-      <a href="index.html" aria-current="page">Acasă</a>
-      <a href="cafea.html">Cafea</a>
-      <a href="evenimente.html">Evenimente</a>
-      <a href="despre.html">Despre</a>
-      <a href="contact.html">Contact</a>
+      <a href="index.html" aria-current="page">Acasă</a><a href="cafea.html">Meniu</a><a href="evenimente.html">Evenimente</a><a href="despre.html">Despre</a><a href="contact.html">Contact</a>
     </nav>
+    <a class="nav-enquiry" href="contact.html">Hai să vorbim <span aria-hidden="true">↗</span></a>
   </header>
-
-  <main>
-
-    <!-- ========================================================
-         Hero foto (Acasă) — o singură imagine mare cu standul,
-         mesajul principal și conversia. Switcher-ul animat de
-         băuturi s-a mutat pe /cafea.
-         ======================================================== -->
-    <section class="photo-hero" aria-labelledby="titlu-hero">
-      <div class="photo-hero-media" role="img" aria-label="Standul com. montat la un eveniment, cu logo pe tejghea; baristul servește cafea invitaților."></div>
-      <div class="photo-hero-text">
-        <p class="overline">Stand mobil cu cafea de specialitate</p>
-        <h1 id="titlu-hero" class="display">Cafeaua bună vine la tine.</h1>
-        <p class="lead">com. se montează la evenimentul tău — nuntă, birou, petrecere privată — și face cafea de specialitate pentru invitații tăi.</p>
-        <p class="hero-cta-row">
-          <a class="btn btn-primary" href="contact.html#formular">Cere ofertă</a>
-          <a class="btn btn-outline" href="cafea.html">Vezi cafeaua</a>
-        </p>
+  <main id="continut">
+    <section class="brand-hero" aria-labelledby="titlu-hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="brand-dot" aria-hidden="true"></span> Cafea de specialitate. În mișcare.</p>
+        <div class="brand-lockup" data-brand>
+          <!-- Original supplied PNG, clipped into letters. No redrawn or distorted logo. -->
+          <svg class="brand-logo" viewBox="140 190 790 205" role="img" aria-labelledby="brand-title">
+            <title id="brand-title">com.</title>
+            <defs>
+              <clipPath id="brand-c"><path d="M140 180h190v220H140z"/></clipPath>
+              <clipPath id="brand-o"><path d="M330 180h190v220H330z"/></clipPath>
+              <clipPath id="brand-m"><path d="M520 180h410v220H520z"/></clipPath>
+            </defs>
+            <g clip-path="url(#brand-c)" class="brand-letter letter-c"><image href="assets/img/brand-wordmark.png" width="1050" height="600"/></g>
+            <g clip-path="url(#brand-o)" class="brand-letter letter-o"><image href="assets/img/brand-wordmark.png" width="1050" height="600"/></g>
+            <g clip-path="url(#brand-m)" class="brand-letter letter-m"><image href="assets/img/brand-wordmark.png" width="1050" height="600"/></g>
+          </svg>
+          <div class="brand-signoff"><span class="signature-rule" aria-hidden="true"></span><svg class="signature-text" viewBox="480 380 448 46" role="img" aria-label="specialty coffee for events"><image href="assets/img/brand-signature.jpg" width="1050" height="600"/></svg></div>
+        </div>
       </div>
+      <div class="hero-message">
+          <h1 id="titlu-hero">Cafeaua bună<br>vine <span class="soft-word">la tine.</span></h1>
+          <p>Tu aduni oamenii. Noi aducem cafeaua.<br>La nuntă, la birou sau în mijlocul petrecerii.</p>
+          <div class="home-actions"><a class="btn btn-primary" href="contact.html">Hai să vorbim <span aria-hidden="true">↗</span></a><a class="text-link" href="cafea.html">Descoperă meniul <span aria-hidden="true">→</span></a></div>
+        </div>
+        <div class="hero-footnote"><a href="#evenimente" class="discover-link"><span aria-hidden="true">↓</span> Ne vedem la evenimentul tău</a><button class="replay-brand" type="button" aria-label="Repetă animația logo-ului" hidden><span aria-hidden="true">↻</span> Încă o dată</button></div>
+
     </section>
-
-    <!-- Grila de evenimente 2×2 (§8) — se ține în sincron cu data.js -->
-    <section class="section" aria-labelledby="titlu-evenimente">
-      <div class="section-head">
-        <p class="overline">Evenimente</p>
-        <h2 id="titlu-evenimente">Standul vine la tine</h2>
-        <p>com. se montează oriunde e nevoie de cafea bună. Alege tipul de eveniment și cere o ofertă — răspundem cu un pachet concret.</p>
-        <p><span class="todo-note">⚠️ DE COMPLETAT — confirmă tipurile reale de evenimente (fotografiile la Nunți &amp; Corporate sunt provizorii, de înlocuit cu poze reale) (§12.8)</span></p>
-      </div>
-
+    <div class="occasion-strip" aria-label="Tipuri de evenimente"><span>Locul se schimbă. Cafeaua bună rămâne.</span><p>Nunți <i aria-hidden="true">·</i> Corporate <i aria-hidden="true">·</i> Festivaluri <i aria-hidden="true">·</i> Petreceri</p></div>
+    <section class="section home-events" id="evenimente" aria-labelledby="titlu-evenimente">
+      <div class="editorial-heading"><p class="eyebrow section-index">01 / Împreună, la o cafea</p><h2 id="titlu-evenimente">Evenimentul tău.<br><span class="soft-word">Locul nostru preferat.</span></h2><a class="text-link" href="evenimente.html">Vezi evenimentele <span aria-hidden="true">↗</span></a></div>
       <div class="events-grid">
         <article class="event-card">
-          <div class="event-photo"><img src="assets/img/foto/ev-nunti.jpg" alt="Invitați adunați lângă barul de cafea com. la un eveniment" loading="lazy"></div>
-          <div class="event-body">
-            <p class="overline">Ziua cea mare</p>
-            <h3>Nunți</h3>
-            <p>Bar de cafea de specialitate pentru invitații tăi, de la ceremonie până târziu.</p>
-            <a class="btn btn-outline" href="contact.html#formular">Cere ofertă</a>
-          </div>
+          <a class="event-image-link" href="evenimente.html#nunti" aria-label="Descoperă barul de cafea pentru nunți"><div class="event-photo"><img src="assets/img/foto/ev-nunti.jpg" alt="Bar de cafea la o nuntă — fotografie provizorie." loading="lazy"></div><span class="image-arrow" aria-hidden="true">↗</span></a>
+          <div class="event-body"><p class="overline">Ziua cea mare</p><h3><a href="evenimente.html#nunti">Nunți</a></h3><p>O pauză bună între două dansuri. Cafea de specialitate pentru oamenii tăi.</p></div>
         </article>
-
         <article class="event-card">
-          <div class="event-photo"><img src="assets/img/foto/ev-corporate.jpg" alt="Barista com. pregătește cafea pentru un participant la un eveniment" loading="lazy"></div>
-          <div class="event-body">
-            <p class="overline">La birou sau la conferință</p>
-            <h3>Corporate</h3>
-            <p>Standul vine la sediu sau la eveniment. Cafea bună, echipă trează.</p>
-            <a class="btn btn-outline" href="contact.html#formular">Cere ofertă</a>
-          </div>
+          <a class="event-image-link" href="evenimente.html#corporate" aria-label="Descoperă cafeaua pentru evenimente corporate"><div class="event-photo"><img src="assets/img/foto/ev-corporate.jpg" alt="Cafea servită la un eveniment corporate — fotografie provizorie." loading="lazy"></div><span class="image-arrow" aria-hidden="true">↗</span></a>
+          <div class="event-body"><p class="overline">Idei bune, cafea bună</p><h3><a href="evenimente.html#corporate">Corporate</a></h3><p>La birou sau la conferință. Locul în care conversațiile încep firesc.</p></div>
         </article>
-
         <article class="event-card">
-          <div class="event-photo"><img src="assets/img/foto/ev-targuri.jpg" alt="Coadă de vizitatori la standul com. sub cort, la un târg" loading="lazy"></div>
-          <div class="event-body">
-            <p class="overline">În mijlocul orașului</p>
-            <h3>Târguri &amp; festivaluri</h3>
-            <p>Prezență de durată, volum mare, aceeași grijă pentru fiecare ceașcă.</p>
-            <a class="btn btn-outline" href="contact.html#formular">Cere ofertă</a>
-          </div>
+          <a class="event-image-link" href="evenimente.html#targuri-festivaluri" aria-label="Descoperă cafeaua pentru târguri și festivaluri"><div class="event-photo"><img src="assets/img/foto/ev-targuri.jpg" alt="Vizitatori la standul com., la un târg." loading="lazy"></div><span class="image-arrow" aria-hidden="true">↗</span></a>
+          <div class="event-body"><p class="overline">În mijlocul orașului</p><h3><a href="evenimente.html#targuri-festivaluri">Târguri &amp; festivaluri</a></h3><p>Printre muzică, oameni și descoperiri, ne găsești la o cafea.</p></div>
         </article>
-
         <article class="event-card">
-          <div class="event-photo"><img src="assets/img/foto/ev-petreceri.jpg" alt="Copii și părinți la tejgheaua com. la o petrecere de familie" loading="lazy"></div>
-          <div class="event-body">
-            <p class="overline">Acasă la tine</p>
-            <h3>Petreceri private</h3>
-            <p>Aniversări, botezuri, grădini. Standul se potrivește oriunde încape.</p>
-            <a class="btn btn-outline" href="contact.html#formular">Cere ofertă</a>
-          </div>
+          <a class="event-image-link" href="evenimente.html#petreceri-private" aria-label="Descoperă cafeaua pentru petreceri private"><div class="event-photo"><img src="assets/img/foto/ev-petreceri.jpg" alt="Invitați la tejgheaua com., la o petrecere." loading="lazy"></div><span class="image-arrow" aria-hidden="true">↗</span></a>
+          <div class="event-body"><p class="overline">Cu ai tăi</p><h3><a href="evenimente.html#petreceri-private">Petreceri private</a></h3><p>O aniversare, o grădină, un motiv de sărbătoare. Aducem cafeaua.</p></div>
         </article>
       </div>
+      <details class="preview-note"><summary>Notă despre această prezentare</summary><p>Tipurile și pachetele de evenimente urmează să fie confirmate. Fotografiile pentru Nunți și Corporate sunt provizorii.</p></details>
     </section>
-
-    <!-- Teaser de poveste -->
-    <section class="section section--alt" aria-labelledby="titlu-despre">
-      <div class="section-head">
-        <p class="overline">Despre</p>
-        <h2 id="titlu-despre">De ce „com.”?</h2>
-        <p><span class="todo-note">⚠️ DE COMPLETAT — povestea numelui, cine e în spatele standului și de ce cafea de specialitate (§12.1)</span></p>
-      </div>
-      <a class="btn btn-outline" href="despre.html">Citește povestea</a>
+    <section class="home-story" aria-labelledby="titlu-despre">
+      <div class="story-image"><img src="assets/img/foto/galerie-2.jpg" alt="Pregătirea unei cești de cafea la standul com." loading="lazy"></div>
+      <div class="story-copy"><p class="eyebrow">02 / De ce com.</p><h2 id="titlu-despre">Un stand mic.<br>Un motiv bun<br><span class="soft-word">să ne adunăm.</span></h2><p>Credem că o cafea bună își găsește locul oriunde sunt oameni. Așa că o luăm cu noi.</p><a class="text-link" href="despre.html">Cunoaște-ne <span aria-hidden="true">↗</span></a></div>
     </section>
-
+    <section class="home-invite" aria-labelledby="titlu-invitatie"><p class="eyebrow">Tu alegi locul.</p><h2 id="titlu-invitatie">Noi venim cu cafeaua.</h2><a class="btn btn-primary" href="contact.html">Povestește-ne despre eveniment <span aria-hidden="true">↗</span></a></section>
   </main>
-
-  <footer class="footer">
-    <div>
-      <a class="wordmark" href="index.html"><img src="assets/img/logo.png" alt="com."></a>
-      <p>Stand mobil cu cafea de specialitate. Venim la evenimentul tău.</p>
-    </div>
-    <div>
-      <h4>Program</h4>
-      <p>În funcție de eveniment — scrie-ne și venim.</p>
-    </div>
-    <div>
-      <h4>Contact</h4>
-      <p><a class="social-link" href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener">@com.coffee.events</a></p>
-      <p><a class="phone-link" href="tel:+40771793146">+40 771 793 146</a></p>
-      <p><span class="todo-note">⚠️ DE COMPLETAT — email (§12.3)</span></p>
-    </div>
-    <p class="footer-legal">© 2026 com. · cafea de specialitate</p>
+  <footer class="footer home-footer">
+    <div><a class="wordmark" href="index.html"><img src="assets/img/logo.png" alt="com." width="98" height="28"></a><p>Stand mobil cu cafea de specialitate.<br>Venim la evenimentul tău.</p></div>
+    <div><h3>Ne auzim</h3><p><a href="tel:+40771793146">+40 771 793 146</a></p><p><a href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener">@com.coffee.events ↗</a></p></div>
+    <div><h3>Ne vedem</h3><p>La nuntă. La birou. La petrecere.</p><p><a href="contact.html">Hai să vorbim ↗</a></p></div>
+    <p class="footer-legal">© 2026 com. <span>Cafea bună. Momente împreună.</span></p>
   </footer>
-
-  <script src="assets/js/data.js"></script>
-  <script src="assets/js/main.js"></script>
+  <script src="assets/js/home.js" defer></script>
 </body>
 </html>
