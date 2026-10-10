@@ -1,5 +1,12 @@
 # com-site-2 — site-ul standului de cafea „com.”
 
+## Design actual — homepage și meniu
+
+Acasă folosește logo-ul animat; Meniu folosește cele 12 fotografii, selecția pe o coloană și cantitățile editabile. Fișiere active: assets/css/home.css, assets/js/home.js, assets/css/menu.css, assets/js/menu.js și cafea.html. Consultați [documentația designului și a cantităților](../docs/design-menu.md).
+
+Secțiunile de mai jos descriu prototipul inițial; canvas-ul și vechile date demonstrative nu mai alimentează pagina Meniu.
+
+
 Prototip static (HTML/CSS/JS, fără build) construit pe baza brief-ului din `CLAUDE.md`.
 Temă deschisă, alb neutru, cu un singur accent verde-gri — **nu** combinația
 interzisă crem `#F4F1EA` + teracotă `#D97757` (§0).
