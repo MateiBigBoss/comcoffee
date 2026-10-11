@@ -6,7 +6,7 @@ Implementare Codex în site, pe ramura codex/menu-photo-design, pornită din 991
 
 ## Comportament
 
-- Acasă: logo original animat în stânga și mesaj în dreapta; fără fotografia principală. Logo-urile originale sunt păstrate în brand-wordmark.png și brand-signature.jpg.
+- Acasă: mesajul negru „made for moments.” în stânga și logo original animat în dreapta; pe mobil mesajul precedă logo-ul. Butonul „Descoperă povestea noastră” trimite la secțiunea #povestea-noastra, imediat după banda cu evenimente. Titlul comunitate combină logo-ul original cu „unitate” în Inter. Povestea descrie legătura dintre cafea, oameni și evenimente, fără date sau întâmplări biografice inventate. Fundalurile alternează gri cald, crem și salvie; secțiunea de meniu reutilizează trei fotografii de băuturi. Fără fotografia principală, butonul de reluare sau legătura „Ne vedem la evenimentul tău”. Logo-urile originale sunt păstrate în brand-wordmark.png și brand-signature.jpg.
 - Meniu: 12 băuturi, două categorii, selecție prin buline într-o singură coloană, fotografii decupate pe fundal salvie fix. Băutura anterioară iese înainte de intrarea celei noi.
 - Fotografiile provin din folderul pozecafea furnizat de proprietar. PNG-urile au fost decupate cu Imagegen; originalele nu sunt modificate. Decuparea AI poate introduce mici diferențe vizuale.
 - Cantitate totală, volum de cafea în ml și simboluri pentru shoturi. Numărul boabelor este furnizat de proprietar; volumele sunt propuneri de editat.
@@ -15,9 +15,27 @@ Implementare Codex în site, pe ramura codex/menu-photo-design, pornită din 991
 
 ## Fișiere active
 
-cafea.html conține datele meniului; assets/js/menu.js gestionează interacțiunea, assets/css/menu.css prezentarea. Pentru Acasă: index.html, assets/css/home.css și assets/js/home.js. Vechile data.js/switcher.js au fost eliminate; meniul folosește doar datele din HTML și menu.js.
+### Fotografii de evenimente pe Acasă
+
+Secțiunea #evenimente folosește acum titlul „Cafeaua e doar începutul.”, două fotografii mari în coloane decalate și trei detalii din preparare, alături de un panou salvie. Sunt păstrate legăturile către Evenimente și Contact. Pe mobil compoziția trece pe o coloană; mișcarea redusă dezactivează efectele. Homepage-ul nu mai afișează cele două fotografii provizorii de Nunți/Corporate; acestea rămân în pagina separată de evenimente, în afara acestei modificări.
+
+Fotografiile sunt furnizate de proprietar în pozeclaude.zip. Au fost doar orientate conform EXIF, redimensionate și comprimate în WebP; nu s-au generat sau retușat persoane, obiecte ori decoruri. Originalele din arhivă sunt păstrate intacte. Fiecare fotografie are două dimensiuni, srcset, dimensiuni declarate și încărcare întârziată. Toate cele zece fișiere însumează aproximativ 527 KiB; cele cinci variante mari însumează aproximativ 378 KiB.
+
+| Fișier în assets/img/events/ (prefix) | Sursă din arhiva proprietarului |
+| --- | --- |
+| impreuna-la-stand | belis/IMG_6199.jpg |
+| echipa-com | pozebinecuvnatre/Binecuvantare-Liam-115.jpg |
+| espresso-in-pregatire | belis/IMG_6089.jpg |
+| iced-latte-in-pregatire | belis/IMG_6246.jpg |
+| latte-art | pozebinecuvnatre/Binecuvantare-Liam-153.jpg |
+
+Actualizare pe ramura codex/events-photo-story, pornită din 98730fe; fișiere: index.html, assets/css/home.css și cele zece imagini WebP. Verificările automate de site și meniu trec. Browserul de verificare nu a putut porni; aspectul la desktop și mobil rămâne de confirmat vizual.
+
+cafea.html conține datele meniului; assets/js/menu.js gestionează interacțiunea, assets/css/menu.css prezentarea. Pentru Acasă: index.html și assets/css/home.css; animația logo-ului este realizată în CSS, iar scriptul exclusiv pentru butonul de reluare a fost eliminat odată cu acesta. Vechile data.js/switcher.js au fost eliminate; meniul folosește doar datele din HTML și menu.js.
 
 ## Verificare și limite
+
+Actualizarea comunitate: implementare în index.html și assets/css/home.css, pe ramura codex/home-community, pornită din a4a36a7. Criterii: titlu negru în stânga, logo animat în dreapta, buton către poveste, logo integrat în titlul comunitate, alternarea culorilor și păstrarea meniului existent. Verificarea vizuală a noii poziționări pe desktop și mobil rămâne de făcut: instrumentul de browser nu a putut porni. Verificarea vizuală descrisă mai jos se referă la versiunea anterioară acestei actualizări.
 
 Rulare: node scripts/check-site.mjs și node scripts/test-menu-switcher.mjs. Verificatorul existent acoperă legături locale, ancore, imagini CSS și sintaxă. Testul de comportament acoperă selecții rapide, categorii, limite, eroare/reîncercare, tastatură și mișcare redusă.
 

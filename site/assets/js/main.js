@@ -1,25 +1,9 @@
 /* ============================================================
-   com. — logică de pagină comună (formularul de ofertă)
+   com. — logică de pagină comună (galeria de evenimente)
    ============================================================ */
 
 (function () {
   'use strict';
-
-  /* ---- formularul de ofertă (conversia principală, §8) --------
-     Fără backend deocamdată: la trimitere arătăm starea de succes.
-     ⚠️ DE COMPLETAT — endpoint real de trimitere (email / API).   */
-  document.querySelectorAll('[data-enquiry]').forEach(function (form) {
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      if (!form.reportValidity()) return;
-      var success = form.parentElement.querySelector('[data-enquiry-success]');
-      form.hidden = true;
-      if (success) {
-        success.hidden = false;
-        success.focus();
-      }
-    });
-  });
 
   /* ---- galerie: bandă care se mișcă orizontal pe scroll (§8) ----
      Scroll-ul vertical rămâne normal (pagina NU se blochează); cât timp

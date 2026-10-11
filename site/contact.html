@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+  <a class="skip-link" href="#continut">Sari la conținut</a>
 
   <header class="nav">
     <a class="wordmark" href="index.html"><img src="assets/img/logo.png" alt="com."></a>
@@ -27,18 +28,19 @@
     </nav>
   </header>
 
-  <main>
+  <main id="continut" tabindex="-1">
     <section class="section" id="formular" aria-labelledby="titlu-contact">
       <div class="section-head">
         <p class="overline">Contact</p>
         <h2 id="titlu-contact" class="display">Scrie-ne. Răspundem repede.</h2>
-        <p class="lead">Pentru rezervări de evenimente, cel mai rapid e formularul de mai jos. Pentru orice altceva, ne găsești aici:</p>
+        <p class="lead">Pentru o ofertă la evenimentul tău, sună-ne sau scrie-ne pe Instagram:</p>
         <p>Instagram: <a class="social-link" href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener">@com.coffee.events</a></p>
         <p>Telefon: <a class="phone-link" href="tel:+40771793146">+40 771 793 146</a></p>
         <p><span class="todo-note">⚠️ DE COMPLETAT — email, zona de acoperire (§12.3)</span></p>
       </div>
 
-      <form class="enquiry" data-enquiry novalidate="">
+      <div class="enquiry-notice" id="formular-status"><p><strong>Formularul online este momentan indisponibil.</strong> Câmpurile de mai jos sunt dezactivate; nu se trimit și nu se salvează cereri.</p><p><a href="tel:+40771793146">Sună la +40 771 793 146</a> sau <a href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener">scrie-ne pe Instagram</a> pentru o ofertă.</p></div>
+      <fieldset class="enquiry enquiry-preview" disabled aria-describedby="formular-status"><legend>Detaliile evenimentului</legend>
         <div class="field">
           <label for="tip">Tip eveniment</label>
           <select id="tip" name="tip" required>
@@ -78,13 +80,9 @@
           </div>
         </div>
 
-        <p><button class="btn btn-primary" type="submit">Trimite</button></p>
-      </form>
+        <p><button class="btn btn-primary" type="button" disabled>Trimitere indisponibilă</button></p>
+      </fieldset>
 
-      <div class="enquiry-success" data-enquiry-success hidden tabindex="-1">
-        <h3>Cererea a fost trimisă</h3>
-        <p>Mulțumim! Revenim la tine cu o ofertă cât de repede putem.</p>
-      </div>
     </section>
   </main>
 

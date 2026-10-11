@@ -23,7 +23,7 @@
 .menu-tabs { display:flex; gap:22px; border-bottom:1px solid var(--linie); }
 .menu-tabs button { appearance:none; border:0; border-bottom:2px solid transparent; background:none; padding:12px 0 16px; font:500 12px var(--font-body); color:#62665d; cursor:pointer; }
 .menu-tabs button[aria-pressed="true"] { color:var(--cerneala); border-bottom-color:var(--cerneala); }
-.menu-tabs button span { margin-left:5px; font:9px var(--font-mono); color:#74796d; }
+.menu-tabs button span { margin-left:5px; font:9px var(--font-mono); color:#62665d; }
 .drink-copy { margin:42px 0 32px; min-height:135px; }
 .drink-copy .menu-eyebrow { color:#606657; margin-bottom:14px; }
 .drink-copy h2 { font-size:clamp(37px,4.1vw,65px); line-height:1.05; letter-spacing:-.055em; max-width:12ch; }
