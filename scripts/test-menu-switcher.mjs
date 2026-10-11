@@ -2,7 +2,7 @@ import {readFileSync,existsSync} from 'node:fs';
 import vm from 'node:vm';
 import {fileURLToPath} from 'node:url';
 import assert from 'node:assert/strict';
-const base=fileURLToPath(new URL('../com-site-2/',import.meta.url));
+const base=fileURLToPath(new URL('../site/',import.meta.url));
 const html=readFileSync(base+'cafea.html','utf8');
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
 const log=[];

@@ -3,7 +3,6 @@ name: Site checks
 on:
   pull_request:
   push:
-    branches: [master]
   workflow_dispatch:
 
 permissions:
@@ -27,6 +26,8 @@ jobs:
           node-version: '22'
       - name: Check primary static site
         run: node scripts/check-site.mjs
+      - name: Check menu behavior
+        run: node scripts/test-menu-switcher.mjs
       - name: Check patch whitespace
         if: github.event_name == 'pull_request'
         env:

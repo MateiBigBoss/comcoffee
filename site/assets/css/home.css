@@ -38,12 +38,6 @@
 .discover-link > span { font-size: 20px; }
 .replay-brand { font: inherit; font-size: 10px; padding: 12px 0 12px 12px; border: 0; background: transparent; color: #55594f; cursor: pointer; min-height: 44px; white-space: nowrap; }
 .replay-brand span { font-size: 17px; margin-right: 5px; }
-.hero-photo { position: relative; min-width: 0; margin: 0; display: flex; flex-direction: column; padding-bottom: 40px; }
-.photo-window { position: relative; flex: 1; overflow: hidden; background: var(--ceata); min-height: 510px; }
-.photo-window img { width: 100%; height: 100%; position: absolute; object-fit: cover; object-position: 47% center; animation: photo-settle 1500ms cubic-bezier(.2,.7,.2,1) both; }
-.hero-photo figcaption { position: absolute; bottom: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding-top: 12px; font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .1em; }
-.photo-caption-mark { font-family: Georgia, serif; font-weight: 700; font-size: 24px; text-transform: none; line-height: 1; letter-spacing: -.06em; }
-.photo-side-note { position: absolute; right: -25px; top: 0; writing-mode: vertical-rl; font-family: var(--font-mono); font-size: 8px; letter-spacing: .16em; }
 .occasion-strip { padding: 24px var(--home-pad); margin-top: 4px; border-block: 1px solid var(--linie); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .occasion-strip > span { font-size: 12px; color: var(--salvie); }
 .occasion-strip p { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .05em; display: flex; gap: clamp(12px, 2vw, 32px); }
@@ -86,7 +80,6 @@
 @keyframes brand-arrive { from { transform: translateY(210px); } to { transform: translateY(0); } }
 @keyframes signature-arrive { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes signature-text { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes photo-settle { from { transform: scale(1.045); } to { transform: scale(1); } }
 .brand-lockup.replay-reset .brand-letter image, .brand-lockup.replay-reset .signature-rule, .brand-lockup.replay-reset .brand-signoff > span:last-child { animation: none; }
 .brand-lockup.replay-reset .signature-text { animation: none; }
 @media (min-width: 1600px) { .brand-hero { max-width: 1520px; margin-inline: auto; padding-inline: 30px; } }
@@ -99,7 +92,6 @@
   .hero-message h1 { font-size: 40px; }
   .home-actions { gap: 12px; }
   .home .btn { padding-inline: 16px; }
-  .photo-window { min-height: 530px; }
   .occasion-strip { flex-direction: column; gap: 12px; align-items: flex-start; }
 }
 @media (max-width: 700px) {
@@ -118,9 +110,6 @@
   .home-actions { margin-top: 22px; gap: 10px 22px; }
   .home-actions .text-link { font-size: 11px; gap: 12px; }
   .home .btn span { margin-left: 14px; }
-  .photo-window { min-height: 0; aspect-ratio: 1.05; flex: auto; }
-  .hero-photo { padding-bottom: 36px; }
-  .photo-side-note { display: none; }
   .occasion-strip { padding-block: 22px; }
   .occasion-strip p { font-size: 8px; gap: 10px; flex-wrap: wrap; }
   .home-events { padding-block: 60px; }

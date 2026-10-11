@@ -4,7 +4,7 @@ import { resolve, dirname, relative, sep, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 
-const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'com-site-2');
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'site');
 const errors = [];
 const walk = dir => readdirSync(dir, { withFileTypes: true }).flatMap(e =>
   e.isDirectory() ? walk(resolve(dir, e.name)) : [resolve(dir, e.name)]);
