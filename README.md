@@ -35,6 +35,6 @@ GitHub Actions rulează cele două verificări la push și Pull Request. Pentru 
 
 ## Publicare și limite
 
-Directorul de publicat este site/, fără docs/, scripts/ sau fișierele pentru agenți. Repository-ul nu configurează publicarea automată. Formularele sunt încă demonstrative, iar unele texte/fotografii de evenimente sunt provizorii; acestea nu au fost eliminate prin reorganizare.
+Directorul de publicat este site/, fără docs/, scripts/ sau fișierele pentru agenți. Repository-ul nu configurează publicarea automată. Formularul online este dezactivat până la conectarea unui serviciu real; contactul se face prin telefon sau Instagram. Unele texte/fotografii de evenimente sunt provizorii. Vezi [corecturile după audit](docs/qa-fixes.md).
 
 Versiunile vechi nu mai ocupă foldere separate în proiectul activ. Sunt recuperabile din istoricul Git, fără pierderea designului actual: [detalii](docs/project-organization.md).

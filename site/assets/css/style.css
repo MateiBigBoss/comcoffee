@@ -33,10 +33,7 @@
 
 html {
   scroll-behavior: smooth;
-  scrollbar-width: none;       /* ascunde bara de scroll — Firefox */
-  -ms-overflow-style: none;    /* Edge vechi */
 }
-html::-webkit-scrollbar { width: 0; height: 0; }  /* Chrome / Safari / Edge */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
@@ -412,5 +409,20 @@ h1, h2, h3 {
   border-top: 1px solid var(--linie);
   padding-top: 18px;
   font-size: 0.78rem;
-  color: color-mix(in srgb, var(--cerneala) 55%, transparent);
+  color: #62665d;
 }
+
+/* Shared keyboard entry point and mobile navigation for every page. */
+.skip-link { position:fixed; left:16px; top:-100px; z-index:100; padding:12px 20px; background:var(--cerneala); color:white; }
+.skip-link:focus { top:12px; }
+@media (max-width:650px) {
+  .nav { grid-template-columns:minmax(0,1fr); height:auto; gap:10px; padding:18px var(--pad) 0; position:relative; }
+  .nav .wordmark { justify-self:center; }
+  .nav nav { width:100%; justify-self:stretch; justify-content:space-between; gap:0; border-block:1px solid var(--linie); }
+  .nav nav a { display:inline-flex; align-items:center; min-height:44px; padding:8px 3px; font-size:11px; }
+}
+.enquiry-notice { max-width:62ch; margin-bottom:24px; padding:18px 20px; border-left:3px solid var(--salvie); background:var(--ceata); }
+.enquiry-notice p + p { margin-top:10px; }
+.enquiry-preview { min-width:0; border:0; }
+.enquiry-preview legend { font-weight:600; margin-bottom:18px; }
+.enquiry-preview :disabled { cursor:not-allowed; }

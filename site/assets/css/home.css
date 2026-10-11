@@ -1,8 +1,6 @@
 /* Home-only art direction. Shared pages retain their existing design. */
 .home { --home-pad: clamp(22px, 4.2vw, 76px); }
 .home [hidden] { display: none !important; }
-.skip-link { position: fixed; left: 16px; top: -100px; z-index: 100; padding: 12px 20px; background: var(--cerneala); color: white; }
-.skip-link:focus { top: 12px; }
 .home-nav { height: 88px; padding-inline: var(--home-pad); background: var(--hartie); backdrop-filter: none; border: 0; }
 .home-nav nav { display: flex; gap: 6px; }
 .home-nav nav a { min-height: 44px; display: inline-flex; align-items: center; font-size: 13px; }
