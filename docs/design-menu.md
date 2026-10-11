@@ -2,7 +2,7 @@
 
 ## Scop și responsabilitate
 
-Implementare Codex în com-site-2, pe ramura codex/menu-photo-design, pornită din 9915ce9. Solicitare: păstrarea identității vizuale, logo animat pe Acasă și meniu cu fotografiile proprietarului. com-site și com-site-3 rămân referințe nemodificate.
+Implementare Codex în site, pe ramura codex/menu-photo-design, pornită din 9915ce9. Solicitare: păstrarea identității vizuale, logo animat pe Acasă și meniu cu fotografiile proprietarului. Versiunile vechi sunt recuperabile din istoricul Git; structura actuală are un singur site.
 
 ## Comportament
 
@@ -15,7 +15,7 @@ Implementare Codex în com-site-2, pe ramura codex/menu-photo-design, pornită d
 
 ## Fișiere active
 
-cafea.html conține datele meniului; assets/js/menu.js gestionează interacțiunea, assets/css/menu.css prezentarea. Pentru Acasă: index.html, assets/css/home.css și assets/js/home.js. Vechile data.js/switcher.js sunt păstrate pentru referință, însă nu alimentează noul meniu.
+cafea.html conține datele meniului; assets/js/menu.js gestionează interacțiunea, assets/css/menu.css prezentarea. Pentru Acasă: index.html, assets/css/home.css și assets/js/home.js. Vechile data.js/switcher.js au fost eliminate; meniul folosește doar datele din HTML și menu.js.
 
 ## Verificare și limite
 

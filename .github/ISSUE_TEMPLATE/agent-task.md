@@ -10,7 +10,7 @@ assignees: ""
 
 ## Scope
 
-Primary: com-site-2. References: com-site and com-site-3 (read-only).
+Website: site/. Documentation: docs/. Validation: scripts/.
 
 ## Ownership
 

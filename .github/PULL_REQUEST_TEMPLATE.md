@@ -1,7 +1,7 @@
 ## Problem and resulting behavior
 
 Task/issue:
-Primary site: com-site-2
+Primary site: site
 
 ## Agent handoff
 
@@ -16,7 +16,7 @@ Primary site: com-site-2
 - [ ] `git diff --check`
 - [ ] Affected pages checked on mobile and desktop
 - [ ] Keyboard and reduced-motion behavior checked where affected
-- [ ] Reference sites unchanged, or explicit task authorization documented
+- [ ] Existing design, menu, images and links preserved
 
 ## Findings, limitations, and screenshots
 
