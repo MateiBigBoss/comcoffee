@@ -6,7 +6,7 @@ Implementare Codex în site, pe ramura codex/menu-photo-design, pornită din 991
 
 ## Comportament
 
-- Acasă: logo original animat în stânga și mesaj în dreapta; fără fotografia principală. Logo-urile originale sunt păstrate în brand-wordmark.png și brand-signature.jpg.
+- Acasă: mesajul „made for momments.” în stânga, cu grafia cerută de proprietar, și logo original animat în dreapta; pe mobil mesajul precedă logo-ul. Fără fotografia principală, butonul de reluare sau legătura „Ne vedem la evenimentul tău”. Logo-urile originale sunt păstrate în brand-wordmark.png și brand-signature.jpg.
 - Meniu: 12 băuturi, două categorii, selecție prin buline într-o singură coloană, fotografii decupate pe fundal salvie fix. Băutura anterioară iese înainte de intrarea celei noi.
 - Fotografiile provin din folderul pozecafea furnizat de proprietar. PNG-urile au fost decupate cu Imagegen; originalele nu sunt modificate. Decuparea AI poate introduce mici diferențe vizuale.
 - Cantitate totală, volum de cafea în ml și simboluri pentru shoturi. Numărul boabelor este furnizat de proprietar; volumele sunt propuneri de editat.
@@ -15,9 +15,11 @@ Implementare Codex în site, pe ramura codex/menu-photo-design, pornită din 991
 
 ## Fișiere active
 
-cafea.html conține datele meniului; assets/js/menu.js gestionează interacțiunea, assets/css/menu.css prezentarea. Pentru Acasă: index.html, assets/css/home.css și assets/js/home.js. Vechile data.js/switcher.js au fost eliminate; meniul folosește doar datele din HTML și menu.js.
+cafea.html conține datele meniului; assets/js/menu.js gestionează interacțiunea, assets/css/menu.css prezentarea. Pentru Acasă: index.html și assets/css/home.css; animația logo-ului este realizată în CSS, iar scriptul exclusiv pentru butonul de reluare a fost eliminat odată cu acesta. Vechile data.js/switcher.js au fost eliminate; meniul folosește doar datele din HTML și menu.js.
 
 ## Verificare și limite
+
+Actualizarea „made for momments.”: verificările automate trec. Verificarea vizuală a noii poziționări pe desktop și mobil rămâne de făcut: instrumentul de browser nu a putut porni. Verificarea vizuală descrisă mai jos se referă la versiunea anterioară acestei actualizări.
 
 Rulare: node scripts/check-site.mjs și node scripts/test-menu-switcher.mjs. Verificatorul existent acoperă legături locale, ancore, imagini CSS și sintaxă. Testul de comportament acoperă selecții rapide, categorii, limite, eroare/reîncercare, tastatură și mișcare redusă.
 
