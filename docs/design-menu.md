@@ -6,7 +6,7 @@ Implementare Codex în site, pe ramura codex/menu-photo-design, pornită din 991
 
 ## Comportament
 
-- Acasă: mesajul „made for momments.” în stânga, cu grafia cerută de proprietar, și logo original animat în dreapta; pe mobil mesajul precedă logo-ul. Fără fotografia principală, butonul de reluare sau legătura „Ne vedem la evenimentul tău”. Logo-urile originale sunt păstrate în brand-wordmark.png și brand-signature.jpg.
+- Acasă: mesajul negru „made for moments.” în stânga și logo original animat în dreapta; pe mobil mesajul precedă logo-ul. Butonul „Descoperă povestea noastră” trimite la secțiunea #povestea-noastra, imediat după banda cu evenimente. Titlul comunitate combină logo-ul original cu „unitate” în Inter. Povestea descrie legătura dintre cafea, oameni și evenimente, fără date sau întâmplări biografice inventate. Fundalurile alternează gri cald, crem și salvie; secțiunea de meniu reutilizează trei fotografii de băuturi. Fără fotografia principală, butonul de reluare sau legătura „Ne vedem la evenimentul tău”. Logo-urile originale sunt păstrate în brand-wordmark.png și brand-signature.jpg.
 - Meniu: 12 băuturi, două categorii, selecție prin buline într-o singură coloană, fotografii decupate pe fundal salvie fix. Băutura anterioară iese înainte de intrarea celei noi.
 - Fotografiile provin din folderul pozecafea furnizat de proprietar. PNG-urile au fost decupate cu Imagegen; originalele nu sunt modificate. Decuparea AI poate introduce mici diferențe vizuale.
 - Cantitate totală, volum de cafea în ml și simboluri pentru shoturi. Numărul boabelor este furnizat de proprietar; volumele sunt propuneri de editat.
@@ -19,7 +19,7 @@ cafea.html conține datele meniului; assets/js/menu.js gestionează interacțiun
 
 ## Verificare și limite
 
-Actualizarea „made for momments.”: verificările automate trec. Verificarea vizuală a noii poziționări pe desktop și mobil rămâne de făcut: instrumentul de browser nu a putut porni. Verificarea vizuală descrisă mai jos se referă la versiunea anterioară acestei actualizări.
+Actualizarea comunitate: implementare în index.html și assets/css/home.css, pe ramura codex/home-community, pornită din a4a36a7. Criterii: titlu negru în stânga, logo animat în dreapta, buton către poveste, logo integrat în titlul comunitate, alternarea culorilor și păstrarea meniului existent. Verificarea vizuală a noii poziționări pe desktop și mobil rămâne de făcut: instrumentul de browser nu a putut porni. Verificarea vizuală descrisă mai jos se referă la versiunea anterioară acestei actualizări.
 
 Rulare: node scripts/check-site.mjs și node scripts/test-menu-switcher.mjs. Verificatorul existent acoperă legături locale, ancore, imagini CSS și sintaxă. Testul de comportament acoperă selecții rapide, categorii, limite, eroare/reîncercare, tastatură și mișcare redusă.
 
