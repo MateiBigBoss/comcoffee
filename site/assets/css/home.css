@@ -9,7 +9,10 @@
 .nav-enquiry span { display: inline-block; margin-left: 20px; font-size: 20px; }
 .brand-hero { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); align-items: center; gap: 6vw; min-height: 480px; padding: 64px var(--home-pad) 82px; background: var(--home-stone); }
 .hero-copy { min-width: 0; width: 100%; max-width: 600px; justify-self: end; }
-.eyebrow { font-family: var(--font-mono); font-size: 10px; font-weight: 400; text-transform: uppercase; letter-spacing: .12em; line-height: 1.6; }
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
+
+.eyebrow { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .12em; line-height: 1.6; }
 .brand-lockup { margin: 0; mix-blend-mode: multiply; }
 .brand-logo { width: 100%; height: auto; display: block; overflow: visible; }
 .brand-letter image { animation: brand-arrive 1100ms cubic-bezier(.18,.78,.18,1) both; }
@@ -88,7 +91,8 @@
 .menu-preview figure { min-width: 0; }
 .menu-preview img { width: 100%; aspect-ratio: .72; object-fit: contain; transition: transform 250ms ease; }
 .menu-preview figure:hover img { transform: translateY(-8px) rotate(-2deg); }
-.menu-preview figcaption { font-family: var(--font-mono); font-size: 10px; text-align: center; margin-top: 10px; }
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&display=swap');
+.menu-preview figcaption { font-family: 'Fredoka', sans-serif; font-size: 15px; font-weight: 700; text-align: center; margin-top: 10px; letter-spacing: .02em; }
 .home-invite { text-align: center; padding: 80px 24px; background: #424d39; color: var(--home-cream); }
 .home-invite .eyebrow { color: #e0e7d6; }
 .home-invite .btn-primary { background: var(--home-cream); color: #242b20; border-color: var(--home-cream); }
