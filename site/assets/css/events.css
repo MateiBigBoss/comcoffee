@@ -18,7 +18,7 @@
 .album-index a:hover { text-decoration:underline; text-underline-offset:5px; }
 .album-heading { display:grid; grid-template-columns:1.6fr 1fr; gap:0 7vw; align-items:end; margin-bottom:48px; }
 .album-heading .eyebrow { grid-column:1/-1; margin-bottom:22px; }
-.album-heading h2 { font-size:clamp(38px,4.6vw,72px); }
+.album-heading h1,.album-heading h2 { font-size:clamp(38px,4.6vw,72px); line-height:1.08; }
 .album-heading > p:last-child { max-width:38ch; font-size:14px; line-height:1.85; justify-self:end; }
 .album-image { overflow:hidden; background:#deded3; }
 .album-image img { width:100%; height:auto; object-fit:cover; }

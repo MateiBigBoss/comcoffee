@@ -1,5 +1,7 @@
 # Albumul paginii Evenimente
 
+Revizie cerută de proprietar: pagina începe acum direct cu „Sărbătoarea voastră. Locul nostru la bar.”. Deschiderea anterioară, indexul albumului și capitolul Beliș au fost scoase din pagină; navigația principală și conținutul următor sunt păstrate. Titlul păstrat este acum H1, prima fotografie se încarcă prioritar, iar capitolele rămase sunt renumerotate. Fișierele foto originale și variantele optimizate sunt păstrate.
+
 Actualizare din 12 octombrie 2026, ramura `codex/events-new-gallery`, pornită din `bdd99b0`. Responsabilitate: `site/evenimente.html`, `site/assets/css/events.css`, fotografiile din `site/assets/img/events-journal/` și această notă. Pagina principală, meniul, Despre și Contact rămân neschimbate.
 
 ## Direcție
