@@ -96,3 +96,5 @@
   .booking-send .page-button { width:100%; justify-content:space-between; }
 }
 @media (prefers-reduced-motion:reduce) { .contact-photo img,.contact-direct i,.booking-field :is(input,select,textarea) { transition:none; } .contact-photo:hover img,.contact-direct a:hover i { transform:none; } }
+
+.contact-next li { display:block; }

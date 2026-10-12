@@ -145,3 +145,7 @@
  .events-plan-heading > p:not(.eyebrow) { justify-self:start; }
  .events-plan-steps { grid-template-columns:1fr; gap:30px; }
 }
+
+/* Service headings without decorative numbering. */
+.events-format summary { grid-template-columns:minmax(0,1fr) 30px; }
+.events-format-content { padding-left:0; }

@@ -49,9 +49,7 @@
     beans.hidden = button.dataset.beans === 'none';
     beans.setAttribute('data-beans', button.dataset.beans);
     beans.setAttribute('aria-label', button.dataset.beans === '0' ? 'Fără cafea' : button.dataset.beans === '1' ? '1 shot de espresso' : `${button.dataset.beans} shoturi de espresso`);
-    const local = index < 7 ? index+1 : index-6;
-    root.querySelector('[data-drink-counter]').textContent = `${String(local).padStart(2,'0')} / ${index < 7 ? '07 · Meniu clasic' : '05 · Selecția Signature'}`;
-    root.querySelector('[data-stage-number]').textContent = String(index+1).padStart(2,'0');
+    root.querySelector('[data-drink-counter]').textContent = index < 7 ? 'Meniu clasic' : 'Selecția Signature';
     current = index;
     controls();
   }
