@@ -3,107 +3,191 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Contactează com. — rezervări pentru evenimente, telefon, email și rețele sociale.">
-  <meta name="theme-color" content="#FAFAF8">
-  <title>com. — Contact</title>
+  <meta name="description" content="Invită com. la evenimentul tău. Povestește-ne despre dată, loc și invitați și cere o ofertă pentru un coffee bar mobil.">
+  <meta name="theme-color" content="#eeefeb">
+  <title>Hai să pregătim un moment bun. — Contact com.</title>
   <link rel="icon" href="assets/img/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
   <link rel="apple-touch-icon" href="assets/img/favicon-180.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/interior.css">
+  <link rel="stylesheet" href="assets/css/contact.css">
+  <script src="assets/js/interior.js" defer></script>
+  <script src="assets/js/contact.js" defer></script>
 </head>
-<body>
+<body class="interior contact-page">
   <a class="skip-link" href="#continut">Sari la conținut</a>
-
-  <header class="nav">
-    <a class="wordmark" href="index.html"><img src="assets/img/logo.png" alt="com."></a>
+  <header class="nav interior-nav">
+    <a class="wordmark" href="index.html" aria-label="com. — Acasă"><img src="assets/img/logo.png" alt="com." width="98" height="28"></a>
     <nav aria-label="Navigație principală">
-      <a href="index.html">Acasă</a>
-      <a href="cafea.html">Meniu</a>
-      <a href="evenimente.html">Evenimente</a>
-      <a href="despre.html">Despre</a>
-      <a href="contact.html" aria-current="page">Contact</a>
+      <a href="index.html">Acasă</a><a href="cafea.html">Meniu</a><a href="evenimente.html">Evenimente</a><a href="despre.html">Despre</a><a href="contact.html" aria-current="page">Contact</a>
     </nav>
+    <a class="interior-nav-cta" href="#formular">Hai să vorbim <span aria-hidden="true">↗</span></a>
   </header>
-
   <main id="continut" tabindex="-1">
-    <section class="section" id="formular" aria-labelledby="titlu-contact">
-      <div class="section-head">
-        <p class="overline">Contact</p>
-        <h2 id="titlu-contact" class="display">Scrie-ne. Răspundem repede.</h2>
-        <p class="lead">Pentru o ofertă la evenimentul tău, sună-ne sau scrie-ne pe Instagram:</p>
-        <p>Instagram: <a class="social-link" href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener">@com.coffee.events</a></p>
-        <p>Telefon: <a class="phone-link" href="tel:+40771793146">+40 771 793 146</a></p>
-        <p><span class="todo-note">⚠️ DE COMPLETAT — email, zona de acoperire (§12.3)</span></p>
+    <section class="contact-intro page-section" aria-labelledby="titlu-contact">
+      <div data-reveal>
+        <p class="eyebrow">Contact / un început bun</p>
+        <h1 id="titlu-contact">Pune cafeaua<br>pe lista de <em>invitați.</em></h1>
       </div>
-
-      <div class="enquiry-notice" id="formular-status"><p><strong>Formularul online este momentan indisponibil.</strong> Câmpurile de mai jos sunt dezactivate; nu se trimit și nu se salvează cereri.</p><p><a href="tel:+40771793146">Sună la +40 771 793 146</a> sau <a href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener">scrie-ne pe Instagram</a> pentru o ofertă.</p></div>
-      <fieldset class="enquiry enquiry-preview" disabled aria-describedby="formular-status"><legend>Detaliile evenimentului</legend>
-        <div class="field">
-          <label for="tip">Tip eveniment</label>
-          <select id="tip" name="tip" required>
-            <option value="">Alege…</option>
-            <option value="nunta">Nuntă</option>
-            <option value="corporate">Corporate</option>
-            <option value="targ-festival">Târg / festival</option>
-            <option value="petrecere-privata">Petrecere privată</option>
-            <option value="altceva">Altceva</option>
-          </select>
-        </div>
-
-        <div class="field-row">
-          <div class="field">
-            <label for="data">Data evenimentului</label>
-            <input id="data" name="data" type="date" required>
+      <div class="contact-intro-note" data-reveal>
+        <span class="contact-asterisk" aria-hidden="true">✳</span>
+        <p>Tu ai ocazia. Noi avem un motiv bun să adunăm oamenii în jurul barului.</p>
+        <a class="page-link" href="#formular">Povestește-ne ce pregătești <span aria-hidden="true">↘</span></a>
+      </div>
+    </section>
+    <section class="contact-layout page-section" id="formular" aria-labelledby="titlu-formular" tabindex="-1">
+      <aside class="contact-aside" aria-label="Contact direct și detaliile tale">
+        <div class="contact-note" data-reveal>
+          <p class="eyebrow">Înainte de prima cafea</p>
+          <h2>Începe cu<br> un „bună”.</h2>
+          <p>Spune-ne când, unde și câți oameni se adună. Discutăm apoi meniul, spațiul și toate detaliile care fac evenimentul al tău.</p>
+          <div class="contact-direct">
+            <a href="mailto:comcoffee.events@gmail.com"><span>Email</span><strong>comcoffee.events@gmail.com</strong><i aria-hidden="true">↗</i></a>
+            <a href="tel:+40771793146"><span>Telefon</span><strong>+40 771 793 146</strong><i aria-hidden="true">↗</i></a>
+            <a href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener"><span>Instagram</span><strong>@com.coffee.events</strong><i aria-hidden="true">↗</i></a>
           </div>
-          <div class="field">
-            <label for="invitati">Număr de invitați</label>
-            <input id="invitati" name="invitati" type="number" min="1" inputmode="numeric" placeholder="ex. 120" required>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="locatie">Locația</label>
-          <input id="locatie" name="locatie" type="text" placeholder="oraș + locul evenimentului" required>
-        </div>
-
-        <div class="field-row">
-          <div class="field">
-            <label for="nume">Numele tău</label>
-            <input id="nume" name="nume" type="text" autocomplete="name" required>
-          </div>
-          <div class="field">
-            <label for="contact">Email sau telefon</label>
-            <input id="contact" name="contact" type="text" autocomplete="email" required>
+          <div class="booking-summary" data-booking-summary hidden>
+            <p class="eyebrow">Momentul tău, pe scurt</p>
+            <dl>
+              <div><dt>Ocazia</dt><dd data-summary="tip">De ales</dd></div>
+              <div><dt>Data</dt><dd data-summary="data">De ales</dd></div>
+              <div><dt>Invitați</dt><dd data-summary="invitati">De estimat</dd></div>
+            </dl>
+            <p class="summary-footnote">O schiță bună pentru prima noastră conversație.</p>
           </div>
         </div>
-
-        <p><button class="btn btn-primary" type="button" disabled>Trimitere indisponibilă</button></p>
-      </fieldset>
-
+        <figure class="contact-photo" data-reveal>
+          <img src="assets/img/events/latte-art-720.webp" srcset="assets/img/events/latte-art-360.webp 360w, assets/img/events/latte-art-720.webp 720w" sizes="(max-width: 800px) 90vw, 30vw" alt="Un barista com. toarnă laptele în cafea, la barul mobil." width="720" height="1080" loading="lazy" decoding="async">
+          <figcaption>Ne ocupăm de cafea.<br>Tu bucură-te de oameni.</figcaption>
+        </figure>
+      </aside>
+      <div class="contact-form-wrap">
+        <div class="contact-form-heading" data-reveal>
+          <p class="eyebrow">Cerere de ofertă</p>
+          <h2 id="titlu-formular">Ce moment pregătim?</h2>
+          <p>Nu trebuie să ai totul stabilit. Completează câmpurile marcate cu <span aria-hidden="true">*</span><span class="contact-sr-only">asterisc</span>; restul îl punem la punct împreună.</p>
+        </div>
+        <p class="contact-local-notice" data-local-preview hidden>Ai deschis o copie locală a site-ului. Pentru formular folosește versiunea online sau scrie-ne direct la <a href="mailto:comcoffee.events@gmail.com">comcoffee.events@gmail.com</a>.</p>
+        <noscript><p class="contact-local-notice">Formularul funcționează pe site-ul online, și fără JavaScript. Dacă ai deschis un fișier de pe calculator, scrie-ne direct la <a href="mailto:comcoffee.events@gmail.com">comcoffee.events@gmail.com</a>.</p></noscript>
+        <form class="booking-form" data-booking-form action="https://formsubmit.co/comcoffee.events@gmail.com" method="POST" accept-charset="UTF-8">
+          <input type="hidden" name="_subject" value="com. — Cerere de ofertă pentru eveniment">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="_honey" class="contact-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <fieldset class="booking-group">
+            <legend><span aria-hidden="true">01</span> Despre eveniment</legend>
+            <div class="booking-grid">
+              <div class="booking-field booking-field-wide">
+                <label for="tip">Ce sărbătorim? <span aria-hidden="true">*</span></label>
+                <select id="tip" name="Tip eveniment" required>
+                  <option value="">Alege tipul evenimentului</option>
+                  <option value="nunta">Nuntă</option>
+                  <option value="corporate">Eveniment corporate</option>
+                  <option value="targ-festival">Târg / festival</option>
+                  <option value="petrecere-privata">Petrecere privată / botez</option>
+                  <option value="altceva">Altă ocazie</option>
+                </select>
+              </div>
+              <div class="booking-field">
+                <label for="data">Data evenimentului <span aria-hidden="true">*</span></label>
+                <input id="data" name="Data evenimentului" type="date" required aria-describedby="data-hint">
+                <small id="data-hint">Dacă data e flexibilă, spune-ne în detalii.</small>
+              </div>
+              <div class="booking-field">
+                <label for="invitati">Număr estimat de invitați <span aria-hidden="true">*</span></label>
+                <input id="invitati" name="Număr estimat de invitați" type="number" min="1" step="1" inputmode="numeric" placeholder="De exemplu, 120" required>
+              </div>
+              <div class="booking-field">
+                <label for="ora">Ora de începere a servirii <span>(opțional)</span></label>
+                <input id="ora" name="Ora de începere a servirii" type="time">
+              </div>
+              <div class="booking-field">
+                <label for="durata">Câte ore să fim acolo? <span>(opțional)</span></label>
+                <input id="durata" name="Durata servirii în ore" type="number" min="0.5" step="0.5" inputmode="decimal" placeholder="De exemplu, 4">
+              </div>
+              <div class="booking-field">
+                <label for="oras">Localitate / județ <span aria-hidden="true">*</span></label>
+                <input id="oras" name="Localitate și județ" type="text" autocomplete="address-level2" maxlength="150" placeholder="Unde ne întâlnim?" required>
+              </div>
+              <div class="booking-field">
+                <label for="locatie">Locație / adresă <span>(opțional)</span></label>
+                <input id="locatie" name="Locație și adresă" type="text" autocomplete="street-address" maxlength="250" placeholder="Dacă ai ales deja locul">
+              </div>
+              <div class="booking-field booking-field-wide">
+                <label for="amplasare">Unde va sta barul? <span>(opțional)</span></label>
+                <select id="amplasare" name="Amplasarea barului">
+                  <option value="De stabilit">Stabilim împreună</option>
+                  <option value="Interior">În interior</option>
+                  <option value="Exterior acoperit">Afară, într-un spațiu acoperit</option>
+                  <option value="Exterior">În aer liber</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="booking-group">
+            <legend><span aria-hidden="true">02</span> Cu cine povestim?</legend>
+            <div class="booking-grid">
+              <div class="booking-field booking-field-wide">
+                <label for="nume">Numele tău <span aria-hidden="true">*</span></label>
+                <input id="nume" name="name" type="text" autocomplete="name" maxlength="120" required>
+              </div>
+              <div class="booking-field">
+                <label for="email">Email <span aria-hidden="true">*</span></label>
+                <input id="email" name="email" type="email" autocomplete="email" maxlength="254" placeholder="nume@exemplu.ro" required>
+              </div>
+              <div class="booking-field">
+                <label for="telefon">Telefon <span aria-hidden="true">*</span></label>
+                <input id="telefon" name="Telefon" type="tel" autocomplete="tel" minlength="7" maxlength="25" placeholder="Inclusiv prefixul, dacă e cazul" required aria-describedby="telefon-hint">
+                <small id="telefon-hint">Un număr la care putem discuta detaliile.</small>
+              </div>
+              <div class="booking-field booking-field-wide">
+                <label for="organizatie">Companie / organizator <span>(opțional)</span></label>
+                <input id="organizatie" name="Companie sau organizator" type="text" autocomplete="organization" maxlength="150">
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="booking-group">
+            <legend><span aria-hidden="true">03</span> Detaliile fac diferența.</legend>
+            <div class="booking-grid">
+              <div class="booking-field booking-field-wide">
+                <label for="preferinte">Ce ți-ar plăcea în meniu? <span>(opțional)</span></label>
+                <input id="preferinte" name="Preferințe pentru meniu" type="text" maxlength="300" placeholder="Espresso, băuturi cu lapte, ceva cu gheață…" aria-describedby="preferinte-hint">
+                <small id="preferinte-hint">Te poți inspira din <a href="cafea.html" target="_blank" rel="noopener">meniul nostru <span class="contact-sr-only">(se deschide într-o filă nouă)</span>↗</a>.</small>
+              </div>
+              <div class="booking-field booking-field-wide">
+                <label for="detalii">Ce ar mai fi bine să știm? <span>(opțional)</span></label>
+                <textarea id="detalii" name="Detalii suplimentare" rows="5" maxlength="3000" placeholder="Program, temă, acces la locație, spațiu disponibil, curent sau întrebările tale."></textarea>
+              </div>
+            </div>
+          </fieldset>
+          <div class="booking-send">
+            <label class="booking-consent" for="acord">
+              <input id="acord" name="Acord contact pentru ofertă" type="checkbox" value="Da" required>
+              <span>Sunt de acord să fiu contactat(ă) de com. pentru această cerere. Datele completate sunt transmise prin <a href="https://formsubmit.co/privacy.pdf" target="_blank" rel="noopener">FormSubmit</a> către comcoffee.events@gmail.com, pentru a discuta oferta. <span aria-hidden="true">*</span></span>
+            </label>
+            <button class="page-button" type="submit">Trimite cererea <span aria-hidden="true">↗</span></button>
+            <p class="booking-disclaimer">La pasul următor confirmi că nu ești robot. Cererea este o invitație la discuție; rezervarea devine fermă după ce confirmăm împreună disponibilitatea și detaliile.</p>
+            <p class="booking-status" data-booking-status role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </section>
+    <section class="contact-next page-section" aria-labelledby="titlu-urmator" data-reveal>
+      <div><p class="eyebrow">Și apoi?</p><h2 id="titlu-urmator">De la mesaj,<br>la prima ceașcă.</h2></div>
+      <ol>
+        <li><span aria-hidden="true">01</span><div><h3>Punem detaliile cap la cap.</h3><p>Verificăm data și discutăm numărul de invitați, meniul și locul în care va sta barul.</p></div></li>
+        <li><span aria-hidden="true">02</span><div><h3>Stabilim ce ți se potrivește.</h3><p>Pregătim oferta în funcție de eveniment. Agreăm serviciile și condițiile înainte de confirmare.</p></div></li>
+        <li><span aria-hidden="true">03</span><div><h3>Ne întâlnim la cafea.</h3><p>După confirmare, coordonăm programul și montajul cu tine sau cu echipa locației.</p></div></li>
+      </ol>
     </section>
   </main>
-
-  <footer class="footer">
-    <div>
-      <a class="wordmark" href="index.html"><img src="assets/img/logo.png" alt="com."></a>
-      <p>Stand mobil cu cafea de specialitate. Venim la evenimentul tău.</p>
-    </div>
-    <div>
-      <h4>Program</h4>
-      <p>În funcție de eveniment — scrie-ne și venim.</p>
-    </div>
-    <div>
-      <h4>Contact</h4>
-      <p><a class="social-link" href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener">@com.coffee.events</a></p>
-      <p><a class="phone-link" href="tel:+40771793146">+40 771 793 146</a></p>
-      <p><span class="todo-note">⚠️ DE COMPLETAT — email (§12.3)</span></p>
-    </div>
-    <p class="footer-legal">© 2026 com. · cafea de specialitate</p>
+  <footer class="footer interior-footer">
+    <div><a class="wordmark" href="index.html"><img src="assets/img/logo.png" alt="com." width="98" height="28"></a><p>Stand mobil cu cafea de specialitate.<br>Venim la evenimentul tău.</p></div>
+    <div><h3>Ne auzim</h3><p><a href="mailto:comcoffee.events@gmail.com">comcoffee.events@gmail.com</a></p><p><a href="tel:+40771793146">+40 771 793 146</a></p><p><a href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener">@com.coffee.events ↗</a></p></div>
+    <div><h3>Ne vedem</h3><p>La nuntă. La birou. La petrecere.</p><p><a href="evenimente.html">Descoperă experiența ↗</a></p></div>
+    <p class="footer-legal">© 2026 com. <span>Cafea bună. Momente împreună.</span></p>
   </footer>
-
-  <script src="assets/js/main.js"></script>
 </body>
 </html>
