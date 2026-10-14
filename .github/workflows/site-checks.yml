@@ -28,6 +28,8 @@ jobs:
         run: node scripts/check-site.mjs
       - name: Check menu behavior
         run: node scripts/test-menu-switcher.mjs
+      - name: Check logo spotlight behavior
+        run: node scripts/test-logo-reveal.mjs
       - name: Check inner-page motion
         run: node scripts/test-interior.mjs
       - name: Check booking form
