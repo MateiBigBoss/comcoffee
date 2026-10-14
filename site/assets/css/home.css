@@ -173,3 +173,6 @@
 @media (prefers-reduced-motion: reduce) {
   .home *, .home *::before, .home *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* Optical alignment of the wordmark ink and the adjacent text. */
+.community-title > span { position:relative; top:-.08em; }

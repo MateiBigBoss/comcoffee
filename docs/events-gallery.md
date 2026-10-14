@@ -1,5 +1,7 @@
 # Albumul paginii Evenimente
 
+Actualizare de text aprobată ulterior: povestea de pe Acasă și Despre folosește textul „O cafea bună. Un motiv să fim împreună.” și încheierea „com. — din grijă pentru cafea și drag de oameni.”. Au fost eliminate referințele la dans și numerotările decorative de pe pagini și din meniu (cantitățile și shoturile rămân). „unitate” are o corecție optică de -0,08 em față de poziția anterioară, în ambele titluri. Modificarea homepage-ului în această etapă este cerută explicit de proprietar. Testele de site, meniu și contact trec; instrumentul de browser rămâne indisponibil, deci alinierea trebuie confirmată vizual în previzualizare.
+
 Revizie cerută de proprietar: pagina începe acum direct cu „Sărbătoarea voastră. Locul nostru la bar.”. Deschiderea anterioară, indexul albumului și capitolul Beliș au fost scoase din pagină; navigația principală și conținutul următor sunt păstrate. Titlul păstrat este acum H1, prima fotografie se încarcă prioritar, iar capitolele rămase sunt renumerotate. Fișierele foto originale și variantele optimizate sunt păstrate.
 
 Actualizare din 12 octombrie 2026, ramura `codex/events-new-gallery`, pornită din `bdd99b0`. Responsabilitate: `site/evenimente.html`, `site/assets/css/events.css`, fotografiile din `site/assets/img/events-journal/` și această notă. Pagina principală, meniul, Despre și Contact rămân neschimbate.
