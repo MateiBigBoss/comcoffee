@@ -18,8 +18,10 @@ eventuale modificări mai recente de pe GitHub.
   nuanței, actualizează și `--drink-color` al bulinei corespunzătoare.
 - `site/assets/css/menu.css`: contur semicircular exterior în dreapta paharului,
   linie scurtă orientată spre pahar și accente de salvie, caramel și albastru
-  stins. Discul plin a fost înlocuit cu un contur colorat și un traseu secundar
-  punctat; fondul păstrează pete discrete de culoare. Adaptare pe o coloană sub 700px.
+  stins în fundal. Conturul are acum 6px, o nuanță unitară derivată din băutură
+  și un accent tonal care urmărește rotirea. Traseul punctat și segmentele
+  multicolore au fost eliminate. Linia scurtă are 4px și capete rotunjite, iar
+  reperul selecției are 12px. Adaptare pe o coloană sub 700px.
 - `site/assets/js/menu-wheel.js`: cinci poziții orbitale, dintre care trei vizibile.
   Fotografiile rămân drepte. Băutura centrală este mare (84%, maximum 500px pe
   desktop), vecinele sunt la 40% din această dimensiune și la 26% opacitate.
