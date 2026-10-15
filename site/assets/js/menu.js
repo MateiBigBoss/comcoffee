@@ -1,4 +1,4 @@
-/* Photo switcher: load first, exit fully, replace, enter. Latest choice wins. */
+/* Load before moving; adjacent cups orbit together. Latest selection wins. */
 (() => {
   'use strict';
   const root = document.querySelector('[data-menu]');
@@ -13,7 +13,7 @@
   const status = root.querySelector('[data-menu-status]');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   const cache = new Map();
-  let current = 0, desired = 0, category = 0, running = false;
+  let current = 0, desired = 0, category = 0, running = false, requestedDirection = 1;
   const bounds = () => category === 0 ? [0,6] : [7,11];
   function load(index) {
     if (!cache.has(index)) {
@@ -28,12 +28,11 @@
     return cache.get(index);
   }
   function controls() {
-    const [start,end] = bounds();
     tabs.forEach((tab,i) => tab.setAttribute('aria-pressed', String(i === category)));
     groups.forEach((group,i) => { group.hidden = i !== category; });
     choices.forEach((button,i) => button.setAttribute('aria-pressed', String(i === current)));
-    prev.disabled = desired <= start;
-    next.disabled = desired >= end;
+    prev.disabled = false;
+    next.disabled = false;
   }
   function render(index,image) {
     const button = choices[index];
@@ -73,27 +72,42 @@
         catch { if(target !== desired) continue; desired=current; category=current<7?0:1; controls(); status.textContent='Fotografia nu s-a încărcat. Alege din nou băutura pentru a reîncerca.'; break; }
         if (target !== desired) continue;
         status.textContent = '';
-        const direction = target > current ? 1 : -1;
-        await motion(true,direction);
-        render(target,image);
-        clearAnimations();
-        await motion(false,direction);
-        clearAnimations();
+        const direction = requestedDirection;
+        if (wheel) {
+          // Keep the current details readable until the next cup reaches the center.
+          await wheel.move(target,direction);
+          render(target,image);
+          if (!reduce.matches && copy.animate) {
+            const reveal = copy.animate([{opacity:0,transform:'translateY(7px)'},{opacity:1,transform:'translateY(0)'}],{duration:240,easing:'ease-out'});
+            await reveal.finished.catch(()=>{});
+            reveal.cancel();
+          }
+        } else {
+          await motion(true,direction);
+          render(target,image);
+          clearAnimations();
+          await motion(false,direction);
+          clearAnimations();
+        }
       }
     } finally { running=false; }
   }
-  function choose(index) { desired=index; controls(); switchDrink(); }
+  function choose(index, direction = index >= desired ? 1 : -1) { requestedDirection=direction || 1; desired=index; controls(); switchDrink(); }
+  const wheelHost = root.querySelector('[data-wheel]');
+  const wheel = wheelHost && typeof CoffeeWheel !== 'undefined' ? new CoffeeWheel(wheelHost,choices,choose,reduce) : null;
   choices.forEach((button,i)=>button.addEventListener('click',()=>choose(i)));
   tabs.forEach((button,i)=>button.addEventListener('click',()=>{ category=i; choose(i===0?0:7); }));
-  prev.addEventListener('click',()=>choose(Math.max(bounds()[0],desired-1)));
-  next.addEventListener('click',()=>choose(Math.min(bounds()[1],desired+1)));
-  groups.forEach(group=>group.addEventListener('keydown',event=>{
+  prev.addEventListener('click',()=>choose(desired <= bounds()[0] ? bounds()[1] : desired-1,-1));
+  next.addEventListener('click',()=>choose(desired >= bounds()[1] ? bounds()[0] : desired+1,1));
+  const keyTargets = wheel ? [...groups,wheelHost.parentElement] : groups;
+  keyTargets.forEach(group=>group.addEventListener('keydown',event=>{
     if (event.ctrlKey || event.metaKey || event.altKey) return;
     if(!['ArrowRight','ArrowDown','ArrowLeft','ArrowUp','Home','End'].includes(event.key)) return;
     event.preventDefault();
     const [start,end]=bounds();
     let index = event.key==='Home'?start:event.key==='End'?end:Math.max(start,Math.min(end,desired+(['ArrowRight','ArrowDown'].includes(event.key)?1:-1)));
-    choices[index].focus(); choose(index);
+    if (groups.includes(group)) choices[index].focus();
+    choose(index);
   }));
   reduce.addEventListener('change',()=>{ if(reduce.matches) clearAnimations(); });
   root.querySelectorAll('[data-interactive]').forEach(el=>{el.hidden=false;});
