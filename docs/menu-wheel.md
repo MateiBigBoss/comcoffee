@@ -21,7 +21,12 @@ eventuale modificări mai recente de pe GitHub.
   stins în fundal. Conturul are acum 6px, o nuanță unitară derivată din băutură
   și un accent tonal care urmărește rotirea. Traseul punctat și segmentele
   multicolore au fost eliminate. Linia scurtă are 4px și capete rotunjite, iar
-  reperul selecției are 12px. Adaptare pe o coloană sub 700px.
+  reperul selecției are 12px. O bandă de 36px cu muchie luminoasă și umbră discretă
+  dă profunzime conturului. Gradațiile radiale din bandă se rotesc odată cu paharele,
+  la aceeași durată și aceeași accelerare, în timp ce indicatorul și linia de
+  selecție rămân fixe. Reperele principale sunt la 31°, jumătate din pasul de 62°;
+  astfel, după fiecare pas, un reper se aliniază din nou cu indicatorul.
+  Adaptare pe o coloană sub 700px.
 - `site/assets/js/menu-wheel.js`: cinci poziții orbitale, dintre care trei vizibile.
   Fotografiile rămân drepte. Băutura centrală este mare (84%, maximum 500px pe
   desktop), vecinele sunt la 40% din această dimensiune și la 26% opacitate.
