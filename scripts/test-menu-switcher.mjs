@@ -6,6 +6,7 @@ const base=fileURLToPath(new URL('../site/',import.meta.url));
 const html=readFileSync(base+'cafea.html','utf8');
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
 const log=[];
+const animationRuns=[];
 class Element {
  constructor(){this.handlers={};this.attrs={};this.dataset={};this.textContent='';this.animations=[];this.children=[];this.style={setProperty(k,v){this[k]=v;}};const names=new Set();this.classList={add:n=>names.add(n),remove:n=>names.delete(n),contains:n=>names.has(n)};}
  addEventListener(k,fn){this.handlers[k]=fn;}
@@ -15,7 +16,7 @@ class Element {
  set src(value){this.attrs.src=value;} get src(){return this.attrs.src;}
  click(){this.handlers.click?.();}
  focus(){}
- animate(frames){log.push(['animate',frames[0].transform||'copy']);let end;const finished=new Promise(r=>{end=r;setTimeout(r,4);});const a={finished,cancel:end};this.animations.push(a);return a;}
+ animate(frames){animationRuns.push(frames);log.push(['animate',frames[0].transform||'copy']);let end;const finished=new Promise(r=>{end=r;setTimeout(r,4);});const a={finished,cancel:end};this.animations.push(a);return a;}
  getAnimations(){return this.animations.splice(0);}
 }
 const choices=[...html.matchAll(/<button[^>]*data-drink="\d+"[^>]*>[\s\S]*?<span>([^<]+)<\/span><\/button>/g)].map(m=>{const b=new Element();b.dataset=Object.fromEntries([...m[0].matchAll(/data-([\w-]+)="([^"]+)"/g)].map(a=>[a[1].replace(/-([a-z])/g,(_,c)=>c.toUpperCase()),a[2]]));b.lastElementChild={textContent:m[1]};assert(existsSync(base+`assets/img/menu/${b.dataset.slug}.png`),`Missing ${b.dataset.slug}`);return b;});
@@ -38,15 +39,31 @@ function assertWheel(slug,color){
  const cards=wheelHost.children.map(spoke=>spoke.children[0]);
  assert.equal(cards.filter(card=>card.style.opacity===.26).length,2);
  assert.equal(cards.filter(card=>card.style.opacity===0&&card.disabled).length,2);
- cards.forEach(card=>assert.match(card.style.transform,/scale\(1\)$/, 'all cups keep their size'));
+ cards.forEach(card=>assert.match(card.style.transform,card.style.opacity===1 ? /scale\(1\)$/ : /scale\(0\.4\)$/, 'only the selected cup uses full size'));
  assert(!wheelHost.classList.contains('is-turning'),'wheel releases pointer after movement');
 }
 assertWheel('espresso','#513222');
 choices[1].click();choices[4].click();choices[6].click();await pause(70);
 assert.equal(elements.get('[data-drink-name]').textContent,'Latte');assert.equal(choices[6].attrs['aria-pressed'],'true');assert.equal(elements.get('[data-drink-next]').disabled,false);
 assertWheel('latte','#ddc6a7');
-const incoming=wheelHost.children.find(spoke=>spoke.style.transform==='rotate(52deg)').children[0].children[0];
+const incoming=wheelHost.children.find(spoke=>spoke.style.transform==='rotate(62deg)').children[0].children[0];
+const runStart=animationRuns.length;
 elements.get('[data-drink-next]').click();await pause(40);assert.equal(elements.get('[data-drink-name]').textContent,'Espresso');
+// Sample the actual upright cup keyframes, including between keyframes. Their
+// entire square image boxes must remain separate, even before transparent padding.
+const travel=animationRuns.slice(runStart).filter(frames=>frames.length===21&&frames[0].transform.includes('scale('));
+const departing=travel.find(frames=>frames[0].transform.includes('rotate(0deg)'));
+const arriving=travel.find(frames=>frames[0].transform.includes('rotate(-62deg)'));
+assert(departing&&arriving);
+function interpolate(frames,progress,expression){const at=progress*20,lo=Math.floor(at),hi=Math.min(20,lo+1);const a=Number(frames[lo].transform.match(expression)[1]),b=Number(frames[hi].transform.match(expression)[1]);return a+(b-a)*(at-lo);}
+for(const [width,mobile] of [[276,true],[346,true],[500,true],[400,false],[560,false],[720,false]]){
+ const radius=Math.min(width*.7,mobile?280:420),size=Math.min(width*.84,mobile?336:500);
+ for(let step=0;step<=100;step++){
+  const boxes=[departing,arriving].map(frames=>{const angle=-interpolate(frames,step/100,/rotate\(([-.\d]+)deg\)/)*Math.PI/180;return {x:radius*Math.cos(angle),y:radius*Math.sin(angle),half:size*interpolate(frames,step/100,/scale\(([-.\d]+)\)/)/2};});
+  const [a,b]=boxes,total=a.half+b.half;
+  assert(Math.abs(a.x-b.x)>=total||Math.abs(a.y-b.y)>=total,`cup boxes overlap at width ${width}, progress ${step}%`);
+ }
+}
 assert.equal(wheelHost.children.find(spoke=>spoke.style.transform==='rotate(0deg)').children[0].children[0],incoming,'arrival keeps the same image node without a visible source swap');
 elements.get('[data-drink-prev]').click();await pause(40);assert.equal(elements.get('[data-drink-name]').textContent,'Latte');
 tabs[1].click();await pause(40);assert.equal(elements.get('[data-drink-name]').textContent,'Iced Latte');assert.equal(groups[0].hidden,true);
@@ -60,11 +77,11 @@ reduce.matches=true;reduce.change();const count=log.length;choices[11].click();a
 assert.equal(elements.get('[data-drink-beans]').hidden,false);assert.equal(elements.get('[data-drink-beans]').attrs['data-beans'],'0');assert.equal(elements.get('[data-coffee-volume]').textContent,'0 ml');
 assertWheel('babyccino','#e2d8c6');
 elements.get('[data-drink-next]').click();await pause(25);assert.equal(elements.get('[data-drink-name]').textContent,'Iced Latte');
-wheelHost.children.find(spoke=>spoke.style.transform==='rotate(52deg)').children[0].click();await pause(25);assert.equal(elements.get('[data-drink-name]').textContent,'Espresso Tonic');
+wheelHost.children.find(spoke=>spoke.style.transform==='rotate(62deg)').children[0].click();await pause(25);assert.equal(elements.get('[data-drink-name]').textContent,'Espresso Tonic');
 groups[1].handlers.keydown({key:'Home',preventDefault(){}});await pause(25);assert.equal(elements.get('[data-drink-name]').textContent,'Iced Latte');
 tabs[0].click();await pause(20);
 for(let i=0;i<7;i++){elements.get('[data-drink-next]').click();await pause(15);}
 assertWheel('espresso','#513222');
-wheelHost.children.find(spoke=>spoke.style.transform==='rotate(-52deg)').children[0].click();await pause(20);
+wheelHost.children.find(spoke=>spoke.style.transform==='rotate(-62deg)').children[0].click();await pause(20);
 assert.equal(elements.get('[data-drink-name]').textContent,'Latte','recycled neighbor retains its current click target');
 console.log('PASS: 12 photos, wheel/copy synchronization, colors, circular navigation, neighbor click, rapid/category selections, failed-image retry, reduced motion and keyboard Home.');

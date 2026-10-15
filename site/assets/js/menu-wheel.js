@@ -42,9 +42,11 @@ class CoffeeWheel {
   shape(offset) {
     const distance = Math.abs(offset);
     return {
-      angle: offset * 52,
-      scale: 1,
-      opacity: distance === 0 ? 1 : distance === 1 ? .26 : 0
+      angle: offset * 62,
+      // Shrink early when leaving and grow late when arriving, leaving room
+      // between cups even halfway around the arc.
+      scale: .4 + .6 * Math.pow(Math.max(0, 1 - distance), 2.8),
+      opacity: distance <= 1 ? .26 + .74 * Math.pow(1 - distance, 1.4) : Math.max(0, .26 * (2 - distance))
     };
   }
   pose(slot, offset) {
@@ -78,16 +80,18 @@ class CoffeeWheel {
     if (this.reduce.matches || !this.host.animate) return;
     const promises = [];
     for (const slot of this.slots) {
-      const from = this.shape(slot.offset + (entering ? direction : 0));
-      const to = this.shape(slot.offset - (entering ? 0 : direction));
-      const options = { duration: fading ? 430 : 920, easing: 'cubic-bezier(.32,.02,.16,1)', fill: 'forwards' };
-      const orbit = slot.spoke.animate([
-        { transform: `rotate(${from.angle}deg)` }, { transform: `rotate(${to.angle}deg)` }
-      ], options);
-      const cup = slot.card.animate([
-        { transform: `translate(-50%, -50%) rotate(${-from.angle}deg) scale(${from.scale})`, opacity: entering && fading ? 0 : from.opacity },
-        { transform: `translate(-50%, -50%) rotate(${-to.angle}deg) scale(${to.scale})`, opacity: !entering && fading ? 0 : to.opacity }
-      ], options);
+      const orbitFrames = [], cupFrames = [];
+      for (let step = 0; step <= 20; step++) {
+        const progress = step / 20;
+        const position = slot.offset + (entering ? direction : 0) - direction * progress;
+        const shape = this.shape(position);
+        const fade = fading ? (entering ? progress : 1 - progress) : 1;
+        orbitFrames.push({ offset:progress, transform:`rotate(${shape.angle}deg)` });
+        cupFrames.push({ offset:progress, transform:`translate(-50%, -50%) rotate(${-shape.angle}deg) scale(${shape.scale})`, opacity:shape.opacity * fade });
+      }
+      const options = { duration: fading ? 430 : 820, easing: 'cubic-bezier(.3,.04,.16,1)', fill: 'forwards' };
+      const orbit = slot.spoke.animate(orbitFrames, options);
+      const cup = slot.card.animate(cupFrames, options);
       this.animations.push(orbit, cup);
       promises.push(orbit.finished.catch(() => {}), cup.finished.catch(() => {}));
     }
@@ -97,7 +101,7 @@ class CoffeeWheel {
     // Adjacent selections share the same cup throughout the entire arc.
     const adjacent = this.neighbor(this.current, direction) === index;
     this.cancel();
-    this.turn -= direction * 52;
+    this.turn -= direction * 62;
     this.host.parentElement.style.setProperty('--wheel-turn', `${this.turn}deg`);
     this.host.parentElement.style.setProperty('--coffee-accent', this.choices[index].dataset.color);
     this.host.classList.add('is-turning');
@@ -124,7 +128,7 @@ class CoffeeWheel {
       const selected = this.slots.find(slot => slot.offset === 0);
       const settle = selected.image.animate([
         { transform: 'translateY(0)' },
-        { transform: 'translateY(-4px)', offset: .4 },
+        { transform: 'translateY(-6px)', offset: .4 },
         { transform: 'translateY(0)' }
       ], { duration: 420, easing: 'ease-in-out' });
       this.animations.push(settle);
