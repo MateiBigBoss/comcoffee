@@ -16,11 +16,17 @@ eventuale modificări mai recente de pe GitHub.
   lista pliabilă și comenzile lângă roată. `data-color` controlează conturul;
   culoarea reprezintă vizual băutura, nu o măsurătoare de cofeină. Pentru schimbarea
   nuanței, actualizează și `--drink-color` al bulinei corespunzătoare.
-- `site/assets/css/menu.css`: semicerc, fotografii în poziții orbitale, stări
+- `site/assets/css/menu.css`: disc stratificat cu salvie, caramel și albastru
+  stins, contur în culoarea băuturii, fotografii în poziții orbitale, stări
   estompate, detalii și adaptare pe o coloană sub 700px.
 - `site/assets/js/menu-wheel.js`: cinci poziții orbitale, dintre care trei vizibile.
-  Fotografiile rămân drepte în timpul rotirii. Pașii vecini folosesc o mișcare comună
-  de 680ms; salturile directe și schimbările de categorie folosesc ieșire/intrare.
+  Fotografiile rămân drepte și nu își schimbă scara în timpul rotirii. Dimensiunea
+  folosește proporția fotografiei din meniul inițial (92%, maximum 520px pe desktop).
+  Pașii vecini folosesc o mișcare comună de 920ms și reciclează numai elementul
+  invizibil; fotografia care ajunge în centru își păstrează nodul și sursa, evitând
+  un schimb vizibil la final. Salturile directe și schimbările de categorie folosesc
+  ieșire/intrare de 430ms pe fază. Sosirea adaugă o așezare verticală discretă de 4px,
+  fără zoom. Segmentele colorate ale discului se rotesc în aceeași direcție.
 - `site/assets/js/menu.js`: încărcare înaintea schimbării, selecții rapide,
   sincronizarea detaliilor, navigare circulară în categorie și tastatură.
 - `scripts/test-menu-switcher.mjs`: teste integrate ale roții și selectorului.
@@ -34,7 +40,8 @@ apare posibilitatea de reîncercare. Nu sunt adăugate biblioteci sau fotografii
 ## Verificare
 
 Verificările automate pentru site și meniul interactiv au trecut, inclusiv
-sincronizarea fotografiei centrale, culorii și detaliilor, rotirea peste capetele
+sincronizarea fotografiei centrale, culorii și detaliilor, păstrarea dimensiunii
+paharelor și a nodului imaginii la sosire, rotirea peste capetele
 categoriei, click pe vecini, selecții rapide, reîncercare după eroare, tastatură și
 mișcare redusă. Aspectul și animația pe desktop/mobil necesită verificare vizuală:
 instrumentul de browser nu a pornit în această sesiune (eroare la inițializarea

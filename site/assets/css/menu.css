@@ -12,16 +12,20 @@
 .menu-heading>p { font-size:12px; color:#62665d; }
 .menu-eyebrow { font-family:var(--font-mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase; line-height:1.7; }
 .menu-experience { display:grid; grid-template-columns:1.12fr 1fr; align-items:start; gap:clamp(28px,6vw,90px); }
-.drink-stage { --coffee-accent:#513222; position:relative; container-type:inline-size; min-width:0; height:650px; isolation:isolate; overflow:hidden; background:#e8ebdf; margin-top:30px; border-radius:2px; }
-.drink-stage::after { content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(#e8ebdf 0%,transparent 14%,transparent 86%,#e8ebdf 100%); z-index:5; }
-.wheel-ring { position:absolute; width:140cqw; height:140cqw; top:50%; left:-82cqw; transform:translateY(-50%); border:1.5px solid var(--coffee-accent); border-radius:50%; opacity:.65; transition:border-color .65s ease; }
-.wheel-ring::before { content:''; position:absolute; inset:10px; border:1px solid var(--coffee-accent); opacity:.18; border-radius:50%; transition:border-color .65s; }
-.wheel-ring span { position:absolute; right:-5px; top:calc(50% - 5px); width:9px; height:9px; border-radius:50%; background:var(--coffee-accent); box-shadow:0 0 0 7px #e8ebdf; transition:background .65s; }
+.drink-stage { --coffee-accent:#513222; --wheel-turn:0deg; position:relative; container-type:inline-size; min-width:0; height:650px; isolation:isolate; overflow:hidden; background:#f4f3eb; margin-top:30px; border-radius:3px; }
+.drink-stage::before { content:''; position:absolute; right:5%; top:calc(50% - 1px); width:13%; height:2px; background:var(--coffee-accent); z-index:5; transition:background-color .9s; }
+.drink-stage::after { content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(#f4f3eb 0%,#f4f3eb00 19%,#f4f3eb00 81%,#f4f3eb 100%); z-index:5; }
+.wheel-ring { position:absolute; width:192cqw; height:192cqw; top:50%; left:-108cqw; transform:translateY(-50%); border:1px solid #faf9ef; border-radius:50%; background-color:color-mix(in srgb,var(--coffee-accent) 20%,#e5e9d6); background-image:radial-gradient(circle at 72% 24%,#f7e7c180,transparent 38%),linear-gradient(145deg,#c3d2b980,transparent 52%,#b9ccca75); box-shadow:inset 0 0 0 10px #ffffff40,inset 0 0 0 12px #64704d20,12px 4px 34px #4c493711; transition:background-color .92s ease; }
+.wheel-ring::before { content:''; position:absolute; inset:17px; border:1px solid #ffffff80; border-radius:50%; background:conic-gradient(from 12deg,#afc7b75c 0deg 50deg,#e4ca9c66 50deg 102deg,#9eb8bc55 102deg 154deg,#c4ce9e55 154deg 206deg,#d8b5a155 206deg 258deg,#c2cabc66 258deg 310deg,#afc7b75c 310deg); mask:radial-gradient(circle,transparent 55%,#000 55.3%); transform:rotate(var(--wheel-turn)); transition:transform .92s cubic-bezier(.32,.02,.16,1); }
+.wheel-ring::after { content:''; position:absolute; inset:34%; border-radius:50%; border:1px solid #f7f7e6a0; background:linear-gradient(145deg,#eef0dd,#bbc8ad); box-shadow:10px 8px 25px #48543e12,inset -2px -2px 12px #66724e13; }
+.wheel-ring span { position:absolute; right:-6px; top:calc(50% - 6px); width:11px; height:11px; border-radius:50%; background:var(--coffee-accent); box-shadow:0 0 0 8px #f4f3eb,0 0 0 9px #b8beaa70; transition:background-color .92s; }
 .coffee-wheel { position:absolute; inset:0; }
+.wheel-ready .coffee-wheel { animation:wheel-arrive .8s cubic-bezier(.22,.7,.2,1) both; }
+@keyframes wheel-arrive { from { opacity:0; transform:translateX(-18px); } to { opacity:1; transform:translateX(0); } }
 .wheel-spoke { position:absolute; left:-12cqw; top:50%; width:0; height:0; }
-.wheel-cup { position:absolute; left:70cqw; top:0; width:86cqw; aspect-ratio:1; border:0; padding:0; background:transparent; cursor:pointer; transform-origin:center; -webkit-tap-highlight-color:transparent; }
+.wheel-cup { position:absolute; left:70cqw; top:0; width:min(92cqw,520px); aspect-ratio:1; border:0; padding:0; background:transparent; cursor:pointer; transform-origin:center; -webkit-tap-highlight-color:transparent; }
 .wheel-cup:disabled { cursor:default; pointer-events:none; }
-.wheel-cup img { display:block; width:100%; height:100%; object-fit:contain; filter:drop-shadow(4px 14px 8px #353b2314); user-select:none; }
+.wheel-cup img { display:block; width:100%; height:100%; object-fit:contain; filter:drop-shadow(8px 18px 12px #353b2324); user-select:none; }
 .wheel-cup span { position:absolute; left:0; right:0; bottom:13%; text-align:center; font:500 23px var(--font-body); color:#273123; white-space:nowrap; }
 .coffee-wheel.is-turning { pointer-events:none; }
 .stage-label,.stage-caption { position:absolute; left:24px; z-index:6; font:9px var(--font-mono); letter-spacing:.12em; text-transform:uppercase; color:#4e5b43; }
@@ -60,7 +64,7 @@
 .menu-bottom { display:flex; justify-content:space-between; align-items:center; gap:16px; margin-top:auto; padding-top:16px; }
 .menu-contact { display:inline-flex; align-items:center; justify-content:space-between; gap:24px; font-size:12px; text-decoration:none; border-bottom:1px solid #858d7e; padding:12px 0; }
 .menu-contact span { font-size:20px; }.drink-arrows { display:flex; gap:10px; position:absolute; right:24px; bottom:20px; z-index:7; }
-.drink-arrows button { border:1px solid #b7beab; border-radius:50%; background:transparent; width:52px; height:52px; cursor:pointer; font-size:22px; transition:background .2s,transform .2s; }
+.drink-arrows button { border:1px solid #b7beab; border-radius:50%; background:#fafaf3cc; width:52px; height:52px; cursor:pointer; font-size:22px; transition:background .2s,transform .2s; }
 .drink-arrows button:hover { background:#e3e8d8; transform:translateY(-2px); }
 .complete-menu { border-top:1px solid var(--linie); padding:65px var(--menu-pad) 80px; display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px; }
 .complete-menu h2 { font-size:clamp(28px,3vw,46px); letter-spacing:-.05em; max-width:10ch; line-height:1.1; margin:20px 0; }.complete-menu h3 { font-size:15px; margin-bottom:22px; }.complete-menu ul { list-style:none; padding:0; font-size:13px; line-height:2.5; color:#606657; }
@@ -70,7 +74,7 @@
   .menu-page .nav { height:auto; padding-top:18px; grid-template-columns:1fr; gap:10px; position:relative; }
   .menu-page .wordmark { justify-self:center; }.menu-page .nav nav { justify-self:stretch; justify-content:space-between; border-block:1px solid var(--linie); }.menu-page .nav nav a { padding:8px 3px; font-size:11px; }
   .coffee-menu { padding-top:24px; padding-bottom:40px; }.menu-heading { align-items:start; flex-direction:column; gap:10px; padding-bottom:20px; }.menu-heading>p { font-size:11px; }
-  .menu-experience { grid-template-columns:1fr; gap:0; }.drink-stage { height:440px; margin-top:20px; }.wheel-cup { width:min(82cqw,328px); left:min(70cqw,280px); }.wheel-spoke { left:calc(50% - min(62cqw,248px)); }.wheel-ring { width:min(140cqw,560px); height:min(140cqw,560px); left:calc(50% - min(132cqw,528px)); }.wheel-cup span { font-size:21px; }
+  .menu-experience { grid-template-columns:1fr; gap:0; }.drink-stage { height:440px; margin-top:20px; }.wheel-cup { width:min(92cqw,368px); left:min(70cqw,280px); }.wheel-spoke { left:calc(50% - min(62cqw,248px)); }.wheel-ring { width:min(192cqw,768px); height:min(192cqw,768px); left:calc(50% - min(158cqw,632px)); }.wheel-cup span { font-size:21px; }
   .stage-label,.stage-caption { left:18px; font-size:8px; }.stage-label { top:18px; }.stage-caption { display:none; }.drink-arrows { right:18px; bottom:14px; }
   .menu-controls { padding-top:22px; min-height:0; }.menu-tabs { gap:26px; }.menu-tabs button { font-size:12px; }.drink-copy { margin:26px 0; }.drink-copy h2 { font-size:44px; min-height:0; max-width:none; }.drink-copy .menu-eyebrow { margin-bottom:14px; }.drink-copy>[data-drink-note] { font-size:13px; margin-top:12px; }.drink-specs { margin-top:24px; }
   .menu-bottom { padding-top:8px; }.drink-arrows button { width:48px; height:48px; }.complete-menu { grid-template-columns:1fr 1fr; gap:32px 20px; padding-block:40px 60px; }.complete-menu>div:first-child { grid-column:1/-1; }.complete-menu h2 { max-width:none; }.complete-menu h3 { font-size:13px; }

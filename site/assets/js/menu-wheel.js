@@ -6,6 +6,7 @@ class CoffeeWheel {
     this.select = select;
     this.reduce = reduce;
     this.current = 0;
+    this.turn = 0;
     this.animations = [];
     this.slots = [-2, -1, 0, 1, 2].map(offset => {
       const spoke = document.createElement('div');
@@ -24,7 +25,7 @@ class CoffeeWheel {
       spoke.append(card);
       host.append(spoke);
       const slot = { offset, spoke, card, image, label, index: 0 };
-      card.addEventListener('click', () => select(slot.index, Math.sign(offset)));
+      card.addEventListener('click', () => select(slot.index, Math.sign(slot.offset)));
       image.addEventListener('error', () => { image.style.visibility = 'hidden'; });
       image.addEventListener('load', () => { image.style.visibility = ''; });
       return slot;
@@ -41,9 +42,9 @@ class CoffeeWheel {
   shape(offset) {
     const distance = Math.abs(offset);
     return {
-      angle: offset * 44,
-      scale: distance === 0 ? 1 : .51,
-      opacity: distance === 0 ? 1 : distance === 1 ? .36 : 0
+      angle: offset * 52,
+      scale: 1,
+      opacity: distance === 0 ? 1 : distance === 1 ? .26 : 0
     };
   }
   pose(slot, offset) {
@@ -61,7 +62,7 @@ class CoffeeWheel {
       const name = choice.lastElementChild.textContent;
       const src = `assets/img/menu/${choice.dataset.slug}.png`;
       if (slot.image.getAttribute('src') !== src) slot.image.src = src;
-      slot.label.textContent = slot.offset ? name : '';
+      slot.label.textContent = '';
       slot.card.setAttribute('aria-label', `Alege ${name}`);
       slot.card.disabled = slot.offset === 0 || Math.abs(slot.offset) > 1;
       slot.card.setAttribute('aria-hidden', String(slot.card.disabled));
@@ -79,7 +80,7 @@ class CoffeeWheel {
     for (const slot of this.slots) {
       const from = this.shape(slot.offset + (entering ? direction : 0));
       const to = this.shape(slot.offset - (entering ? 0 : direction));
-      const options = { duration: fading ? 300 : 680, easing: 'cubic-bezier(.22,.72,.18,1)', fill: 'forwards' };
+      const options = { duration: fading ? 430 : 920, easing: 'cubic-bezier(.32,.02,.16,1)', fill: 'forwards' };
       const orbit = slot.spoke.animate([
         { transform: `rotate(${from.angle}deg)` }, { transform: `rotate(${to.angle}deg)` }
       ], options);
@@ -95,9 +96,20 @@ class CoffeeWheel {
   async move(index, direction) {
     // Adjacent selections share the same cup throughout the entire arc.
     const adjacent = this.neighbor(this.current, direction) === index;
+    this.cancel();
+    this.turn -= direction * 52;
+    this.host.parentElement.style.setProperty('--wheel-turn', `${this.turn}deg`);
+    this.host.parentElement.style.setProperty('--coffee-accent', this.choices[index].dataset.color);
     this.host.classList.add('is-turning');
     if (adjacent) {
       await this.animateShift(direction);
+      // Reuse the actual arriving image instead of swapping visible image sources.
+      // Only the invisible far-side cup is recycled after crossing the boundary.
+      for (const slot of this.slots) {
+        slot.offset -= direction;
+        if (slot.offset < -2) slot.offset += 5;
+        if (slot.offset > 2) slot.offset -= 5;
+      }
       this.render(index);
       this.cancel();
     } else {
@@ -108,5 +120,14 @@ class CoffeeWheel {
       this.cancel();
     }
     this.host.classList.remove('is-turning');
+    if (!this.reduce.matches && this.host.animate) {
+      const selected = this.slots.find(slot => slot.offset === 0);
+      const settle = selected.image.animate([
+        { transform: 'translateY(0)' },
+        { transform: 'translateY(-4px)', offset: .4 },
+        { transform: 'translateY(0)' }
+      ], { duration: 420, easing: 'ease-in-out' });
+      this.animations.push(settle);
+    }
   }
 }
