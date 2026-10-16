@@ -74,13 +74,21 @@
         status.textContent = '';
         const direction = requestedDirection;
         if (wheel) {
-          // Keep the current details readable until the next cup reaches the center.
-          await wheel.move(target,direction);
-          render(target,image);
+          // Text and color change during the cup's journey, not after it.
+          const travel = wheel.move(target,direction);
           if (!reduce.matches && copy.animate) {
-            const reveal = copy.animate([{opacity:0,transform:'translateY(7px)'},{opacity:1,transform:'translateY(0)'}],{duration:240,easing:'ease-out'});
-            await reveal.finished.catch(()=>{});
-            reveal.cancel();
+            const exit = copy.animate([{opacity:1,transform:'translateY(0)'},{opacity:0,transform:`translateY(${-direction*10}px)`}],{duration:160,easing:'ease-in',fill:'forwards'});
+            await exit.finished.catch(()=>{});
+            render(target,image);
+            exit.cancel();
+            if (!reduce.matches) {
+              const reveal = copy.animate([{opacity:0,transform:`translateY(${direction*14}px)`},{opacity:1,transform:'translateY(0)'}],{duration:600,easing:'cubic-bezier(.16,1,.3,1)'});
+              await Promise.all([travel,reveal.finished.catch(()=>{})]);
+              reveal.cancel();
+            } else await travel;
+          } else {
+            render(target,image);
+            await travel;
           }
         } else {
           await motion(true,direction);

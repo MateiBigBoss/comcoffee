@@ -1,4 +1,4 @@
-# Roata de cafea — 15 octombrie 2026
+# Roata de cafea — 16 octombrie 2026
 
 ## Scop
 
@@ -17,8 +17,8 @@ eventuale modificări mai recente de pe GitHub.
   culoarea reprezintă vizual băutura, nu o măsurătoare de cofeină. Pentru schimbarea
   nuanței, actualizează și `--drink-color` al bulinei corespunzătoare.
 - `site/assets/css/menu.css`: contur semicircular exterior în dreapta paharului,
-  linie scurtă orientată spre pahar și accente de salvie, caramel și albastru
-  stins în fundal. Conturul are acum 6px, o nuanță unitară derivată din băutură
+  linie scurtă orientată spre pahar. Fundalul preia culoarea băuturii amestecată
+  cu crem, cu o lumină radială și o umbră ovală sub fiecare pahar. Conturul are acum 6px, o nuanță unitară derivată din băutură
   și un accent tonal care urmărește rotirea. Traseul punctat și segmentele
   multicolore au fost eliminate. Linia scurtă are 4px și capete rotunjite, iar
   reperul selecției are 12px. O bandă de 36px cu muchie luminoasă și umbră discretă
@@ -32,13 +32,17 @@ eventuale modificări mai recente de pe GitHub.
   desktop), vecinele sunt la 40% din această dimensiune și la 26% opacitate.
   Pe traseul de 62°, paharul care pleacă se micșorează devreme, iar cel care vine
   crește târziu: 21 de cadre cheie previn suprapunerea la mijlocul tranziției.
-  Pașii vecini folosesc o mișcare comună de 820ms și reciclează numai elementul
+  Referința vizuală din 16 octombrie este adaptată într-o orbită proiectată:
+  următoarea băutură vine din dreapta-jos spre centru, iar cea precedentă se
+  retrage spre stânga-sus. Traseul se prelungește tangent în afara scenei pentru
+  a evita revenirea fotografiilor ascunse peste cele vizibile.
+  Pașii vecini folosesc o mișcare comună de 920ms și reciclează numai elementul
   invizibil; fotografia care ajunge în centru își păstrează nodul și sursa, evitând
   un schimb vizibil la final. Salturile directe și schimbările de categorie folosesc
-  ieșire/intrare de 430ms pe fază. Sosirea adaugă o așezare verticală discretă de 6px.
+  ieșire/intrare de 460ms pe fază. Sosirea adaugă o așezare verticală discretă de 6px.
   Segmentele colorate ale conturului se rotesc în aceeași direcție.
 - `site/assets/js/menu.js`: încărcare înaintea schimbării, selecții rapide,
-  sincronizarea detaliilor, navigare circulară în categorie și tastatură.
+  tranziția textului simultană cu mișcarea paharului (ieșire 160ms, intrare 600ms), navigare circulară în categorie și tastatură.
 - `scripts/test-menu-switcher.mjs`: teste integrate ale roții și selectorului.
 
 Săgețile și lista se folosesc cu tastatura. Home/End aleg prima/ultima băutură;
@@ -53,11 +57,15 @@ Verificările automate pentru site și meniul interactiv au trecut, inclusiv
 sincronizarea fotografiei centrale, culorii și detaliilor, scara diferită a
 fotografiilor centrale/secundare și păstrarea nodului imaginii la sosire, rotirea peste capetele
 categoriei, click pe vecini, selecții rapide, reîncercare după eroare, tastatură și
-mișcare redusă. Testul calculează și separarea casetelor fotografiilor centrală și
-nouă în 101 poziții din cadrele reale ale animației, la șase dimensiuni de scenă,
+mișcare redusă. Testul calculează și separarea casetelor tuturor fotografiilor vizibile
+în timpul mișcării în 101 poziții din cadrele reale ale animației, la șase dimensiuni de scenă,
 inclusiv între cadrele cheie. Aspectul și animația pe desktop/mobil necesită verificare vizuală:
 instrumentul de browser nu a pornit în această sesiune (eroare la inițializarea
 fișierelor sale). Testele automate nu înlocuiesc această verificare.
 
 Previzualizare: `node scripts/serve.mjs 4190`, apoi
 <http://127.0.0.1:4190/cafea.html>.
+
+Implementarea folosește capturile furnizate ca referință pentru direcția și compoziția
+tranziției; nu pretinde reproducerea exactă a temporizării videoclipului.
+Homepage-ul, fotografiile originale, rețetele și cantitățile sunt neschimbate.

@@ -46,25 +46,37 @@ assertWheel('espresso','#513222');
 choices[1].click();choices[4].click();choices[6].click();await pause(70);
 assert.equal(elements.get('[data-drink-name]').textContent,'Latte');assert.equal(choices[6].attrs['aria-pressed'],'true');assert.equal(elements.get('[data-drink-next]').disabled,false);
 assertWheel('latte','#ddc6a7');
-const incoming=wheelHost.children.find(spoke=>spoke.style.transform==='rotate(62deg)').children[0].children[0];
+const orbitXY = transform => [...transform.matchAll(/var\(--orbit-radius\) \* ([-.\de+]+)/g)].map(m=>Number(m[1]));
+const neighborCard = direction => wheelHost.children.find(spoke=>spoke.children[0].style.opacity===.26 && Math.sign(orbitXY(spoke.style.transform)[1])===direction).children[0];
+const incoming=neighborCard(1).children[0];
 const runStart=animationRuns.length;
 elements.get('[data-drink-next]').click();await pause(40);assert.equal(elements.get('[data-drink-name]').textContent,'Espresso');
 // Sample the actual upright cup keyframes, including between keyframes. Their
 // entire square image boxes must remain separate, even before transparent padding.
-const travel=animationRuns.slice(runStart).filter(frames=>frames.length===21&&frames[0].transform.includes('scale('));
-const departing=travel.find(frames=>frames[0].transform.includes('rotate(0deg)'));
-const arriving=travel.find(frames=>frames[0].transform.includes('rotate(-62deg)'));
+const travel=animationRuns.slice(runStart);
+const cupFrames=travel.filter(frames=>frames.length===21&&frames[0].transform.includes('scale('));
+const departing=cupFrames.find(frames=>frames[0].transform.endsWith('scale(1)'));
+const arriving=cupFrames.find(frames=>frames.at(-1).transform.endsWith('scale(1)'));
 assert(departing&&arriving);
-function interpolate(frames,progress,expression){const at=progress*20,lo=Math.floor(at),hi=Math.min(20,lo+1);const a=Number(frames[lo].transform.match(expression)[1]),b=Number(frames[hi].transform.match(expression)[1]);return a+(b-a)*(at-lo);}
+const orbitFrames = frames => travel[travel.indexOf(frames)-1];
+assert(orbitXY(orbitFrames(arriving)[0].transform).every(value=>value>0),'next cup starts below and to the right');
+assert(orbitXY(orbitFrames(departing).at(-1).transform).every(value=>value<0),'previous cup retreats above and to the left');
+function interpolate(frames,progress,value){const at=progress*20,lo=Math.floor(at),hi=Math.min(20,lo+1);const a=value(frames[lo]),b=value(frames[hi]);return a+(b-a)*(at-lo);}
 for(const [width,mobile] of [[276,true],[346,true],[500,true],[400,false],[560,false],[720,false]]){
  const radius=Math.min(width*.7,mobile?280:420),size=Math.min(width*.84,mobile?336:500);
  for(let step=0;step<=100;step++){
-  const boxes=[departing,arriving].map(frames=>{const angle=-interpolate(frames,step/100,/rotate\(([-.\d]+)deg\)/)*Math.PI/180;return {x:radius*Math.cos(angle),y:radius*Math.sin(angle),half:size*interpolate(frames,step/100,/scale\(([-.\d]+)\)/)/2};});
-  const [a,b]=boxes,total=a.half+b.half;
-  assert(Math.abs(a.x-b.x)>=total||Math.abs(a.y-b.y)>=total,`cup boxes overlap at width ${width}, progress ${step}%`);
+  const boxes=cupFrames.filter(frames=>interpolate(frames,step/100,frame=>frame.opacity)>.05).map(frames=>({
+   x:radius*interpolate(orbitFrames(frames),step/100,frame=>orbitXY(frame.transform)[0]),
+   y:radius*interpolate(orbitFrames(frames),step/100,frame=>orbitXY(frame.transform)[1]),
+   half:size*interpolate(frames,step/100,frame=>Number(frame.transform.match(/scale\(([-.\d]+)\)/)[1]))/2
+  }));
+  for (let i=0;i<boxes.length;i++) for(let j=i+1;j<boxes.length;j++) {
+   const a=boxes[i],b=boxes[j],total=a.half+b.half;
+   assert(Math.abs(a.x-b.x)>=total||Math.abs(a.y-b.y)>=total,`cup boxes overlap at width ${width}, progress ${step}%, pair ${i}/${j}`);
+  }
  }
 }
-assert.equal(wheelHost.children.find(spoke=>spoke.style.transform==='rotate(0deg)').children[0].children[0],incoming,'arrival keeps the same image node without a visible source swap');
+assert.equal(wheelHost.children.find(spoke=>spoke.children[0].style.opacity===1).children[0].children[0],incoming,'arrival keeps the same image node without a visible source swap');
 elements.get('[data-drink-prev]').click();await pause(40);assert.equal(elements.get('[data-drink-name]').textContent,'Latte');
 tabs[1].click();await pause(40);assert.equal(elements.get('[data-drink-name]').textContent,'Iced Latte');assert.equal(groups[0].hidden,true);
 assertWheel('iced-latte','#b79c7d');
@@ -77,11 +89,11 @@ reduce.matches=true;reduce.change();const count=log.length;choices[11].click();a
 assert.equal(elements.get('[data-drink-beans]').hidden,false);assert.equal(elements.get('[data-drink-beans]').attrs['data-beans'],'0');assert.equal(elements.get('[data-coffee-volume]').textContent,'0 ml');
 assertWheel('babyccino','#e2d8c6');
 elements.get('[data-drink-next]').click();await pause(25);assert.equal(elements.get('[data-drink-name]').textContent,'Iced Latte');
-wheelHost.children.find(spoke=>spoke.style.transform==='rotate(62deg)').children[0].click();await pause(25);assert.equal(elements.get('[data-drink-name]').textContent,'Espresso Tonic');
+neighborCard(1).click();await pause(25);assert.equal(elements.get('[data-drink-name]').textContent,'Espresso Tonic');
 groups[1].handlers.keydown({key:'Home',preventDefault(){}});await pause(25);assert.equal(elements.get('[data-drink-name]').textContent,'Iced Latte');
 tabs[0].click();await pause(20);
 for(let i=0;i<7;i++){elements.get('[data-drink-next]').click();await pause(15);}
 assertWheel('espresso','#513222');
-wheelHost.children.find(spoke=>spoke.style.transform==='rotate(-62deg)').children[0].click();await pause(20);
+neighborCard(-1).click();await pause(20);
 assert.equal(elements.get('[data-drink-name]').textContent,'Latte','recycled neighbor retains its current click target');
 console.log('PASS: 12 photos, wheel/copy synchronization, colors, circular navigation, neighbor click, rapid/category selections, failed-image retry, reduced motion and keyboard Home.');

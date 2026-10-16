@@ -1,4 +1,4 @@
-/* Five upright cups travel around one pivot. Only three are visible at rest. */
+/* A projected orbit: the next cup rises from the lower right into focus. */
 class CoffeeWheel {
   constructor(host, choices, select, reduce) {
     this.host = host;
@@ -49,10 +49,21 @@ class CoffeeWheel {
       opacity: distance <= 1 ? .26 + .74 * Math.pow(1 - distance, 1.4) : Math.max(0, .26 * (2 - distance))
     };
   }
+  orbit(angle) {
+    const edge = Math.max(-62, Math.min(62, angle));
+    const radians = edge * Math.PI / 180;
+    const extra = (angle - edge) * Math.PI / 180;
+    // Project a circular path onto a diagonal ellipse. Extend its tangent
+    // offstage so the hidden cups never fold back into their visible neighbors.
+    const x = .55 * Math.sin(radians) + .12 * (Math.cos(radians) - 1)
+      + extra * (.55 * Math.cos(radians) - .12 * Math.sin(radians));
+    const y = Math.sin(radians) + extra * Math.cos(radians);
+    return `translate(calc(var(--orbit-radius) * ${x}), calc(var(--orbit-radius) * ${y}))`;
+  }
   pose(slot, offset) {
     const shape = this.shape(offset);
-    slot.spoke.style.transform = `rotate(${shape.angle}deg)`;
-    slot.card.style.transform = `translate(-50%, -50%) rotate(${-shape.angle}deg) scale(${shape.scale})`;
+    slot.spoke.style.transform = this.orbit(shape.angle);
+    slot.card.style.transform = `translate(-50%, -50%) scale(${shape.scale})`;
     slot.card.style.opacity = shape.opacity;
     slot.spoke.style.zIndex = offset === 0 ? 3 : 1;
   }
@@ -86,10 +97,10 @@ class CoffeeWheel {
         const position = slot.offset + (entering ? direction : 0) - direction * progress;
         const shape = this.shape(position);
         const fade = fading ? (entering ? progress : 1 - progress) : 1;
-        orbitFrames.push({ offset:progress, transform:`rotate(${shape.angle}deg)` });
-        cupFrames.push({ offset:progress, transform:`translate(-50%, -50%) rotate(${-shape.angle}deg) scale(${shape.scale})`, opacity:shape.opacity * fade });
+        orbitFrames.push({ offset:progress, transform:this.orbit(shape.angle) });
+        cupFrames.push({ offset:progress, transform:`translate(-50%, -50%) scale(${shape.scale})`, opacity:shape.opacity * fade });
       }
-      const options = { duration: fading ? 430 : 820, easing: 'cubic-bezier(.3,.04,.16,1)', fill: 'forwards' };
+      const options = { duration: fading ? 460 : 920, easing: 'cubic-bezier(.4,0,.16,1)', fill: 'forwards' };
       const orbit = slot.spoke.animate(orbitFrames, options);
       const cup = slot.card.animate(cupFrames, options);
       this.animations.push(orbit, cup);
