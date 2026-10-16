@@ -63,8 +63,8 @@ inclusiv între cadrele cheie. Aspectul și animația pe desktop/mobil necesită
 instrumentul de browser nu a pornit în această sesiune (eroare la inițializarea
 fișierelor sale). Testele automate nu înlocuiesc această verificare.
 
-Previzualizare: `node scripts/serve.mjs 4190`, apoi
-<http://127.0.0.1:4190/cafea.html>.
+Previzualizare: `node scripts/serve.mjs 4191`, apoi
+<http://127.0.0.1:4191/cafea.html>.
 
 Implementarea folosește capturile furnizate ca referință pentru direcția și compoziția
 tranziției; nu pretinde reproducerea exactă a temporizării videoclipului.
