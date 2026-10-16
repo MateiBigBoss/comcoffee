@@ -28,7 +28,9 @@ const wheelHost=new Element();wheelHost.parentElement=new Element();wheelHost.pa
 const root={querySelector:s=>elements.get(s),querySelectorAll:s=>({'[data-drink]':choices,'[data-choices]':groups,'[data-category]':tabs,'[data-interactive]':[]}[s])};
 const listeners=[];const reduce={matches:false,addEventListener(k,f){listeners.push(f);},change(){listeners.forEach(f=>f());}};
 let fail=false, failInitial=true;
-class Image { set src(value){this._src=value;setTimeout(()=>{if(failInitial&&value.endsWith('/espresso.png')){failInitial=false;this.onerror();}else if(fail&&value.includes('cold-brew.png')){fail=false;this.onerror();}else this.onload();},3);} get src(){return this._src;} decode(){return Promise.resolve();} }
+let holdSlug=null;
+const pendingImages=new Map();
+class Image { set src(value){this._src=value;if(holdSlug&&value.endsWith(`/${holdSlug}.png`)){pendingImages.set(holdSlug,()=>this.onload());return;}setTimeout(()=>{if(failInitial&&value.endsWith('/espresso.png')){failInitial=false;this.onerror();}else if(fail&&value.includes('cold-brew.png')){fail=false;this.onerror();}else this.onload();},3);} get src(){return this._src;} decode(){return Promise.resolve();} }
 vm.runInNewContext(readFileSync(base+'assets/js/menu-wheel.js','utf8')+'\n'+readFileSync(base+'assets/js/menu.js','utf8'),{document:{querySelector:()=>root,createElement:()=>new Element()},matchMedia:()=>reduce,Image,console});
 function assertWheel(slug,color){
  const selected=wheelHost.children.map(spoke=>spoke.children[0]).find(card=>card.style.opacity===1);
@@ -43,12 +45,18 @@ function assertWheel(slug,color){
  cards.forEach(card=>assert.match(card.style.transform,card.style.opacity===1 ? /scale\(1\)$/ : /scale\(0\.32\)$/, 'only the selected cup uses full size'));
  assert(!wheelHost.classList.contains('is-turning'),'wheel releases pointer after movement');
 }
+choices[0].click(); // Reselecting the initial cup must not hide its load failure.
 await pause(20);
 assert.equal(elements.get('[data-menu-retry]').hidden,false,'initial image failure exposes retry');
 elements.get('[data-menu-retry]').click();await pause(25);
 assert.equal(elements.get('[data-menu-retry]').hidden,true);
 assert.equal(elements.get('[data-menu-status]').textContent,'');
 assertWheel('espresso','#513222');
+holdSlug='flat-white';choices[3].click();await pause(5);
+choices[4].click();await pause(40);
+assert.equal(elements.get('[data-drink-name]').textContent,'Cappuccino','a stalled old image must not block the latest selection');
+holdSlug=null;pendingImages.get('flat-white')();await pause(10);
+assert.equal(elements.get('[data-drink-name]').textContent,'Cappuccino','late image completion cannot replace the selected drink');
 choices[1].click();choices[4].click();choices[6].click();await pause(70);
 assert.equal(elements.get('[data-drink-name]').textContent,'Latte');assert.equal(choices[6].attrs['aria-pressed'],'true');assert.equal(elements.get('[data-drink-next]').disabled,false);
 assertWheel('latte','#ddc6a7');
@@ -71,8 +79,8 @@ assert(orbitXY(orbitFrames(arriving)[0].transform).every(value=>value>0),'next c
 assert(orbitXY(orbitFrames(departing).at(-1).transform).every(value=>value<0),'previous cup retreats above and to the left');
 function interpolate(frames,progress,value){const at=progress*20,lo=Math.floor(at),hi=Math.min(20,lo+1);const a=value(frames[lo]),b=value(frames[hi]);return a+(b-a)*(at-lo);}
 function assertSeparation(cupFrames,orbitFrames) {
-for(const [width,mobile] of [[252,true],[302,true],[346,true],[500,true],[400,false],[560,false],[720,false]]){
- const radius=Math.min(width*.7,mobile?280:350),size=Math.min(width*.84,mobile?336:500);
+for(const [width,mobile,cap] of [[252,true,280],[302,true,280],[346,true,280],[500,true,280],[400,false,330],[514,false,330],[550,false,330],[560,false,350],[720,false,350]]){
+ const radius=Math.min(width*.7,cap),size=Math.min(width*.84,mobile?336:500);
  for(let step=0;step<=100;step++){
   const boxes=cupFrames.filter(frames=>interpolate(frames,step/100,frame=>frame.opacity)>.01).map(frames=>({
    x:radius*interpolate(orbitFrames(frames),step/100,frame=>orbitXY(frame.transform)[0]),
@@ -144,8 +152,8 @@ for(let i=0;i<allFrames.length;i+=10) {
  assertSeparation(phase.filter((_,n)=>n%2),frames=>phase[phase.indexOf(frames)-1]);
 }
 // At rest all three visible cup envelopes fit within their clipped stage.
-for(const [width,mobile,height] of [[252,true,460],[302,true,460],[346,true,530],[500,true,600],[400,false,680],[560,false,780],[720,false,780]]) {
- const radius=Math.min(width*.7,mobile?280:350),size=Math.min(width*.84,mobile?336:500);
+for(const [width,mobile,height,cap] of [[252,true,460,280],[302,true,460,280],[346,true,530,280],[500,true,600,280],[400,false,740,330],[514,false,740,330],[550,false,740,330],[560,false,780,350],[720,false,780,350]]) {
+ const radius=Math.min(width*.7,cap),size=Math.min(width*.84,mobile?336:500);
  for(const spoke of wheelHost.children) {
   const card=spoke.children[0]; if(card.style.opacity===0) continue;
   const [dx,dy]=orbitXY(spoke.style.transform),scale=Number(card.style.transform.match(/scale\(([-.\d]+)\)/)[1]);

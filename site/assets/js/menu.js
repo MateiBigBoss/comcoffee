@@ -15,7 +15,7 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   const cache = new Map();
   let current = 0, desired = 0, category = 0, running = false, requestedDirection = 1;
-  let failedTarget = null, retryCurrent = false, selectionVersion = 0;
+  let failedTarget = null, retryCurrent = false, cancelPendingLoad = null;
   const bounds = () => category === 0 ? [0,6] : [7,11];
   function load(index) {
     if (!cache.has(index)) {
@@ -74,8 +74,17 @@
         const target = desired;
         let image;
         status.textContent = 'Pregătim fotografia…';
-        try { image = await load(target); }
+        // A slow old request must not hold up the latest selection. Keep the
+        // download cached, but release this wait as soon as the visitor chooses.
+        try {
+          image = await Promise.race([
+            load(target),
+            new Promise(resolve => { cancelPendingLoad = () => resolve(null); })
+          ]);
+        }
         catch { if(target !== desired) continue; failedTarget=target; desired=current; category=current<7?0:1; controls(); status.textContent='Fotografia nu s-a încărcat. Poți reîncerca sau alege altă băutură.'; retry.hidden=false; break; }
+        finally { cancelPendingLoad = null; }
+        if (!image) continue;
         if (target !== desired) continue;
         status.textContent = '';
         if (target === current) {
@@ -113,7 +122,7 @@
   }
   function choose(index, direction = index >= desired ? 1 : -1, force = false) {
     if (!Number.isInteger(index) || !choices[index]) return;
-    selectionVersion++;
+    cancelPendingLoad?.();
     requestedDirection=direction || 1;
     desired=index;
     category=index<7?0:1;
@@ -147,7 +156,7 @@
   root.querySelectorAll('[data-interactive]').forEach(el=>{el.hidden=false;});
   controls();
   load(0).catch(()=>{
-    if (selectionVersion !== 0) return;
+    if (current !== 0 || desired !== 0 || running) return;
     failedTarget=0;
     status.textContent='Fotografia nu s-a încărcat. Poți reîncerca sau alege altă băutură.';
     retry.hidden=false;

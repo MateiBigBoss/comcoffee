@@ -49,16 +49,17 @@ elimină animațiile. Fără JavaScript rămân prima băutură și meniul compl
 - `node scripts/test-menu-switcher.mjs`: 12 fotografii, selecții rapide, categorii,
   reîncercare, ml/shoturi, culori, nodul imaginii, navigare circulară și tastatură.
   Verifică separarea contururilor dreptunghiulare conservatoare ale fotografiilor
-  vizibile în 101 momente din fiecare fază, la șapte dimensiuni. Contururile includ
+  vizibile în 101 momente din fiecare fază, la nouă dimensiuni. Contururile includ
   întregul pahar: au fost măsurate limitele alfa ale celor 12 PNG-uri, fără a
   considera marginile complet transparente drept suprapuneri. Verifică și
   încadrarea în scenă a fotografiilor la repaus.
 - `git diff --check`: formatarea modificărilor.
 
-Browserul de automatizare nu oferă suprafețe disponibile în sesiunea curentă;
-aspectul la desktop/mobil și tranzițiile necesită confirmare vizuală. Testele
-nu reprezintă o verificare vizuală. Capturile proprietarului ghidează compoziția,
-fără a pretinde reproducerea exactă a temporizării videoclipului.
+Verificarea vizuală a fost reluată după disponibilizarea browserului integrat:
+320px, 390px, 1143px și 1440px. Au fost inspectate scena, descrierile, cantitățile,
+categoriile și selecția directă; fără depășire orizontală la dimensiunile verificate.
+Testele geometrice rămân separate de această verificare. Capturile proprietarului
+ghidează compoziția, fără a pretinde reproducerea exactă a temporizării videoclipului.
 
 Previzualizare pe calculator, din acest folder:
 
@@ -88,9 +89,23 @@ Deschide http://127.0.0.1:4191/cafea.html. Nu este publicat pe internet.
   palete, inclusiv stratul închis de fundal și categoria inactivă. Contrastul minim de
   4,5:1 este acum verificat automat. Textul secundar exterior a fost închis.
 
-Limită: fără browser disponibil, această verificare acoperă codul, datele,
-geometria calculată și comportamentul simulat. Nu confirmă randarea efectivă,
-fonturile și animațiile în Safari/Chrome pe un dispozitiv real.
+Limită: verificarea vizuală folosește browserul integrat și dimensiuni de viewport
+mobile; nu reprezintă o verificare pe un telefon fizic sau în Safari. Mișcarea
+redusă și cazurile de încărcare eșuată sunt verificate prin testul de comportament.
 
 Verificările automate pentru paginile interioare, formular și efectul logo-ului
 au trecut și ele; testele formularului nu trimit emailuri și nu confirmă livrarea.
+
+## Continuarea auditului — încărcare și încadrare
+
+- O încărcare lentă nu mai ține pe loc o selecție ulterioară. Cererea veche poate
+  termina în cache, fără să înlocuiască băutura aleasă între timp.
+- Realegerea primei băuturi înainte să eșueze fotografia nu mai ascunde butonul
+  de reîncercare. Testul reproduce acest caz și întârzierea unei fotografii.
+- La 901–1200px, raza este limitată la 330px, iar scena are 740px înălțime.
+  În browser, paharul mic superior era tăiat în varianta anterioară; după corecție,
+  toate cele trei pahare încap la repaus. Au fost adăugate dimensiunile intermediare
+  și în verificarea geometrică a tranzițiilor.
+- Browser: navigare între categorii, selecție directă Cold Brew Tonic, titlu lung
+  la 320px, fotografii încărcate și fără mesaje de eroare/avertizare în jurnalul
+  capturat. Homepage-ul și celelalte pagini nu au fost modificate în acest pas.
