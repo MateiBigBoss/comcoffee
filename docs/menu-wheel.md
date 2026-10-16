@@ -6,8 +6,8 @@ Actualizare: 16 octombrie 2026. Ramură: `codex/menu-coffee-wheel`.
 
 O singură scenă colorată: titlul băuturii și descrierea în stânga, fotografia
 principală în centru, cantitățile și shoturile în dreapta. Categoriile sunt sus,
-într-un selector compact. Arcul de 3px din spatele paharului păstrează ideea de
-roată, cu un accent care se rotește. Fără cadran, gradații sau numerotare.
+într-un selector compact. Semicercul decorativ a fost eliminat la cererea
+proprietarului; ideea de roată rămâne în traseul animat al paharelor.
 
 Cele 12 fundaluri sunt definite prin `data-scene` în `site/cafea.html`, în tonuri
 de caramel, crem și salvie. `data-color` controlează accentul; nu reprezintă o
@@ -109,3 +109,19 @@ au trecut și ele; testele formularului nu trimit emailuri și nu confirmă livr
 - Browser: navigare între categorii, selecție directă Cold Brew Tonic, titlu lung
   la 320px, fotografii încărcate și fără mesaje de eroare/avertizare în jurnalul
   capturat. Homepage-ul și celelalte pagini nu au fost modificate în acest pas.
+
+## Fișa băuturii simplificată
+
+Porția și volumul bazei de cafea sunt aliniate în două coloane. Boabele sunt
+poziționate sub volumul cafelei, iar ingredientele și servirea sunt grupate dedesubt,
+cu separatoare fine. Valorile, descrierile și convențiile pentru cold brew/Babyccino
+sunt neschimbate. Pe mobil fișa se așază sub scenă, cu aceleași alinieri.
+
+Semicercul, punctul și linia indicatoare au fost scoase din HTML/CSS, împreună cu
+starea JavaScript folosită exclusiv pentru rotirea arcului. Tranzițiile fotografiilor
+sunt păstrate. Navigarea circulară din tastatură respectă acum sensul apăsat inclusiv
+la trecerea dintre ultima și prima băutură; testul verifică păstrarea imaginii vecine.
+
+Verificări suplimentare în browser: 320px, 901px și 1440px; Babyccino și Cold Brew
+Tonic, absența semicercului și încadrarea valorilor de trei cifre. La 901px s-a corectat
+spațiul dintre coloanele de cantități. Nu au apărut erori în jurnalul capturat.

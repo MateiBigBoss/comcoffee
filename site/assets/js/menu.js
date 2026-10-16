@@ -150,7 +150,7 @@
     const length = end-start+1;
     const index = event.key==='Home'?start:event.key==='End'?end:start+((desired-start+step+length)%length);
     if (groups.includes(group)) choices[index].focus();
-    choose(index);
+    choose(index, event.key==='Home'||event.key==='End' ? undefined : step);
   }));
   reduce.addEventListener('change',()=>{ if(reduce.matches) clearAnimations(); });
   root.querySelectorAll('[data-interactive]').forEach(el=>{el.hidden=false;});

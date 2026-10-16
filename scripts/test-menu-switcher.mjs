@@ -125,8 +125,10 @@ assert.equal(elements.get('[data-drink-name]').textContent,'Cortado');
 assert.equal(tabs[0].attrs['aria-pressed'],'true');
 assert.equal(groups[0].hidden,false);
 elements.get('[data-drink-next]').handlers.keydown({key:'End',preventDefault(){}});await pause(20);
+const keyboardIncoming=neighborCard(1).children[0];
 elements.get('[data-drink-next]').handlers.keydown({key:'ArrowRight',preventDefault(){}});await pause(20);
 assert.equal(elements.get('[data-drink-name]').textContent,'Espresso','keyboard arrows wrap like buttons');
+assert.equal(wheelHost.children.find(spoke=>spoke.children[0].style.opacity===1).children[0].children[0],keyboardIncoming,'keyboard wrap follows the forward neighbor instead of jumping backward');
 // Every recipe keeps its full description, composition, serving and quantities.
 for(let i=0;i<choices.length;i++) {
  choices[i].click();await pause(20);

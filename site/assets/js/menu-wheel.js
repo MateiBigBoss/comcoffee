@@ -7,7 +7,6 @@ class CoffeeWheel {
     this.select = select;
     this.reduce = reduce;
     this.current = 0;
-    this.turn = 0;
     this.animations = [];
     this.slots = [-2, -1, 0, 1, 2].map(offset => {
       const spoke = document.createElement('div');
@@ -119,8 +118,6 @@ class CoffeeWheel {
     // Adjacent selections share the same cup throughout the entire arc.
     const adjacent = this.neighbor(this.current, direction) === index;
     this.cancel();
-    this.turn -= direction * 62;
-    this.host.parentElement.style.setProperty('--wheel-turn', `${this.turn}deg`);
     this.theme(index);
     this.host.classList.add('is-turning');
     if (adjacent) {
