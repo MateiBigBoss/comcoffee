@@ -107,7 +107,7 @@
   tabs.forEach((button,i)=>button.addEventListener('click',()=>{ category=i; choose(i===0?0:7); }));
   prev.addEventListener('click',()=>choose(desired <= bounds()[0] ? bounds()[1] : desired-1,-1));
   next.addEventListener('click',()=>choose(desired >= bounds()[1] ? bounds()[0] : desired+1,1));
-  const keyTargets = wheel ? [...groups,wheelHost.parentElement] : groups;
+  const keyTargets = wheel ? [...groups,wheelHost.parentElement,prev,next] : groups;
   keyTargets.forEach(group=>group.addEventListener('keydown',event=>{
     if (event.ctrlKey || event.metaKey || event.altKey) return;
     if(!['ArrowRight','ArrowDown','ArrowLeft','ArrowUp','Home','End'].includes(event.key)) return;

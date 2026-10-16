@@ -3,6 +3,7 @@ class CoffeeWheel {
   constructor(host, choices, select, reduce) {
     this.host = host;
     this.choices = choices;
+    this.scene = host.parentElement.parentElement;
     this.select = select;
     this.reduce = reduce;
     this.current = 0;
@@ -45,8 +46,8 @@ class CoffeeWheel {
       angle: offset * 62,
       // Shrink early when leaving and grow late when arriving, leaving room
       // between cups even halfway around the arc.
-      scale: .4 + .6 * Math.pow(Math.max(0, 1 - distance), 2.8),
-      opacity: distance <= 1 ? .26 + .74 * Math.pow(1 - distance, 1.4) : Math.max(0, .26 * (2 - distance))
+      scale: .32 + .68 * Math.pow(Math.max(0, 1 - distance), 2.8),
+      opacity: distance <= 1 ? .26 + .74 * Math.pow(1 - distance, 1.4) : Math.max(0, .26 * Math.pow(Math.max(0, 2 - distance), 3))
     };
   }
   orbit(angle) {
@@ -58,7 +59,7 @@ class CoffeeWheel {
     const x = .55 * Math.sin(radians) + .12 * (Math.cos(radians) - 1)
       + extra * (.55 * Math.cos(radians) - .12 * Math.sin(radians));
     const y = Math.sin(radians) + extra * Math.cos(radians);
-    return `translate(calc(var(--orbit-radius) * ${x}), calc(var(--orbit-radius) * ${y}))`;
+    return `translate(calc(var(--orbit-radius) * ${x} * var(--orbit-spread)), calc(var(--orbit-radius) * ${y} * var(--orbit-rise)))`;
   }
   pose(slot, offset) {
     const shape = this.shape(offset);
@@ -81,7 +82,13 @@ class CoffeeWheel {
       slot.card.setAttribute('aria-hidden', String(slot.card.disabled));
       this.pose(slot, slot.offset);
     }
-    this.host.parentElement.style.setProperty('--coffee-accent', this.choices[index].dataset.color);
+    this.theme(index);
+  }
+  theme(index) {
+    const data = this.choices[index].dataset;
+    this.host.parentElement.style.setProperty('--coffee-accent', data.color);
+    this.scene?.style.setProperty('--coffee-accent', data.color);
+    this.scene?.style.setProperty('--scene-color', data.scene || '#ddd2bf');
   }
   cancel() {
     this.animations.forEach(animation => animation.cancel());
@@ -114,7 +121,7 @@ class CoffeeWheel {
     this.cancel();
     this.turn -= direction * 62;
     this.host.parentElement.style.setProperty('--wheel-turn', `${this.turn}deg`);
-    this.host.parentElement.style.setProperty('--coffee-accent', this.choices[index].dataset.color);
+    this.theme(index);
     this.host.classList.add('is-turning');
     if (adjacent) {
       await this.animateShift(direction);

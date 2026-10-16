@@ -1,71 +1,64 @@
-# Roata de cafea — 16 octombrie 2026
+# Meniu — prezentare inspirată de referința proprietarului
 
-## Scop
+Actualizare: 16 octombrie 2026. Ramură: `codex/menu-coffee-wheel`.
 
-Pagina Meniu urmează schița proprietarului: semicerc în stânga, fotografie mare
-pentru băutura selectată, vecine transparente deasupra și dedesubt, detalii în
-dreapta. Homepage-ul și efectul logo-ului sunt păstrate.
+## Compoziție
 
-Ramură: `codex/menu-coffee-wheel`, bază locală `8433b68`. Preluarea de pe origin
-a eșuat din cauza conexiunii Git; această versiune nu pretinde sincronizarea cu
-eventuale modificări mai recente de pe GitHub.
+O singură scenă colorată: titlul băuturii și descrierea în stânga, fotografia
+principală în centru, cantitățile și shoturile în dreapta. Categoriile sunt sus,
+într-un selector compact. Arcul de 3px din spatele paharului păstrează ideea de
+roată, cu un accent care se rotește. Fără cadran, gradații sau numerotare.
 
-## Comportament și fișiere
+Cele 12 fundaluri sunt definite prin `data-scene` în `site/cafea.html`, în tonuri
+de caramel, crem și salvie. `data-color` controlează accentul; nu reprezintă o
+măsurătoare a cofeinei. Textul rămâne închis la culoare pe toate fundalurile.
 
-- `site/cafea.html`: păstrează toate cele 12 rețete, ml și shoturi; adaugă conturul,
-  lista pliabilă și comenzile lângă roată. `data-color` controlează conturul;
-  culoarea reprezintă vizual băutura, nu o măsurătoare de cofeină. Pentru schimbarea
-  nuanței, actualizează și `--drink-color` al bulinei corespunzătoare.
-- `site/assets/css/menu.css`: contur semicircular exterior în dreapta paharului,
-  linie scurtă orientată spre pahar. Fundalul preia culoarea băuturii amestecată
-  cu crem, cu o lumină radială și o umbră ovală sub fiecare pahar. Conturul are acum 6px, o nuanță unitară derivată din băutură
-  și un accent tonal care urmărește rotirea. Traseul punctat și segmentele
-  multicolore au fost eliminate. Linia scurtă are 4px și capete rotunjite, iar
-  reperul selecției are 12px. O bandă de 36px cu muchie luminoasă și umbră discretă
-  dă profunzime conturului. Gradațiile radiale din bandă se rotesc odată cu paharele,
-  la aceeași durată și aceeași accelerare, în timp ce indicatorul și linia de
-  selecție rămân fixe. Reperele principale sunt la 31°, jumătate din pasul de 62°;
-  astfel, după fiecare pas, un reper se aliniază din nou cu indicatorul.
-  Adaptare pe o coloană sub 700px.
-- `site/assets/js/menu-wheel.js`: cinci poziții orbitale, dintre care trei vizibile.
-  Fotografiile rămân drepte. Băutura centrală este mare (84%, maximum 500px pe
-  desktop), vecinele sunt la 40% din această dimensiune și la 26% opacitate.
-  Pe traseul de 62°, paharul care pleacă se micșorează devreme, iar cel care vine
-  crește târziu: 21 de cadre cheie previn suprapunerea la mijlocul tranziției.
-  Referința vizuală din 16 octombrie este adaptată într-o orbită proiectată:
-  următoarea băutură vine din dreapta-jos spre centru, iar cea precedentă se
-  retrage spre stânga-sus. Traseul se prelungește tangent în afara scenei pentru
-  a evita revenirea fotografiilor ascunse peste cele vizibile.
-  Pașii vecini folosesc o mișcare comună de 920ms și reciclează numai elementul
-  invizibil; fotografia care ajunge în centru își păstrează nodul și sursa, evitând
-  un schimb vizibil la final. Salturile directe și schimbările de categorie folosesc
-  ieșire/intrare de 460ms pe fază. Sosirea adaugă o așezare verticală discretă de 6px.
-  Segmentele colorate ale conturului se rotesc în aceeași direcție.
-- `site/assets/js/menu.js`: încărcare înaintea schimbării, selecții rapide,
-  tranziția textului simultană cu mișcarea paharului (ieșire 160ms, intrare 600ms), navigare circulară în categorie și tastatură.
-- `scripts/test-menu-switcher.mjs`: teste integrate ale roții și selectorului.
+Fotografia principală își păstrează proporțiile și limita de 500px pe desktop.
+Vecinele au 32% din dimensiunea principală și 26% opacitate. Umbra ovală sugerează
+suspendarea produsului. Lista cu buline rămâne într-o coloană, sub prezentare,
+și se deschide la cerere; nu modifică înălțimea scenei.
 
-Săgețile și lista se folosesc cu tastatura. Home/End aleg prima/ultima băutură;
-săgețile tastaturii funcționează în listă și în zona roții. Nu interceptăm scrollul.
-Preferința pentru mișcare redusă elimină animația; fără JavaScript rămân fotografia
-inițială și meniul complet. La eroare de încărcare rămâne băutura precedentă și
-apare posibilitatea de reîncercare. Nu sunt adăugate biblioteci sau fotografii noi.
+Sub 900px: titlu, scenă, săgeți, cantități și contact pe o coloană. Fotografia
+principală are maximum 336px. Traseul este mai vertical pentru a încăpea pe mobil.
+Homepage-ul, celelalte pagini, fotografiile, rețetele și cantitățile sunt păstrate.
 
-## Verificare
+## Mișcare
 
-Verificările automate pentru site și meniul interactiv au trecut, inclusiv
-sincronizarea fotografiei centrale, culorii și detaliilor, scara diferită a
-fotografiilor centrale/secundare și păstrarea nodului imaginii la sosire, rotirea peste capetele
-categoriei, click pe vecini, selecții rapide, reîncercare după eroare, tastatură și
-mișcare redusă. Testul calculează și separarea casetelor tuturor fotografiilor vizibile
-în timpul mișcării în 101 poziții din cadrele reale ale animației, la șase dimensiuni de scenă,
-inclusiv între cadrele cheie. Aspectul și animația pe desktop/mobil necesită verificare vizuală:
-instrumentul de browser nu a pornit în această sesiune (eroare la inițializarea
-fișierelor sale). Testele automate nu înlocuiesc această verificare.
+`site/assets/js/menu-wheel.js` proiectează o orbită diagonală: următoarea cafea
+vine din dreapta-jos și crește spre centru; precedenta se micșorează spre stânga-sus.
+Săgeata inversă parcurge traseul înapoi. Pe desktop, traseul este mai lat și mai
+puțin înalt; pe mobil rămâne compact. Cupa nu se deformează și rămâne verticală.
 
-Previzualizare: `node scripts/serve.mjs 4191`, apoi
-<http://127.0.0.1:4191/cafea.html>.
+Pașii vecini durează 920ms. Salturile directe au două faze de 460ms, ieșire și
+intrare. Fotografia se încarcă înaintea tranziției. Elementul care ajunge în
+centru este păstrat, fără schimbarea sursei vizibile la final. Intrarea cupelor
+depărtate este întârziată prin opacitate pentru a nu se suprapune cu vecinele.
 
-Implementarea folosește capturile furnizate ca referință pentru direcția și compoziția
-tranziției; nu pretinde reproducerea exactă a temporizării videoclipului.
-Homepage-ul, fotografiile originale, rețetele și cantitățile sunt neschimbate.
+`site/assets/js/menu.js` sincronizează textul cu mișcarea: ieșire de 160ms,
+intrare de 600ms. Fundalul se schimbă în aceeași perioadă. Cantitățile, boabele,
+categoria și fotografia corespund selecției. Selecțiile rapide păstrează ultima
+intenție. La eroare, selecția precedentă rămâne disponibilă și se poate reîncerca.
+
+Săgețile, lista și categoriile sunt accesibile din tastatură. Home/End și săgețile
+funcționează inclusiv pe butoanele de navigare mutate lângă titlu. Mișcarea redusă
+elimină animațiile. Fără JavaScript rămân prima băutură și meniul complet.
+
+## Verificare și previzualizare
+
+- `node scripts/check-site.mjs`: legături, ancore, resurse și sintaxă.
+- `node scripts/test-menu-switcher.mjs`: 12 fotografii, selecții rapide, categorii,
+  reîncercare, ml/shoturi, culori, nodul imaginii, navigare circulară și tastatură.
+  Verifică separarea casetelor fotografiilor vizibile în 101 momente ale tranziției,
+  la șase dimensiuni de scenă, pe traseul desktop și mobil.
+- `git diff --check`: formatarea modificărilor.
+
+Browserul de automatizare nu oferă suprafețe disponibile în sesiunea curentă;
+aspectul la desktop/mobil și tranzițiile necesită confirmare vizuală. Testele
+nu reprezintă o verificare vizuală. Capturile proprietarului ghidează compoziția,
+fără a pretinde reproducerea exactă a temporizării videoclipului.
+
+Previzualizare pe calculator, din acest folder:
+
+    node scripts/serve.mjs 4191
+
+Deschide http://127.0.0.1:4191/cafea.html. Nu este publicat pe internet.
