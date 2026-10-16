@@ -11,9 +11,11 @@
   const prev = root.querySelector('[data-drink-prev]');
   const next = root.querySelector('[data-drink-next]');
   const status = root.querySelector('[data-menu-status]');
+  const retry = root.querySelector('[data-menu-retry]');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   const cache = new Map();
   let current = 0, desired = 0, category = 0, running = false, requestedDirection = 1;
+  let failedTarget = null, retryCurrent = false, selectionVersion = 0;
   const bounds = () => category === 0 ? [0,6] : [7,11];
   function load(index) {
     if (!cache.has(index)) {
@@ -41,6 +43,9 @@
     photo.alt = `${name} în paharul com.`;
     root.querySelector('[data-drink-name]').textContent = name;
     root.querySelector('[data-drink-note]').textContent = button.dataset.note;
+    root.querySelector('[data-drink-description]').textContent = button.dataset.description;
+    root.querySelector('[data-drink-composition]').textContent = button.dataset.composition;
+    root.querySelector('[data-drink-serving]').textContent = button.dataset.serving;
     root.querySelector('[data-drink-volume]').textContent = `${button.dataset.volume} ml`;
     root.querySelector('[data-coffee-label]').textContent = button.dataset.coffeeLabel;
     root.querySelector('[data-coffee-volume]').textContent = `${button.dataset.coffeeMl} ml`;
@@ -64,14 +69,20 @@
     if (running) return;
     running = true;
     try {
-      while (current !== desired) {
+      while (current !== desired || retryCurrent) {
+        retryCurrent = false;
         const target = desired;
         let image;
         status.textContent = 'Pregătim fotografia…';
         try { image = await load(target); }
-        catch { if(target !== desired) continue; desired=current; category=current<7?0:1; controls(); status.textContent='Fotografia nu s-a încărcat. Alege din nou băutura pentru a reîncerca.'; break; }
+        catch { if(target !== desired) continue; failedTarget=target; desired=current; category=current<7?0:1; controls(); status.textContent='Fotografia nu s-a încărcat. Poți reîncerca sau alege altă băutură.'; retry.hidden=false; break; }
         if (target !== desired) continue;
         status.textContent = '';
+        if (target === current) {
+          wheel?.render(target, true);
+          render(target,image);
+          continue;
+        }
         const direction = requestedDirection;
         if (wheel) {
           // Text and color change during the cup's journey, not after it.
@@ -100,9 +111,22 @@
       }
     } finally { running=false; }
   }
-  function choose(index, direction = index >= desired ? 1 : -1) { requestedDirection=direction || 1; desired=index; controls(); switchDrink(); }
+  function choose(index, direction = index >= desired ? 1 : -1, force = false) {
+    if (!Number.isInteger(index) || !choices[index]) return;
+    selectionVersion++;
+    requestedDirection=direction || 1;
+    desired=index;
+    category=index<7?0:1;
+    retryCurrent=force && index===current;
+    failedTarget=null;
+    retry.hidden=true;
+    status.textContent='';
+    controls();
+    switchDrink();
+  }
   const wheelHost = root.querySelector('[data-wheel]');
   const wheel = wheelHost && typeof CoffeeWheel !== 'undefined' ? new CoffeeWheel(wheelHost,choices,choose,reduce) : null;
+  retry.addEventListener('click',()=>{ if(failedTarget!==null) choose(failedTarget,1,true); });
   choices.forEach((button,i)=>button.addEventListener('click',()=>choose(i)));
   tabs.forEach((button,i)=>button.addEventListener('click',()=>{ category=i; choose(i===0?0:7); }));
   prev.addEventListener('click',()=>choose(desired <= bounds()[0] ? bounds()[1] : desired-1,-1));
@@ -113,14 +137,21 @@
     if(!['ArrowRight','ArrowDown','ArrowLeft','ArrowUp','Home','End'].includes(event.key)) return;
     event.preventDefault();
     const [start,end]=bounds();
-    let index = event.key==='Home'?start:event.key==='End'?end:Math.max(start,Math.min(end,desired+(['ArrowRight','ArrowDown'].includes(event.key)?1:-1)));
+    const step = ['ArrowRight','ArrowDown'].includes(event.key)?1:-1;
+    const length = end-start+1;
+    const index = event.key==='Home'?start:event.key==='End'?end:start+((desired-start+step+length)%length);
     if (groups.includes(group)) choices[index].focus();
     choose(index);
   }));
   reduce.addEventListener('change',()=>{ if(reduce.matches) clearAnimations(); });
   root.querySelectorAll('[data-interactive]').forEach(el=>{el.hidden=false;});
   controls();
-  load(0).catch(()=>{});
+  load(0).catch(()=>{
+    if (selectionVersion !== 0) return;
+    failedTarget=0;
+    status.textContent='Fotografia nu s-a încărcat. Poți reîncerca sau alege altă băutură.';
+    retry.hidden=false;
+  });
   // Fetch likely next image only, instead of downloading the whole menu on arrival.
   load(1).catch(()=>{});
 })();

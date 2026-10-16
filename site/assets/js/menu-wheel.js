@@ -68,14 +68,14 @@ class CoffeeWheel {
     slot.card.style.opacity = shape.opacity;
     slot.spoke.style.zIndex = offset === 0 ? 3 : 1;
   }
-  render(index) {
+  render(index, refresh = false) {
     this.current = index;
     for (const slot of this.slots) {
       slot.index = this.neighbor(index, slot.offset);
       const choice = this.choices[slot.index];
       const name = choice.lastElementChild.textContent;
       const src = `assets/img/menu/${choice.dataset.slug}.png`;
-      if (slot.image.getAttribute('src') !== src) slot.image.src = src;
+      if (slot.image.getAttribute('src') !== src || (refresh && slot.offset === 0)) slot.image.src = src;
       slot.label.textContent = '';
       slot.card.setAttribute('aria-label', `Alege ${name}`);
       slot.card.disabled = slot.offset === 0 || Math.abs(slot.offset) > 1;
@@ -142,14 +142,5 @@ class CoffeeWheel {
       this.cancel();
     }
     this.host.classList.remove('is-turning');
-    if (!this.reduce.matches && this.host.animate) {
-      const selected = this.slots.find(slot => slot.offset === 0);
-      const settle = selected.image.animate([
-        { transform: 'translateY(0)' },
-        { transform: 'translateY(-6px)', offset: .4 },
-        { transform: 'translateY(0)' }
-      ], { duration: 420, easing: 'ease-in-out' });
-      this.animations.push(settle);
-    }
   }
 }

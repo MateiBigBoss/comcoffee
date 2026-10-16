@@ -26,8 +26,8 @@ Homepage-ul, celelalte pagini, fotografiile, rețetele și cantitățile sunt p�
 
 `site/assets/js/menu-wheel.js` proiectează o orbită diagonală: următoarea cafea
 vine din dreapta-jos și crește spre centru; precedenta se micșorează spre stânga-sus.
-Săgeata inversă parcurge traseul înapoi. Pe desktop, traseul este mai lat și mai
-puțin înalt; pe mobil rămâne compact. Cupa nu se deformează și rămâne verticală.
+Săgeata inversă parcurge traseul înapoi. Traseul rămâne în interiorul scenei, separat de text și de cantități;
+pe mobil este adaptat la spațiul disponibil. Cupa nu se deformează și rămâne verticală.
 
 Pașii vecini durează 920ms. Salturile directe au două faze de 460ms, ieșire și
 intrare. Fotografia se încarcă înaintea tranziției. Elementul care ajunge în
@@ -48,8 +48,11 @@ elimină animațiile. Fără JavaScript rămân prima băutură și meniul compl
 - `node scripts/check-site.mjs`: legături, ancore, resurse și sintaxă.
 - `node scripts/test-menu-switcher.mjs`: 12 fotografii, selecții rapide, categorii,
   reîncercare, ml/shoturi, culori, nodul imaginii, navigare circulară și tastatură.
-  Verifică separarea casetelor fotografiilor vizibile în 101 momente ale tranziției,
-  la șase dimensiuni de scenă, pe traseul desktop și mobil.
+  Verifică separarea contururilor dreptunghiulare conservatoare ale fotografiilor
+  vizibile în 101 momente din fiecare fază, la șapte dimensiuni. Contururile includ
+  întregul pahar: au fost măsurate limitele alfa ale celor 12 PNG-uri, fără a
+  considera marginile complet transparente drept suprapuneri. Verifică și
+  încadrarea în scenă a fotografiilor la repaus.
 - `git diff --check`: formatarea modificărilor.
 
 Browserul de automatizare nu oferă suprafețe disponibile în sesiunea curentă;
@@ -62,3 +65,32 @@ Previzualizare pe calculator, din acest folder:
     node scripts/serve.mjs 4191
 
 Deschide http://127.0.0.1:4191/cafea.html. Nu este publicat pe internet.
+
+## Audit și corecții — 16 octombrie
+
+- Scena este decupată separat de text: fotografiile nu mai pot trece peste titlu,
+  descriere sau cantități. Raza desktop este limitată la 350px. Înălțimile au fost
+  corectate inclusiv pentru ecranele înguste, pentru ca vecinele să încapă la repaus.
+- Descriere, compoziție și servire pentru fiecare băutură: `data-description`,
+  `data-composition`, `data-serving`. Sunt texte generale, de ajustat de proprietar
+  după rețetele exacte; nu includ origini, note de degustare specifice, opțiuni de
+  lapte sau afirmații despre alergeni neconfirmate. Datele inițiale în ml și
+  numărul boabelor sunt păstrate. Legenda explică simbolurile și cantitățile orientative.
+- Spațiul pentru boabe rămâne rezervat și la cold brew, pentru a evita deplasarea
+  cantităților; simbolurile rămân ascunse la ambele variante cold brew.
+- Categoria este recalculată la fiecare selecție, inclusiv când utilizatorul
+  apasă o fotografie încă vizibilă în timpul încărcării altei categorii.
+- Fotografiile eșuate pot fi reîncărcate explicit, inclusiv imaginea inițială.
+- Navigarea cu săgețile tastaturii este circulară, ca butoanele; Home/End rămân.
+- Mișcarea suplimentară de 6px după sosire a fost eliminată. Preferința pentru
+  mișcare redusă și păstrarea ultimei selecții sunt în continuare respectate.
+- Contrastul textelor mici din scenă a fost verificat numeric pentru cele 12
+  palete, inclusiv stratul închis de fundal și categoria inactivă. Contrastul minim de
+  4,5:1 este acum verificat automat. Textul secundar exterior a fost închis.
+
+Limită: fără browser disponibil, această verificare acoperă codul, datele,
+geometria calculată și comportamentul simulat. Nu confirmă randarea efectivă,
+fonturile și animațiile în Safari/Chrome pe un dispozitiv real.
+
+Verificările automate pentru paginile interioare, formular și efectul logo-ului
+au trecut și ele; testele formularului nu trimit emailuri și nu confirmă livrarea.
