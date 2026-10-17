@@ -131,8 +131,11 @@ spațiul dintre coloanele de cantități. Nu au apărut erori în jurnalul captu
 ## Ieșirea băuturii precedente — 17 octombrie
 
 La următorul pas, cafeaua vizualizată iese din scenă și ajunge la opacitate zero.
-Următoarea așteaptă jos-dreapta, deplasată cu aproximativ 58% din raza traseului
+Următoarea așteaptă jos-dreapta, deplasată cu aproximativ 31% din raza traseului
 față de centrul fotografiei principale. Nu este mutată la marginea extremă.
 Butonul „anterioară” și tastatura permit în continuare revenirea; miniatura ascunsă
 nu mai este clicabilă. Testele verifică o singură miniatură vizibilă, ieșirea completă,
 separarea fotografiilor pe traseu și păstrarea nodului imaginii la sosire.
+
+Ajustare: doar miniatura următoare a fost adusă spre stânga, mai aproape de centru.
+Poziția și dimensiunea cafelei principale sunt neschimbate.
