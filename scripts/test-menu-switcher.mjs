@@ -76,7 +76,7 @@ const arriving=cupFrames.find(frames=>frames.at(-1).transform.endsWith('scale(1)
 assert(departing&&arriving);
 assert.equal(departing.at(-1).opacity,0,'skipped cup disappears completely');
 const orbitFrames = frames => travel[travel.indexOf(frames)-1];
-assert(orbitXY(orbitFrames(arriving)[0].transform)[0]<0 && orbitXY(orbitFrames(arriving)[0].transform)[1]>0,'next cup starts slightly below-left');
+assert(orbitXY(orbitFrames(arriving)[0].transform)[0]>0 && orbitXY(orbitFrames(arriving)[0].transform)[1]>0,'next cup starts below-right');
 assert(orbitXY(orbitFrames(departing).at(-1).transform).every(value=>value<0),'previous cup retreats above and to the left');
 function interpolate(frames,progress,value){const at=progress*20,lo=Math.floor(at),hi=Math.min(20,lo+1);const a=value(frames[lo]),b=value(frames[hi]);return a+(b-a)*(at-lo);}
 function assertSeparation(cupFrames,orbitFrames) {
