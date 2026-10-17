@@ -54,10 +54,10 @@ class CoffeeWheel {
     const radians = edge * Math.PI / 180;
     const extra = (angle - edge) * Math.PI / 180;
     // The previous cup travels beyond the left edge, instead of remaining
-    // as a thumbnail. The upcoming cup waits below-right, closer to the center.
+    // as a thumbnail. The upcoming cup waits in the lower-right corner.
     const position = angle / 62;
     const x = position < 0 ? 2.3 * position
-      : .35 * Math.sin(radians) + extra * .35 * Math.cos(radians);
+      : .66 * Math.sin(radians) + extra * .66 * Math.cos(radians);
     const y = position < 0 ? 1.6 * position
       : Math.sin(radians) + extra * Math.cos(radians);
     return `translate(calc(var(--orbit-radius) * ${x} * var(--orbit-spread)), calc(var(--orbit-radius) * ${y} * var(--orbit-rise)))`;
