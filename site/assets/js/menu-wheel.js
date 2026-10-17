@@ -57,7 +57,7 @@ class CoffeeWheel {
     // as a thumbnail. The upcoming cup waits in the lower-right corner.
     const position = angle / 62;
     const x = position < 0 ? 2.3 * position
-      : .55 * Math.sin(radians) + extra * .55 * Math.cos(radians);
+      : .66 * Math.sin(radians) + extra * .66 * Math.cos(radians);
     const y = position < 0 ? 1.6 * position
       : Math.sin(radians) + extra * Math.cos(radians);
     return `translate(calc(var(--orbit-radius) * ${x} * var(--orbit-spread)), calc(var(--orbit-radius) * ${y} * var(--orbit-rise)))`;
