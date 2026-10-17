@@ -40,8 +40,8 @@ function assertWheel(slug,color){
  assert.equal(wheelHost.parentElement.style['--coffee-accent'],color);
  assert.equal(wheelHost.parentElement.parentElement.style['--scene-color'],choices.find(choice=>choice.dataset.slug===slug).dataset.scene);
  const cards=wheelHost.children.map(spoke=>spoke.children[0]);
- assert.equal(cards.filter(card=>card.style.opacity===.26).length,2);
- assert.equal(cards.filter(card=>card.style.opacity===0&&card.disabled).length,2);
+ assert.equal(cards.filter(card=>card.style.opacity===.26).length,1);
+ assert.equal(cards.filter(card=>card.style.opacity===0&&card.disabled).length,3);
  cards.forEach(card=>assert.match(card.style.transform,card.style.opacity===1 ? /scale\(1\)$/ : /scale\(0\.32\)$/, 'only the selected cup uses full size'));
  assert(!wheelHost.classList.contains('is-turning'),'wheel releases pointer after movement');
 }
@@ -74,8 +74,9 @@ const cupFrames=travel.filter(frames=>frames.length===21&&frames[0].transform.in
 const departing=cupFrames.find(frames=>frames[0].transform.endsWith('scale(1)'));
 const arriving=cupFrames.find(frames=>frames.at(-1).transform.endsWith('scale(1)'));
 assert(departing&&arriving);
+assert.equal(departing.at(-1).opacity,0,'skipped cup disappears completely');
 const orbitFrames = frames => travel[travel.indexOf(frames)-1];
-assert(orbitXY(orbitFrames(arriving)[0].transform).every(value=>value>0),'next cup starts below and to the right');
+assert(orbitXY(orbitFrames(arriving)[0].transform)[0]<0 && orbitXY(orbitFrames(arriving)[0].transform)[1]>0,'next cup starts slightly below-left');
 assert(orbitXY(orbitFrames(departing).at(-1).transform).every(value=>value<0),'previous cup retreats above and to the left');
 function interpolate(frames,progress,value){const at=progress*20,lo=Math.floor(at),hi=Math.min(20,lo+1);const a=value(frames[lo]),b=value(frames[hi]);return a+(b-a)*(at-lo);}
 function assertSeparation(cupFrames,orbitFrames) {
@@ -114,8 +115,8 @@ groups[1].handlers.keydown({key:'Home',preventDefault(){}});await pause(25);asse
 tabs[0].click();await pause(20);
 for(let i=0;i<7;i++){elements.get('[data-drink-next]').click();await pause(15);}
 assertWheel('espresso','#513222');
-neighborCard(-1).click();await pause(20);
-assert.equal(elements.get('[data-drink-name]').textContent,'Latte','recycled neighbor retains its current click target');
+elements.get('[data-drink-prev]').click();await pause(20);
+assert.equal(elements.get('[data-drink-name]').textContent,'Latte','previous button still reaches the hidden previous drink');
 elements.get('[data-drink-next]').handlers.keydown({key:'Home',preventDefault(){}});await pause(25);
 assert.equal(elements.get('[data-drink-name]').textContent,'Espresso','keyboard navigation works beside the title');
 // Choosing an old visible neighbor while the new category is loading must
@@ -153,7 +154,7 @@ for(let i=0;i<allFrames.length;i+=10) {
  const phase=allFrames.slice(i,i+10);
  assertSeparation(phase.filter((_,n)=>n%2),frames=>phase[phase.indexOf(frames)-1]);
 }
-// At rest all three visible cup envelopes fit within their clipped stage.
+// At rest the selected cup and upcoming preview fit within their clipped stage.
 for(const [width,mobile,height,cap] of [[252,true,460,280],[302,true,460,280],[346,true,530,280],[500,true,600,280],[400,false,740,330],[514,false,740,330],[550,false,740,330],[560,false,780,350],[720,false,780,350]]) {
  const radius=Math.min(width*.7,cap),size=Math.min(width*.84,mobile?336:500);
  for(const spoke of wheelHost.children) {

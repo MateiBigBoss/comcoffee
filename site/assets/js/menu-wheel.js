@@ -1,4 +1,4 @@
-/* A projected orbit: the next cup rises from the lower right into focus. */
+/* The next cup waits below-left; the departing cup leaves the stage. */
 class CoffeeWheel {
   constructor(host, choices, select, reduce) {
     this.host = host;
@@ -46,18 +46,20 @@ class CoffeeWheel {
       // Shrink early when leaving and grow late when arriving, leaving room
       // between cups even halfway around the arc.
       scale: .32 + .68 * Math.pow(Math.max(0, 1 - distance), 2.8),
-      opacity: distance <= 1 ? .26 + .74 * Math.pow(1 - distance, 1.4) : Math.max(0, .26 * Math.pow(Math.max(0, 2 - distance), 3))
+      opacity: offset < 0 ? Math.pow(Math.max(0, 1 + offset), 1.4) : distance <= 1 ? .26 + .74 * Math.pow(1 - distance, 1.4) : Math.max(0, .26 * Math.pow(Math.max(0, 2 - distance), 3))
     };
   }
   orbit(angle) {
     const edge = Math.max(-62, Math.min(62, angle));
     const radians = edge * Math.PI / 180;
     const extra = (angle - edge) * Math.PI / 180;
-    // Project a circular path onto a diagonal ellipse. Extend its tangent
-    // offstage so the hidden cups never fold back into their visible neighbors.
-    const x = .55 * Math.sin(radians) + .12 * (Math.cos(radians) - 1)
-      + extra * (.55 * Math.cos(radians) - .12 * Math.sin(radians));
-    const y = Math.sin(radians) + extra * Math.cos(radians);
+    // The previous cup travels beyond the left edge, instead of remaining
+    // as a thumbnail. The upcoming cup waits slightly left of center.
+    const position = angle / 62;
+    const x = position < 0 ? 2.3 * position
+      : -.35 * Math.sin(radians) - extra * .35 * Math.cos(radians);
+    const y = position < 0 ? 1.6 * position
+      : Math.sin(radians) + extra * Math.cos(radians);
     return `translate(calc(var(--orbit-radius) * ${x} * var(--orbit-spread)), calc(var(--orbit-radius) * ${y} * var(--orbit-rise)))`;
   }
   pose(slot, offset) {
@@ -77,7 +79,7 @@ class CoffeeWheel {
       if (slot.image.getAttribute('src') !== src || (refresh && slot.offset === 0)) slot.image.src = src;
       slot.label.textContent = '';
       slot.card.setAttribute('aria-label', `Alege ${name}`);
-      slot.card.disabled = slot.offset === 0 || Math.abs(slot.offset) > 1;
+      slot.card.disabled = slot.offset !== 1;
       slot.card.setAttribute('aria-hidden', String(slot.card.disabled));
       this.pose(slot, slot.offset);
     }

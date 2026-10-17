@@ -14,7 +14,8 @@ de caramel, crem și salvie. `data-color` controlează accentul; nu reprezintă 
 măsurătoare a cofeinei. Textul rămâne închis la culoare pe toate fundalurile.
 
 Fotografia principală își păstrează proporțiile și limita de 500px pe desktop.
-Vecinele au 32% din dimensiunea principală și 26% opacitate. Umbra ovală sugerează
+Următoarea băutură are 32% din dimensiunea principală și 26% opacitate.
+Băutura precedentă rămâne în afara scenei, invizibilă și fără interacțiune. Umbra ovală sugerează
 suspendarea produsului. Lista cu buline rămâne într-o coloană, sub prezentare,
 și se deschide la cerere; nu modifică înălțimea scenei.
 
@@ -25,7 +26,8 @@ Homepage-ul, celelalte pagini, fotografiile, rețetele și cantitățile sunt p�
 ## Mișcare
 
 `site/assets/js/menu-wheel.js` proiectează o orbită diagonală: următoarea cafea
-vine din dreapta-jos și crește spre centru; precedenta se micșorează spre stânga-sus.
+vine de jos, ușor din stânga, și crește spre centru; precedenta iese complet
+prin stânga-sus, estompându-se. La repaus rămâne o singură miniatură: următoarea.
 Săgeata inversă parcurge traseul înapoi. Traseul rămâne în interiorul scenei, separat de text și de cantități;
 pe mobil este adaptat la spațiul disponibil. Cupa nu se deformează și rămâne verticală.
 
@@ -125,3 +127,12 @@ la trecerea dintre ultima și prima băutură; testul verifică păstrarea imagi
 Verificări suplimentare în browser: 320px, 901px și 1440px; Babyccino și Cold Brew
 Tonic, absența semicercului și încadrarea valorilor de trei cifre. La 901px s-a corectat
 spațiul dintre coloanele de cantități. Nu au apărut erori în jurnalul capturat.
+
+## Ieșirea băuturii precedente — 17 octombrie
+
+La următorul pas, cafeaua vizualizată iese din scenă și ajunge la opacitate zero.
+Următoarea așteaptă jos-stânga, deplasată cu aproximativ 31% din raza traseului
+față de centrul fotografiei principale. Nu este mutată la marginea extremă.
+Butonul „anterioară” și tastatura permit în continuare revenirea; miniatura ascunsă
+nu mai este clicabilă. Testele verifică o singură miniatură vizibilă, ieșirea completă,
+separarea fotografiilor pe traseu și păstrarea nodului imaginii la sosire.
