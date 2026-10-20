@@ -32,20 +32,14 @@
       </div>
       <div class="hero-copy">
         <div class="brand-lockup" data-brand>
-          <!-- Original supplied PNG, clipped into letters. No redrawn or distorted logo. -->
+          <!-- Vector trace of brand-wordmark.png: each letter animates on its own and stays sharp at any size. -->
           <svg class="brand-logo" viewBox="140 190 790 205" role="img" aria-labelledby="brand-title">
             <title id="brand-title">com.</title>
             <defs>
-              <clipPath id="brand-c"><path d="M140 180h190v220H140z"/></clipPath>
-              <clipPath id="brand-o"><path d="M330 180h190v220H330z"/></clipPath>
-              <clipPath id="brand-m"><path d="M520 180h410v220H520z"/></clipPath>
-              <!-- Invert the original black-on-white logo into a luminance mask. -->
-              <filter id="brand-ink-inverse" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%">
-                <feColorMatrix type="matrix" values="-1 0 0 0 1  0 -1 0 0 1  0 0 -1 0 1  0 0 0 1 0"/>
-              </filter>
-              <mask id="brand-ink-mask" maskUnits="userSpaceOnUse" x="140" y="190" width="790" height="205" style="mask-type:luminance">
-                <image href="assets/img/brand-wordmark.png" width="1050" height="600" filter="url(#brand-ink-inverse)"/>
-              </mask>
+              <path id="brand-path-c" d="M230.5 198C196.7 201.9,168.4 221.7,154.5 251.3C149.2 262.4,147.8 269,147.3 284.4C146.4 308.3,150.1 323.7,160.7 340.3C173.1 359.8,191.2 371.4,217.4 376.7C229.9 379.3,254.1 379,264.4 376.2C286.5 370.1,306.7 354.7,317.7 335.5C320.9 330,320.9 330,317.7 327.8C315.9 326.6,313.1 324.6,311.4 323.3C308.2 320.9,308.2 320.9,305.6 325.4C301.7 332.1,293.2 340.9,286.6 345.2C278.3 350.5,269.6 353,259.1 353.1C244.7 353.1,236.1 349.3,226.5 338.8C214.5 325.5,209 308.2,209 283.6C209 247.1,218 222.6,234.7 214C243.1 209.7,256.9 210.4,265.8 215.6L270.2 218.2 266 222.3C260 228.2,257.5 234,257.6 242C257.7 249.9,259.5 254.4,264.9 260.3C272.5 268.6,283.9 271.2,296.3 267.6C308.2 264.1,313.5 255.9,313.5 241C313.4 234,313 231.5,310.8 226.8C304.5 213.2,290.5 203.7,270.7 199.6C261.3 197.7,240.8 196.9,230.5 198"/>
+              <path id="brand-path-o" d="M422.6 198.1C381.6 202.4,351.9 226.1,341.8 262.5C339.9 269.4,339.6 273,339.6 288C339.6 308.7,341.1 315.7,348.7 331C352.7 339.2,354.8 341.9,363.5 350.5C377.7 364.7,390.4 371.6,410.3 376.2C421.6 378.8,448.1 379.3,460 377.1C501.2 369.7,528.9 344,536.5 306.2C538.7 295.5,538.1 271.8,535.5 262C528.8 237,511 216.5,487 206.4C468.5 198.7,445.6 195.7,422.6 198.1M430.5 212.3C414.8 217.5,407 230.4,402.9 258C401.1 270,401.4 306.8,403.3 320C407.3 347,416.3 360.8,431.7 364C447.7 367.4,460.5 359.5,467.5 342.1C476.8 319.2,478.2 267.3,470.4 240.8C468.2 233.7,463.7 224.9,459.9 220.6C453.5 213.2,439.6 209.3,430.5 212.3"/>
+              <path id="brand-path-m" d="M676.2 200C662.6 203.6,655.9 207.5,642.3 219.8L634 227.2 634 215.3C634 199.3,635 200.1,614.5 201.1C605.7 201.6,585.5 202.6,569.5 203.5C553.6 204.3,536.4 205,531.3 205L522 205 522 211.9L522 218.8 540.3 218.7C558.6 218.5,558.6 218.5,564.5 221.5C568.5 223.5,571.4 225.9,573.5 228.8C576.5 233.2,576.5 233.2,576.5 291.5C576.5 348.9,576.5 349.9,574.4 352.7C571.5 356.7,566.1 359.1,558.2 359.8C551.5 360.5,551.5 360.5,551.2 366.8L550.9 373 602.5 373L654 373 654 366.7C654 360.5,654 360.5,648.9 359.3C646.1 358.6,642.3 357.1,640.5 356C633.9 351.9,634 352.7,634 296.8L634 246.4 639 240.8C645.3 233.7,651.9 229.5,660 227.4C677.3 223,689.9 231,692.9 248.4C694.4 256.7,694.4 347,692.9 352.2C691.7 356.9,688.2 358.9,679.7 359.8C673.5 360.5,673.5 360.5,673.2 366.8L672.9 373 722 373L771 373 771 366.6C771 360.3,771 360.3,766.9 359.6C760.9 358.6,755.3 355.4,753.3 351.7C751.7 348.8,751.5 344.1,751.2 298.2C750.9 247.8,750.9 247.8,754.7 242.9C759.4 236.6,764.6 232.5,771.8 229.2C776.5 227.1,779 226.6,786 226.6C795.3 226.6,798.5 227.7,803.2 232.7C807.6 237.3,809.9 243.9,811.1 255.4C812.5 269.8,811.9 349.5,810.3 353.2C808.6 357.1,805 359,797.9 359.8C791.5 360.5,791.5 360.5,791.2 366.8L790.9 373 844.2 373C895.6 373,897.7 372.9,902 370.9C920.5 362.6,924.8 338.9,910.2 325.8C904.4 320.6,900.5 318.8,893.4 318.2C885.7 317.6,878.8 319.8,873.2 324.5L869.2 328 868.8 285.8C868.4 246.7,868.2 242.9,866.2 235.8C863.3 225.1,859.7 218.5,853.1 211.9C842.2 201,831.5 197.6,811 198.2C788.9 199,777.1 204,758.9 220.3C753.5 225.1,748.9 229,748.7 229C748.4 229,746.5 226,744.4 222.4C737.6 210.8,727.1 203,713.5 199.5C704.9 197.3,685.6 197.6,676.2 200"/>
+              <clipPath id="brand-ink"><use href="#brand-path-c" clip-rule="evenodd"/><use href="#brand-path-o" clip-rule="evenodd"/><use href="#brand-path-m" clip-rule="evenodd"/></clipPath>
               <radialGradient id="brand-light-gradient">
                 <stop offset="0" stop-color="white"/>
                 <stop offset=".48" stop-color="white"/>
@@ -55,10 +49,10 @@
                 <circle data-brand-light cx="535" cy="292.5" r="110" fill="url(#brand-light-gradient)"/>
               </mask>
             </defs>
-            <g clip-path="url(#brand-c)" class="brand-letter letter-c"><image href="assets/img/brand-wordmark.png" width="1050" height="600"/></g>
-            <g clip-path="url(#brand-o)" class="brand-letter letter-o"><image href="assets/img/brand-wordmark.png" width="1050" height="600"/></g>
-            <g clip-path="url(#brand-m)" class="brand-letter letter-m"><image href="assets/img/brand-wordmark.png" width="1050" height="600"/></g>
-            <g class="brand-texture" mask="url(#brand-ink-mask)" aria-hidden="true">
+            <use href="#brand-path-c" class="brand-letter letter-c"/>
+            <use href="#brand-path-o" class="brand-letter letter-o"/>
+            <use href="#brand-path-m" class="brand-letter letter-m"/>
+            <g class="brand-texture" clip-path="url(#brand-ink)" aria-hidden="true">
               <g mask="url(#brand-light-mask)">
                 <image data-brand-texture href="assets/img/coffee-beans-texture.jpg" x="140" y="190" width="790" height="205" preserveAspectRatio="xMidYMid slice"/>
               </g>

@@ -15,10 +15,11 @@
 .eyebrow { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .12em; line-height: 1.6; }
 .brand-lockup { margin: 0; mix-blend-mode: multiply; }
 .brand-logo { width: 100%; height: auto; display: block; overflow: visible; }
-.brand-letter image { animation: brand-arrive 1100ms cubic-bezier(.18,.78,.18,1) both; }
-.letter-o image { animation-delay: 110ms; }
-.letter-m image { animation-delay: 220ms; }
-.brand-texture { opacity:0; pointer-events:none; transition:opacity 180ms ease; animation:brand-texture-ready 1320ms step-end both; }
+/* Letters rise from below one after another; nothing clips them, they fade in instead. */
+.brand-letter { fill: #000; fill-rule: evenodd; will-change: transform, opacity; animation: brand-rise 900ms cubic-bezier(.22,1,.36,1) both; }
+.letter-o { animation-delay: 320ms; }
+.letter-m { animation-delay: 640ms; }
+.brand-texture { opacity:0; pointer-events:none; transition:opacity 180ms ease; animation:brand-texture-ready 1600ms step-end both; }
 .brand-logo[data-reveal-active] .brand-texture { opacity:1; }
 /* Wait for all three letters to arrive before showing the stationary texture. */
 @keyframes brand-texture-ready { from { visibility:hidden; } to { visibility:visible; } }
@@ -111,7 +112,11 @@
 .home-footer .wordmark { display: block; margin-bottom: 18px; }
 .home-footer p, .home-footer a { font-size: 12px; text-decoration: none; line-height: 1.8; }
 .home-footer .footer-legal { color: #626559; font-size: 10px; display: flex; justify-content: space-between; margin-top: 20px; }
-@keyframes brand-arrive { from { transform: translateY(210px); } to { transform: translateY(0); } }
+@keyframes brand-rise {
+  from { opacity: 0; transform: translateY(90px); }
+  60% { opacity: 1; }
+  to { opacity: 1; transform: none; }
+}
 @keyframes signature-arrive { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes signature-text { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @media (min-width: 1600px) { .home { --home-pad: max(80px,calc((100vw - 1440px)/2)); } }
