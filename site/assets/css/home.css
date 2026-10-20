@@ -18,6 +18,13 @@
 .brand-letter image { animation: brand-arrive 1100ms cubic-bezier(.18,.78,.18,1) both; }
 .letter-o image { animation-delay: 110ms; }
 .letter-m image { animation-delay: 220ms; }
+.brand-texture { opacity:0; pointer-events:none; transition:opacity 180ms ease; animation:brand-texture-ready 1320ms step-end both; }
+.brand-logo[data-reveal-active] .brand-texture { opacity:1; }
+/* Wait for all three letters to arrive before showing the stationary texture. */
+@keyframes brand-texture-ready { from { visibility:hidden; } to { visibility:visible; } }
+@media (hover:none), (pointer:coarse), (prefers-reduced-motion:reduce) {
+  .brand-logo .brand-texture { display:none; }
+}
 .brand-signoff { display: flex; align-items: center; gap: 16px; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(15px, 1.85vw, 28px); font-weight: 700; letter-spacing: -.045em; white-space: nowrap; margin: 2px 5px 0; }
 .signature-rule { display: block; height: 4px; flex: 1; background: var(--cerneala); border-radius: 4px; transform-origin: right; animation: signature-arrive 950ms 300ms cubic-bezier(.18,.78,.18,1) both; }
 .brand-signoff > span:last-child { animation: signature-text 800ms 420ms ease both; }
