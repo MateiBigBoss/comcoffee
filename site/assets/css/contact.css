@@ -70,6 +70,8 @@
   .contact-asterisk { font-size:42px; margin-top:6px; }
   .contact-intro-note p { margin:0 0 16px; }
   .contact-intro-note .page-link { grid-column:2; justify-self:start; }
+  .contact-intro-note .page-button { grid-column:1/-1; justify-self:start; }
+  .contact-intro-note p { grid-column:1/-1; }
   .contact-layout { grid-template-columns:minmax(0,1fr); gap:40px; }
   .contact-aside { display:grid; grid-template-columns:1fr; }
   .contact-note h2 br { display:none; }

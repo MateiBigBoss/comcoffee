@@ -24,23 +24,21 @@
     <nav aria-label="Navigație principală">
       <a href="index.html">Acasă</a><a href="cafea.html">Meniu</a><a href="evenimente.html">Evenimente</a><a href="despre.html">Despre</a><a href="contact.html" aria-current="page">Contact</a>
     </nav>
-    <a class="interior-nav-cta" href="#formular">Hai să vorbim <span aria-hidden="true">↗</span></a>
+    <a class="nav-cta" href="#formular">Hai să vorbim <span aria-hidden="true">↗</span></a>
   </header>
   <main id="continut" tabindex="-1">
     <section class="contact-intro page-section" aria-labelledby="titlu-contact">
       <div data-reveal>
-        <p class="eyebrow"></p>
         <h1 id="titlu-contact">Pune cafeaua<br>pe lista de <em>invitați.</em></h1>
       </div>
       <div class="contact-intro-note" data-reveal>
-        <span class="contact-asterisk" aria-hidden="true"></span>
-        <p></p>
+        <p>Spune-ne data, locul și câți oameni vă adunați. Pregătim împreună detaliile cafelei.</p>
+        <a class="page-button" href="#formular">Cere o ofertă <span aria-hidden="true">↘</span></a>
       </div>
     </section>
-    <section class="contact-layout page-section" id="formular" aria-labelledby="titlu-formular" tabindex="-1">
+    <section class="contact-layout page-section" aria-labelledby="titlu-formular">
       <aside class="contact-aside" aria-label="Contact direct și detaliile tale">
         <div class="contact-note" data-reveal>
-          <p class="eyebrow"></p>
           <h2>Începe cu<br> un „bună”.</h2>
           <p>Spune-ne când, unde și câți oameni se adună. Discutăm apoi meniul, spațiul și toate detaliile care fac evenimentul al tău.</p>
           <div class="contact-direct">
@@ -64,7 +62,7 @@
         </figure>
       </aside>
       <div class="contact-form-wrap">
-        <div class="contact-form-heading" data-reveal>
+        <div class="contact-form-heading" id="formular" tabindex="-1" data-reveal>
           <p class="eyebrow">Cerere de ofertă</p>
           <h2 id="titlu-formular">Ce moment pregătim?</h2>
           <p>Nu trebuie să ai totul stabilit. Completează câmpurile marcate cu <span aria-hidden="true">*</span><span class="contact-sr-only">asterisc</span>; restul îl punem la punct împreună.</p>

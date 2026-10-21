@@ -1,16 +1,9 @@
 /* Home-only art direction. Shared pages retain their existing design. */
 .home { --home-pad: clamp(22px, 6vw, 110px); --home-stone: #eeefeb; --home-cream: #f5f1e5; --home-green: #dbe2ce; }
 .home [hidden] { display: none !important; }
-.home-nav { height: 88px; padding-inline: var(--home-pad); background: var(--home-stone); backdrop-filter: none; border: 0; }
-.home-nav nav { display: flex; gap: 6px; }
-.home-nav nav a { min-height: 44px; display: inline-flex; align-items: center; font-size: 13px; }
-.home-nav .wordmark img { height: 26px; }
-.nav-enquiry { justify-self: end; font-size: 12px; font-weight: 600; text-decoration: none; padding: 12px 0 12px 20px; white-space: nowrap; }
-.nav-enquiry span { display: inline-block; margin-left: 20px; font-size: 20px; }
 .brand-hero { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); align-items: center; gap: 6vw; min-height: 480px; padding: 64px var(--home-pad) 82px; background: var(--home-stone); }
 .hero-copy { min-width: 0; width: 100%; max-width: 600px; justify-self: end; }
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
 
 .eyebrow { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .12em; line-height: 1.6; }
 .brand-lockup { margin: 0; mix-blend-mode: multiply; }
@@ -99,7 +92,6 @@
 .menu-preview figure { min-width: 0; }
 .menu-preview img { width: 100%; aspect-ratio: .72; object-fit: contain; transition: transform 250ms ease; }
 .menu-preview figure:hover img { transform: translateY(-8px) rotate(-2deg); }
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&display=swap');
 .menu-preview figcaption { font-family: 'Fredoka', sans-serif; font-size: 15px; font-weight: 700; text-align: center; margin-top: 10px; letter-spacing: .02em; }
 .home-invite { text-align: center; padding: 80px 24px; background: #424d39; color: var(--home-cream); }
 .home-invite .eyebrow { color: #e0e7d6; }
@@ -121,9 +113,6 @@
 @keyframes signature-text { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @media (min-width: 1600px) { .home { --home-pad: max(80px,calc((100vw - 1440px)/2)); } }
 @media (max-width: 1000px) {
-  .home-nav { grid-template-columns: auto 1fr; }
-  .home-nav nav { justify-self: end; }
-  .nav-enquiry { display: none; }
   .brand-hero { gap: 36px; min-height: 430px; }
   .brand-signoff { font-size: 18px; gap: 10px; }
   .hero-message h1 { font-size: clamp(54px,7.8vw,78px); }
@@ -139,10 +128,6 @@
   .events-note h3 { font-size: 32px; }
 }
 @media (max-width: 700px) {
-  .home-nav { height: auto; padding-top: 18px; padding-bottom: 0; grid-template-columns: 1fr; gap: 10px; position: relative; }
-  .home-nav .wordmark { justify-self: center; }
-  .home-nav nav { justify-self: stretch; justify-content: space-between; gap: 0; overflow: visible; border-block: 1px solid var(--linie); }
-  .home-nav nav a { padding: 8px 3px; font-size: 11px; }
   .brand-hero { grid-template-columns: minmax(0,1fr); gap: 48px; padding-block: 46px; min-height: auto; }
   .hero-copy { max-width: 440px; justify-self: center; }
   .brand-lockup { margin: 0; }
@@ -184,6 +169,7 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .home *, .home *::before, .home *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .menu-preview figure:hover img, .text-link:hover span { transform:none; }
 }
 
 /* Optical alignment of the wordmark ink and the adjacent text. */

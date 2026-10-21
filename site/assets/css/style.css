@@ -25,7 +25,8 @@
   --font-body: "Inter", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
-  --nav-h: 64px;
+  --nav-h: 88px;
+  --nav-pad: clamp(22px, 6vw, 110px);
   --pad: clamp(20px, 5vw, 72px);
 }
 
@@ -33,6 +34,7 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -106,14 +108,13 @@ h1, h2, h3 {
   display: grid;
   /* logo stânga, linkuri centrate față de PAGINĂ (nu față de
      spațiul rămas) — coloanele 1fr egale țin mijlocul pe mijloc */
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: minmax(0,1fr) auto minmax(0,1fr);
   align-items: center;
   gap: 16px;
   height: var(--nav-h);
-  padding: 0 var(--pad);
-  background: color-mix(in srgb, var(--hartie) 88%, transparent);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--linie);
+  padding: 0 var(--nav-pad);
+  background: #eeefeb;
+  border: 0;
 }
 
 .wordmark {
@@ -126,13 +127,19 @@ h1, h2, h3 {
      Logo-ul e imaginea assets/img/logo.png; textul rămâne doar ca alt. */
 }
 .nav .wordmark { justify-self: start; /* nu întinde zona clickabilă pe toată coloana */ }
+.nav .wordmark { display:flex; align-items:center; min-height:44px; }
+.nav .wordmark img { height:26px; width:auto; }
+.nav-cta { justify-self:end; display:inline-flex; align-items:center; gap:24px; min-height:44px; font-size:12px; font-weight:600; text-decoration:none; white-space:nowrap; }
+.nav-cta span { font-size:20px; }
+.nav-cta:hover { color:var(--salvie); }
+.nav nav a:focus-visible { outline-offset:-3px; }
 
 .wordmark img { display: block; height: 22px; width: auto; }
 .footer .wordmark img { height: 28px; margin-bottom: 10px; }
 
 .nav nav {
   display: flex;
-  gap: 4px;
+  gap: 6px;
   justify-self: center;
   min-width: 0; /* permite scroll orizontal pe ecrane înguste */
   overflow-x: auto;
@@ -141,11 +148,14 @@ h1, h2, h3 {
 .nav nav::-webkit-scrollbar { display: none; }
 
 .nav nav a {
-  font-size: 0.88rem;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 13px;
   font-weight: 500;
   text-decoration: none;
   padding: 7px 11px;
-  border-radius: 3px;
+  border-radius: 0;
   white-space: nowrap;
   color: color-mix(in srgb, var(--cerneala) 78%, transparent);
 }
@@ -415,8 +425,18 @@ h1, h2, h3 {
 /* Shared keyboard entry point and mobile navigation for every page. */
 .skip-link { position:fixed; left:16px; top:-100px; z-index:100; padding:12px 20px; background:var(--cerneala); color:white; }
 .skip-link:focus { top:12px; }
-@media (max-width:650px) {
-  .nav { grid-template-columns:minmax(0,1fr); height:auto; gap:10px; padding:18px var(--pad) 0; position:relative; }
+main[id] { scroll-margin-top:calc(var(--nav-h) + 20px); }
+@media (min-width:1600px) {
+  :root { --nav-pad:max(80px,calc((100vw - 1440px)/2)); }
+}
+@media (max-width:1080px) {
+  .nav { grid-template-columns:auto minmax(0,1fr); }
+  .nav nav { justify-self:end; }
+  .nav-cta { display:none; }
+}
+@media (max-width:760px) {
+  main[id] { scroll-margin-top:20px; }
+  .nav { grid-template-columns:minmax(0,1fr); height:auto; gap:10px; padding:10px var(--nav-pad) 0; position:relative; }
   .nav .wordmark { justify-self:center; }
   .nav nav { width:100%; justify-self:stretch; justify-content:space-between; gap:0; border-block:1px solid var(--linie); }
   .nav nav a { display:inline-flex; align-items:center; min-height:44px; padding:8px 3px; font-size:11px; }
