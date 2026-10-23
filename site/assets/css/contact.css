@@ -40,7 +40,7 @@
 .booking-field textarea { resize: vertical; min-height: 140px; }
 .booking-field :is(input,select,textarea):hover { border-color: var(--sage); }
 .booking-field :is(input,select,textarea):focus { background: white; border-color: var(--sage); outline: 2px solid var(--sage); outline-offset: 2px; }
-.booking-field :is(input,textarea)::placeholder { color: var(--muted); opacity: 1; }
+.booking-field :is(input,textarea)::placeholder { color: #6E7367; opacity: 1; }
 .booking-field small { font-size: 13px; color: var(--muted); line-height: 1.6; }
 .booking-field small a { text-underline-offset: 3px; }
 .booking-consent { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; line-height: 1.8; }
