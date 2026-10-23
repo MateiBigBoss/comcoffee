@@ -27,6 +27,8 @@ Fotografiile originale furnizate de proprietar au fost orientate după EXIF, red
 | echipa-in-familie | pozebinecuvnatre/Binecuvantare-Liam-115.jpg |
 | pauza-de-cafea | tabara/videotelefoneu/IMG_0305.jpeg |
 
+Prefixele echipa-la-lucru, barul-com, o-cafea-impreuna și printre-brazi nu erau folosite de nicio pagină și au fost scoase din folderul publicat; rămân recuperabile din istoricul Git.
+
 Clipurile MOV furnizate nu sunt incluse în această variantă fotografică și nu au fost modificate.
 
 ## Verificare
