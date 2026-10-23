@@ -1,7 +1,8 @@
 /* Shared only by Evenimente, Despre and Contact. Header, footer, links and palette live in style.css. */
-.interior h1 { font-size: clamp(48px, 6.6vw, 104px); line-height: 1.02; }
-.interior h2 { font-size: clamp(32px, 4vw, 64px); line-height: 1.08; }
-.interior h3 { font-size: clamp(23px, 2.3vw, 34px); line-height: 1.15; }
+/* Zero-specificity defaults for page content, so section and footer rules always win. */
+:where(.interior main) h1 { font-size: clamp(48px, 6.6vw, 104px); line-height: 1.02; }
+:where(.interior main) h2 { font-size: clamp(32px, 4vw, 64px); line-height: 1.08; }
+:where(.interior main) h3 { font-size: clamp(23px, 2.3vw, 34px); line-height: 1.15; }
 .interior :focus-visible { outline-offset: 5px; }
 .interior [id] { scroll-margin-top: 108px; }
 .page-section { padding: clamp(56px, 7vw, 104px) var(--page-pad); }
@@ -11,7 +12,7 @@
 .interior [data-reveal].is-awaiting:focus-within { opacity: 1; transform: none; }
 @media (max-width: 760px) {
   .interior [id] { scroll-margin-top: 24px; }
-  .interior h1 { font-size: clamp(44px, 11vw, 76px); }
+  :where(.interior main) h1 { font-size: clamp(44px, 11vw, 76px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .interior [data-reveal].is-awaiting { opacity: 1; transform: none; }
