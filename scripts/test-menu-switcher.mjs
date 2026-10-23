@@ -19,7 +19,7 @@ class Element {
  animate(frames){animationRuns.push(frames);log.push(['animate',frames[0].transform||'copy']);let end;const finished=new Promise(r=>{end=r;setTimeout(r,4);});const a={finished,cancel:end};this.animations.push(a);return a;}
  getAnimations(){return this.animations.splice(0);}
 }
-const choices=[...html.matchAll(/<button[^>]*data-drink="\d+"[^>]*>[\s\S]*?<span>([^<]+)<\/span><\/button>/g)].map(m=>{const b=new Element();b.dataset=Object.fromEntries([...m[0].matchAll(/data-([\w-]+)="([^"]+)"/g)].map(a=>[a[1].replace(/-([a-z])/g,(_,c)=>c.toUpperCase()),a[2]]));b.lastElementChild={textContent:m[1]};assert(existsSync(base+`assets/img/menu/${b.dataset.slug}.png`),`Missing ${b.dataset.slug}`);return b;});
+const choices=[...html.matchAll(/<button[^>]*data-drink="\d+"[^>]*>[\s\S]*?<span>([^<]+)<\/span><\/button>/g)].map(m=>{const b=new Element();b.dataset=Object.fromEntries([...m[0].matchAll(/data-([\w-]+)="([^"]+)"/g)].map(a=>[a[1].replace(/-([a-z])/g,(_,c)=>c.toUpperCase()),a[2]]));b.lastElementChild={textContent:m[1]};assert(existsSync(base+`assets/img/menu/${b.dataset.slug}.webp`),`Missing ${b.dataset.slug}`);return b;});
 assert.equal(choices.length,12);
 const elements=new Map();
 for(const selector of ['[data-drink-photo]','.drink-copy','[data-drink-prev]','[data-drink-next]','[data-menu-status]','[data-drink-name]','[data-drink-note]','[data-drink-description]','[data-drink-composition]','[data-drink-serving]','[data-menu-retry]','[data-drink-counter]','[data-stage-number]','[data-drink-volume]','[data-coffee-label]','[data-coffee-volume]','[data-drink-beans]']) elements.set(selector,new Element());
@@ -30,11 +30,11 @@ const listeners=[];const reduce={matches:false,addEventListener(k,f){listeners.p
 let fail=false, failInitial=true;
 let holdSlug=null;
 const pendingImages=new Map();
-class Image { set src(value){this._src=value;if(holdSlug&&value.endsWith(`/${holdSlug}.png`)){pendingImages.set(holdSlug,()=>this.onload());return;}setTimeout(()=>{if(failInitial&&value.endsWith('/espresso.png')){failInitial=false;this.onerror();}else if(fail&&value.includes('cold-brew.png')){fail=false;this.onerror();}else this.onload();},3);} get src(){return this._src;} decode(){return Promise.resolve();} }
+class Image { set src(value){this._src=value;if(holdSlug&&value.endsWith(`/${holdSlug}.webp`)){pendingImages.set(holdSlug,()=>this.onload());return;}setTimeout(()=>{if(failInitial&&value.endsWith('/espresso.webp')){failInitial=false;this.onerror();}else if(fail&&value.includes('cold-brew.webp')){fail=false;this.onerror();}else this.onload();},3);} get src(){return this._src;} decode(){return Promise.resolve();} }
 vm.runInNewContext(readFileSync(base+'assets/js/menu-wheel.js','utf8')+'\n'+readFileSync(base+'assets/js/menu.js','utf8'),{document:{querySelector:()=>root,createElement:()=>new Element()},matchMedia:()=>reduce,Image,console});
 function assertWheel(slug,color){
  const selected=wheelHost.children.map(spoke=>spoke.children[0]).find(card=>card.style.opacity===1);
- assert.match(selected.children[0].src,new RegExp('/'+slug+'\\.png$'));
+ assert.match(selected.children[0].src,new RegExp('/'+slug+'\\.webp$'));
  assert.equal(selected.style.opacity,1);
  assert.equal(selected.disabled,true);
  assert.equal(wheelHost.parentElement.style['--coffee-accent'],color);

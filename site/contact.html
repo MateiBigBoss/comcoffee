@@ -4,13 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Invită com. la evenimentul tău. Povestește-ne despre dată, loc și invitați și cere o ofertă pentru un coffee bar mobil.">
-  <meta name="theme-color" content="#eeefeb">
+  <meta name="theme-color" content="#EEEFEB">
   <title>Hai să pregătim un moment bun. — Contact com.</title>
   <link rel="icon" href="assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
   <link rel="apple-touch-icon" href="assets/img/favicon-180.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/interior.css">
   <link rel="stylesheet" href="assets/css/contact.css">
@@ -19,28 +20,20 @@
 </head>
 <body class="interior contact-page">
   <a class="skip-link" href="#continut">Sari la conținut</a>
-  <header class="nav interior-nav">
+  <header class="nav">
     <a class="wordmark" href="index.html" aria-label="com. — Acasă"><img src="assets/img/logo.png" alt="com." width="98" height="28"></a>
-    <nav aria-label="Navigație principală">
-      <a href="index.html">Acasă</a><a href="cafea.html">Meniu</a><a href="evenimente.html">Evenimente</a><a href="despre.html">Despre</a><a href="contact.html" aria-current="page">Contact</a>
-    </nav>
-    <a class="interior-nav-cta" href="#formular">Hai să vorbim <span aria-hidden="true">↗</span></a>
+    <nav aria-label="Navigație principală"><a href="index.html">Acasă</a><a href="cafea.html">Meniu</a><a href="evenimente.html">Evenimente</a><a href="despre.html">Despre</a><a href="contact.html" aria-current="page">Contact</a></nav>
+    <a class="nav-cta" href="#formular">Hai să vorbim <span aria-hidden="true">↗</span></a>
   </header>
   <main id="continut" tabindex="-1">
     <section class="contact-intro page-section" aria-labelledby="titlu-contact">
       <div data-reveal>
-        <p class="eyebrow"></p>
         <h1 id="titlu-contact">Pune cafeaua<br>pe lista de <em>invitați.</em></h1>
-      </div>
-      <div class="contact-intro-note" data-reveal>
-        <span class="contact-asterisk" aria-hidden="true"></span>
-        <p></p>
       </div>
     </section>
     <section class="contact-layout page-section" id="formular" aria-labelledby="titlu-formular" tabindex="-1">
       <aside class="contact-aside" aria-label="Contact direct și detaliile tale">
         <div class="contact-note" data-reveal>
-          <p class="eyebrow"></p>
           <h2>Începe cu<br> un „bună”.</h2>
           <p>Spune-ne când, unde și câți oameni se adună. Discutăm apoi meniul, spațiul și toate detaliile care fac evenimentul al tău.</p>
           <div class="contact-direct">
@@ -55,7 +48,6 @@
               <div><dt>Data</dt><dd data-summary="data">De ales</dd></div>
               <div><dt>Invitați</dt><dd data-summary="invitati">De estimat</dd></div>
             </dl>
-            <p class="summary-footnote">O schiță bună pentru prima noastră conversație.</p>
           </div>
         </div>
         <figure class="contact-photo" data-reveal>
@@ -76,7 +68,7 @@
           <input type="hidden" name="_template" value="table">
           <input type="text" name="_honey" class="contact-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
           <fieldset class="booking-group">
-            <legend> Despre eveniment</legend>
+            <legend>Despre eveniment</legend>
             <div class="booking-grid">
               <div class="booking-field booking-field-wide">
                 <label for="tip">Ce sărbătorim? <span aria-hidden="true">*</span></label>
@@ -126,7 +118,7 @@
             </div>
           </fieldset>
           <fieldset class="booking-group">
-            <legend> Cu cine povestim?</legend>
+            <legend>Cu cine povestim?</legend>
             <div class="booking-grid">
               <div class="booking-field booking-field-wide">
                 <label for="nume">Numele tău <span aria-hidden="true">*</span></label>
@@ -148,7 +140,7 @@
             </div>
           </fieldset>
           <fieldset class="booking-group">
-            <legend> Detaliile fac diferența.</legend>
+            <legend>Detaliile fac diferența.</legend>
             <div class="booking-grid">
               <div class="booking-field booking-field-wide">
                 <label for="preferinte">Ce ți-ar plăcea în meniu? <span>(opțional)</span></label>
@@ -182,11 +174,11 @@
       </ol>
     </section>
   </main>
-  <footer class="footer interior-footer">
-    <div><a class="wordmark" href="index.html"><img src="assets/img/logo.png" alt="com." width="98" height="28"></a><p>Stand mobil cu cafea de specialitate.<br>Venim la evenimentul tău.</p></div>
-    <div><h3>Ne auzim</h3><p><a href="mailto:comcoffee.events@gmail.com">comcoffee.events@gmail.com</a></p><p><a href="tel:+40771793146">+40 771 793 146</a></p><p><a href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener">@com.coffee.events ↗</a></p></div>
-    <div><h3>Ne vedem</h3><p>La nuntă. La birou. La petrecere.</p><p><a href="evenimente.html">Descoperă experiența ↗</a></p></div>
-    <p class="footer-legal">© 2026 com. <span>Cafea bună. Momente împreună.</span></p>
+  <footer class="footer">
+    <div><a class="wordmark" href="index.html" aria-label="com. — Acasă"><img src="assets/img/logo.png" alt="com." width="98" height="28"></a><p>Stand mobil cu cafea de specialitate.<br>Venim la evenimentul tău.</p></div>
+    <div><h2>Ne auzim</h2><p><a href="mailto:comcoffee.events@gmail.com">comcoffee.events@gmail.com</a></p><p><a href="tel:+40771793146">+40 771 793 146</a></p><p><a href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener">@com.coffee.events ↗</a></p></div>
+    <div><h2>Ne vedem</h2><p>La nuntă. La birou. La petrecere.</p><p><a href="#formular">Hai să vorbim ↗</a></p></div>
+    <p class="footer-legal">© 2026 com.</p>
   </footer>
 </body>
 </html>

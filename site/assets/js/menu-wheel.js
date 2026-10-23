@@ -75,7 +75,7 @@ class CoffeeWheel {
       slot.index = this.neighbor(index, slot.offset);
       const choice = this.choices[slot.index];
       const name = choice.lastElementChild.textContent;
-      const src = `assets/img/menu/${choice.dataset.slug}.png`;
+      const src = `assets/img/menu/${choice.dataset.slug}.webp`;
       if (slot.image.getAttribute('src') !== src || (refresh && slot.offset === 0)) slot.image.src = src;
       slot.label.textContent = '';
       slot.card.setAttribute('aria-label', `Alege ${name}`);

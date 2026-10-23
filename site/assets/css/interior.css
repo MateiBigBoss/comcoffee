@@ -1,82 +1,19 @@
-/* Shared only by Evenimente, Despre and Contact. The homepage stays independent. */
-.interior {
-  --page-pad: clamp(22px, 6vw, 110px);
-  --paper: #eeefeb;
-  --cream: #f5f1e5;
-  --sage: #dbe2ce;
-  --ink: #1e201c;
-  --muted: #4c5545;
-  background: var(--hartie);
-  color: var(--ink);
-}
-.interior [hidden] { display: none !important; }
-.interior main { min-width: 0; }
-.interior h1, .interior h2, .interior h3 { font-family: var(--font-body); font-weight: 500; letter-spacing: -.05em; }
+/* Shared only by Evenimente, Despre and Contact. Header, footer, links and palette live in style.css. */
 .interior h1 { font-size: clamp(48px, 6.6vw, 104px); line-height: 1.02; }
 .interior h2 { font-size: clamp(32px, 4vw, 64px); line-height: 1.08; }
 .interior h3 { font-size: clamp(23px, 2.3vw, 34px); line-height: 1.15; }
-.interior p { text-wrap: pretty; }
-.interior .eyebrow { font-family: 'DM Sans', var(--font-body); font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; line-height: 1.7; }
-.interior em { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; }
-.interior :focus-visible { outline: 2px solid #59634c; outline-offset: 5px; }
+.interior :focus-visible { outline-offset: 5px; }
 .interior [id] { scroll-margin-top: 108px; }
-.interior-nav { height: 88px; padding-inline: var(--page-pad); background: var(--paper); backdrop-filter: none; border-bottom: 1px solid transparent; }
-.interior-nav .wordmark img { height: 26px; width: auto; }
-.interior-nav nav { gap: 6px; }
-.interior-nav nav a { min-height: 44px; display: inline-flex; align-items: center; font-size: 13px; border-radius: 0; }
-.interior-nav nav a:focus-visible { outline-offset: -3px; }
-.interior-nav-cta { justify-self: end; display: inline-flex; align-items: center; gap: 24px; min-height: 44px; font-size: 12px; font-weight: 600; text-decoration: none; }
-.interior-nav-cta span { font-size: 20px; }
-.interior-nav-cta:hover { color: #59634c; }
 .page-section { padding: clamp(56px, 7vw, 104px) var(--page-pad); }
-.page-link { display: inline-flex; align-items: center; justify-content: space-between; gap: 22px; min-height: 44px; padding-block: 12px; border-bottom: 1px solid #aab29d; font-size: 13px; text-decoration: none; }
-.page-link span, .page-button span { display: inline-block; transition: transform 200ms ease; }
-.page-link:hover span, .page-button:hover span { transform: translate(3px, -3px); }
-.page-link:hover { border-bottom-color: currentColor; }
-.page-button { display: inline-flex; align-items: center; justify-content: center; gap: 30px; min-height: 50px; padding: 16px 24px; font: 500 13px/1.4 var(--font-body); text-align: center; text-decoration: none; border: 1px solid var(--ink); border-radius: 0; background: var(--ink); color: var(--hartie); cursor: pointer; transition: background 200ms ease, color 200ms ease; }
-.page-button:hover { background: #4b573e; border-color: #4b573e; }
-.page-button:disabled { opacity: .65; cursor: wait; }
-.page-button--outline { color: var(--ink); background: transparent; }
-.page-button--outline:hover { color: var(--hartie); }
-.interior-footer { padding: 56px var(--page-pad) 28px; display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 34px; background: var(--paper); }
-.interior-footer > div { min-width: 0; }
-.interior-footer .wordmark { display: inline-block; margin-bottom: 12px; }
-.interior-footer p, .interior-footer a { font-size: 12px; line-height: 1.9; overflow-wrap: anywhere; }
-.interior-footer a { text-decoration: none; }
-.interior-footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.interior-footer h3, .interior-footer h4 { font: 500 11px/1.7 'DM Sans', var(--font-body); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 14px; color: var(--muted); }
-.interior-footer .footer-legal { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; font-size: 10px; color: #525d47; }
-.page-cta { padding: 76px var(--page-pad); text-align: center; background: #424d39; color: var(--cream); }
-.page-cta .eyebrow { color: #e0e7d6; margin-bottom: 22px; }
-.page-cta h2 { max-width: 19ch; margin: 0 auto; }
-.page-cta > p:not(.eyebrow) { max-width: 54ch; margin: 24px auto; font-size: 14px; line-height: 1.8; }
-.page-cta .page-button { margin-top: 12px; border-color: var(--cream); background: var(--cream); color: var(--ink); }
-.page-cta .page-button:hover { background: var(--sage); border-color: var(--sage); }
-.page-cta :focus-visible { outline-color: var(--cream); }
-.page-progress { position: fixed; inset: 0 0 auto; z-index: 30; height: 3px; background: #59634c; transform-origin: left; transform: scaleX(var(--read-progress, 0)); pointer-events: none; }
+.page-progress { position: fixed; inset: 0 0 auto; z-index: 30; height: 3px; background: var(--sage); transform-origin: left; transform: scaleX(var(--read-progress, 0)); pointer-events: none; }
 .interior [data-reveal] { transition: opacity 650ms ease, transform 650ms cubic-bezier(.2,.7,.2,1); }
 .interior [data-reveal].is-awaiting { opacity: 0; transform: translateY(24px); }
 .interior [data-reveal].is-awaiting:focus-within { opacity: 1; transform: none; }
-@media (min-width: 1600px) { .interior { --page-pad: max(80px, calc((100vw - 1440px)/2)); } }
-@media (max-width: 1080px) {
-  .interior-nav { grid-template-columns: auto minmax(0,1fr); }
-  .interior-nav nav { justify-self: end; }
-  .interior-nav-cta { display: none; }
-}
 @media (max-width: 760px) {
-  .interior-nav { height: auto; padding: 18px var(--page-pad) 0; grid-template-columns: minmax(0,1fr); gap: 10px; position: relative; }
-  .interior-nav .wordmark { justify-self: center; }
-  .interior-nav nav { width: 100%; justify-self: stretch; justify-content: space-between; gap: 0; border-block: 1px solid var(--linie); }
-  .interior-nav nav a { font-size: 11px; padding: 8px 3px; }
   .interior [id] { scroll-margin-top: 24px; }
   .interior h1 { font-size: clamp(44px, 11vw, 76px); }
-  .interior-footer { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 28px 18px; }
-  .interior-footer > div:first-child { grid-column: 1/-1; }
-  .page-cta { padding-block: 56px; }
 }
-@media (max-width: 400px) { .interior-footer { grid-template-columns: minmax(0,1fr); } }
 @media (prefers-reduced-motion: reduce) {
-  .interior *, .interior *::before, .interior *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .interior [data-reveal].is-awaiting { opacity: 1; transform: none; }
   .page-progress { display: none; }
 }
