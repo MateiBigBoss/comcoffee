@@ -17,19 +17,7 @@ Implementare Codex în site, pe ramura codex/menu-photo-design, pornită din 991
 
 ### Fotografii de evenimente pe Acasă
 
-Secțiunea #evenimente folosește acum titlul „Cafeaua e doar începutul.”, două fotografii mari în coloane decalate și trei detalii din preparare, alături de un panou salvie. Sunt păstrate legăturile către Evenimente și Contact. Pe mobil compoziția trece pe o coloană; mișcarea redusă dezactivează efectele. Homepage-ul nu mai afișează cele două fotografii provizorii de Nunți/Corporate; acestea rămân în pagina separată de evenimente, în afara acestei modificări.
-
-Fotografiile sunt furnizate de proprietar în pozeclaude.zip. Au fost doar orientate conform EXIF, redimensionate și comprimate în WebP; nu s-au generat sau retușat persoane, obiecte ori decoruri. Originalele din arhivă sunt păstrate intacte. Fiecare fotografie are două dimensiuni, srcset, dimensiuni declarate și încărcare întârziată. Toate cele zece fișiere însumează aproximativ 527 KiB; cele cinci variante mari însumează aproximativ 378 KiB.
-
-| Fișier în assets/img/events/ (prefix) | Sursă din arhiva proprietarului |
-| --- | --- |
-| impreuna-la-stand | belis/IMG_6199.jpg |
-| echipa-com | pozebinecuvnatre/Binecuvantare-Liam-115.jpg |
-| espresso-in-pregatire | belis/IMG_6089.jpg |
-| iced-latte-in-pregatire | belis/IMG_6246.jpg |
-| latte-art | pozebinecuvnatre/Binecuvantare-Liam-153.jpg |
-
-Actualizare pe ramura codex/events-photo-story, pornită din 98730fe; fișiere: index.html, assets/css/home.css și cele zece imagini WebP. Verificările automate de site și meniu trec. Browserul de verificare nu a putut porni; aspectul la desktop și mobil rămâne de confirmat vizual.
+Secțiunea #evenimente este un album interactiv, cu titlul „Ce rămâne între cafele.”, fundal verde închis și fotografiile originale ale proprietarului. La mișcarea cursorului apar fotografii succesive numai în această zonă; pe mobil, derularea schimbă imaginea centrală. Butonul „Altă fotografie” oferă acces din tastatură. Sunt păstrate legăturile către pagina Evenimente și celelalte secțiuni ale homepage-ului. Implementare și verificări: [home-moments.md](home-moments.md).
 
 cafea.html conține datele meniului; assets/js/menu.js gestionează interacțiunea, assets/css/menu.css prezentarea. Pentru Acasă: index.html și assets/css/home.css; animația logo-ului este realizată în CSS, iar scriptul exclusiv pentru butonul de reluare a fost eliminat odată cu acesta. Vechile data.js/switcher.js au fost eliminate; meniul folosește doar datele din HTML și menu.js.
 
