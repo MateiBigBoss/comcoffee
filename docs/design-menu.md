@@ -17,7 +17,7 @@ Implementare Codex în site, pe ramura codex/menu-photo-design, pornită din 991
 
 ### Fotografii de evenimente pe Acasă
 
-Secțiunea #evenimente este un album interactiv, cu titlul „Ce rămâne între cafele.”, fundal verde închis și fotografiile originale ale proprietarului. La mișcarea cursorului apar fotografii succesive numai în această zonă; pe mobil, derularea schimbă imaginea centrală. Butonul „Altă fotografie” oferă acces din tastatură. Sunt păstrate legăturile către pagina Evenimente și celelalte secțiuni ale homepage-ului. Implementare și verificări: [home-moments.md](home-moments.md).
+Secțiunea #evenimente este un album interactiv, cu titlul „Locuri diferite. Aceeași bucurie.”, fundal verde închis și fotografiile originale ale proprietarului. La mișcarea cursorului apar fotografii succesive numai în această zonă; pe mobil, derularea schimbă imaginea centrală. Butonul „Altă fotografie” oferă acces din tastatură. Sunt păstrate legăturile către pagina Evenimente și celelalte secțiuni ale homepage-ului. Implementare și verificări: [home-moments.md](home-moments.md).
 
 cafea.html conține datele meniului; assets/js/menu.js gestionează interacțiunea, assets/css/menu.css prezentarea. Pentru Acasă: index.html și assets/css/home.css; animația logo-ului este realizată în CSS, iar scriptul exclusiv pentru butonul de reluare a fost eliminat odată cu acesta. Vechile data.js/switcher.js au fost eliminate; meniul folosește doar datele din HTML și menu.js.
 
