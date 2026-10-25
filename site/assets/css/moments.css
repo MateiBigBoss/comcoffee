@@ -6,7 +6,7 @@
 .moment-topline { top:32px; border-bottom:1px solid #e8ead42a; padding-bottom:20px; }
 .moment-topline > span { font-size:11px; color:#d3dbc9; }
 .moment-title { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; pointer-events:none; z-index:2; padding:70px 24px 110px; }
-.moment-title h2 { font-family:var(--font-body); font-size:clamp(60px,7.5vw,112px); font-weight:500; line-height:.98; letter-spacing:-.065em; }
+.moment-title h2 { font-family:var(--font-body); font-size:clamp(48px,6vw,90px); font-weight:500; line-height:.98; letter-spacing:-.065em; }
 .moment-title h2 em { font-family:Georgia,serif; font-weight:400; color:#d5dfb9; }
 .moment-title p { font-size:13px; margin-top:30px; color:#e4e6da; }
 .moment-photos { position:absolute; inset:0; pointer-events:none; transition:opacity 450ms ease; }
@@ -40,7 +40,7 @@
  .moment-topline { top:24px; padding-bottom:16px; }
  .moment-topline > span { display:none; }
  .moment-title { inset:95px 0 auto; padding:0 18px; }
- .moment-title h2 { font-size:clamp(49px,11.5vw,76px); }
+ .moment-title h2 { font-size:clamp(35px,8.8vw,60px); }
  .moment-title p { font-size:12px; margin:22px 0 0; max-width:26ch; }
  .moment-photos { inset:350px 0 90px; display:flex; align-items:center; justify-content:center; gap:12px; }
  .moment-photo:nth-child(n) { position:relative; top:auto; bottom:auto; left:auto; right:auto; flex:none; width:min(36%,150px); padding:5px 5px 0; }

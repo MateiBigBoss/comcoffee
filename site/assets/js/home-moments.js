@@ -17,11 +17,18 @@
     caption:card.querySelector('figcaption').textContent
   }));
   photos.push(
-    {src:'assets/img/events/espresso-in-pregatire-360.webp', alt:'Două pahare com. sub espressor, în timpul extracției.', caption:'Totul începe cu un espresso.'},
-    {src:'assets/img/events/iced-latte-in-pregatire-360.webp', alt:'Espresso turnat peste lapte și gheață.', caption:'Pentru zile cu soare.'}
+    {"src":"assets/img/moments/belis-echipa.webp","alt":"Doi barista com. pregătesc cafeaua la stand.","caption":"Cafeaua, pregătită cu grijă."},
+    {"src":"assets/img/moments/belis-barul.webp","alt":"Meniul și espressorul de pe barul mobil com.","caption":"Ne găsești la bar."},
+    {"src":"assets/img/moments/belis-o-cafea.webp","alt":"Un invitat ia un pahar de cafea de la stand.","caption":"O cafea, înainte de povești."},
+    {"src":"assets/img/moments/belis-iced-latte.webp","alt":"Espresso turnat peste lapte și gheață.","caption":"Pentru zile cu soare."},
+    {"src":"assets/img/moments/familie-espresso.webp","alt":"Un barista pregătește espresso la un eveniment în familie.","caption":"Împreună, la momentele voastre."},
+    {"src":"assets/img/moments/familie-latte-art.webp","alt":"Lapte turnat cu grijă într-un pahar de cafea.","caption":"Grijă, până la ultimul detaliu."},
+    {"src":"assets/img/moments/tabara-stand.webp","alt":"Standul com. pregătit pentru servire în tabără.","caption":"Cafeaua vine și în tabără."},
+    {"src":"assets/img/moments/tabara-cafea-in-mana.webp","alt":"Un pahar de cafea cu latte art, ținut în mână în aer liber.","caption":"Un moment doar pentru tine."},
+    {"src":"assets/img/moments/belis-impreuna.webp","alt":"Oameni adunați în jurul standului com. în grădină.","caption":"Încă puțin de stat împreună."}
   );
   // Keep the central album photo distinct from the two fixed photographs.
-  const featureOrder = [1, 3, 4];
+  const featureOrder = photos.map((_, index) => index).filter(index => index !== 0 && index !== 2);
   const cache = new Map();
   function load(photo) {
     if (!cache.has(photo.src)) {
