@@ -1,4 +1,4 @@
-/* Home-only layout: hero with the animated logo, story, event photographs and a menu preview. */
+/* Home-only layout: hero with the animated logo, story and a menu preview; the photo album lives in moments.css. */
 
 /* ---- hero ------------------------------------------------------- */
 .brand-hero { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); align-items: center; gap: 6vw; min-height: 480px; padding: 64px var(--page-pad) 82px; background: var(--stone); }
@@ -41,35 +41,6 @@
 .story-image img { height: 100%; width: 100%; position: absolute; object-fit: cover; }
 .story-image figcaption { position: absolute; inset: auto 20px 20px; background: var(--cream); padding: 14px 18px; font-size: 14px; }
 
-/* ---- event photographs, kept in their own proportions ----------- */
-.home-events { padding: 88px var(--page-pad) 56px; scroll-margin-top: 110px; }
-.events-heading { display: grid; grid-template-columns: minmax(0,1.65fr) minmax(0,1fr); align-items: end; gap: 6vw; margin-bottom: 48px; }
-.events-heading h2 { font-size: clamp(44px,5.4vw,82px); letter-spacing: -.06em; line-height: 1.03; }
-.events-heading h2 em { color: var(--sage); letter-spacing: -.055em; }
-.events-intro > p { font-size: 15px; color: var(--muted); line-height: 1.8; max-width: 37ch; }
-.events-intro .page-link { margin-top: 16px; }
-.events-spread { display: grid; grid-template-columns: minmax(0,1.65fr) minmax(0,1fr); align-items: start; gap: clamp(24px,4vw,64px); }
-.event-frame { min-width: 0; }
-.event-frame-tall { margin-top: 72px; }
-.event-frame-image, .event-detail-image { overflow: hidden; background: var(--stone); }
-.event-frame img { width: 100%; height: auto; }
-.event-frame figcaption { margin-top: 16px; font-size: 14px; line-height: 1.5; }
-.events-details { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 20px; margin-top: 64px; }
-.events-note { padding: clamp(20px,2.4vw,36px); background: var(--sage-light); display: flex; flex-direction: column; align-items: start; }
-.events-note h3 { font-size: clamp(22px,2vw,30px); line-height: 1.12; letter-spacing: -.045em; margin: 28px 0 18px; }
-.events-note > p:not(.eyebrow) { font-size: 14px; line-height: 1.8; color: var(--muted); }
-.events-note-mark { margin-top: auto; padding-top: 24px; width: 90px; }
-.events-note-mark svg { display: block; width: 100%; height: auto; mix-blend-mode: multiply; }
-.event-detail { min-width: 0; }
-.event-detail img { width: 100%; height: auto; aspect-ratio: 2/3; object-fit: cover; }
-.event-detail figcaption { margin-top: 14px; font-size: 14px; line-height: 1.6; color: var(--muted); }
-.events-closing { border-top: 1px solid var(--line); margin-top: 48px; padding-top: 24px; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
-.events-closing p { font-size: 16px; max-width: 38ch; }
-@media (hover:hover) and (prefers-reduced-motion:no-preference) {
-  .event-frame img, .event-detail img { transition: transform 650ms cubic-bezier(.2,.7,.2,1); }
-  .event-frame:hover img, .event-detail:hover img { transform: scale(1.025); }
-}
-
 /* ---- menu preview ----------------------------------------------- */
 .home-menu { display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.4fr); align-items: center; gap: 40px; background: var(--sage-light); padding: 64px var(--page-pad); }
 .menu-intro .eyebrow { margin-bottom: 24px; }
@@ -89,24 +60,12 @@
   .community-title { font-size: clamp(36px,5.3vw,54px); }
   .home-menu { grid-template-columns: 1fr; gap: 28px; }
   .menu-preview { max-width: 650px; width: 100%; justify-self: center; }
-  .events-heading { grid-template-columns: minmax(0,1.2fr) minmax(0,1fr); gap: 32px; }
-  .events-details { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 32px 24px; }
-  .events-note { padding: 32px; }
-  .events-note h3 { font-size: 32px; }
 }
 @media (max-width: 760px) {
   .brand-hero { grid-template-columns: minmax(0,1fr); gap: 48px; padding-block: 46px; min-height: auto; }
   .hero-copy { max-width: 440px; justify-self: center; }
   .hero-message h1 { font-size: clamp(54px,13.4vw,88px); }
   .home-actions { margin-top: 26px; }
-  .home-events { padding-block: 56px 40px; }
-  .events-heading { grid-template-columns: minmax(0,1fr); gap: 24px; margin-bottom: 32px; }
-  .events-heading h2 { font-size: clamp(44px,9vw,64px); }
-  .events-intro > p { max-width: 48ch; }
-  .events-spread { grid-template-columns: minmax(0,1fr); gap: 36px; }
-  .event-frame-tall { margin-top: 0; width: 86%; justify-self: end; }
-  .events-details { margin-top: 40px; }
-  .events-closing { flex-direction: column; align-items: flex-start; gap: 8px; }
   .home-story { grid-template-columns: minmax(0,1fr); scroll-margin-top: 20px; }
   .story-image { min-height: 0; aspect-ratio: 1; }
   .story-copy { padding: 42px var(--page-pad) 50px; }
@@ -114,11 +73,4 @@
   .home-menu { padding: 46px var(--page-pad); }
   .menu-preview { gap: 6px; }
   .menu-preview figcaption { font-size: 13px; }
-}
-@media (max-width: 500px) {
-  .events-details { grid-template-columns: minmax(0,1fr); gap: 28px; }
-  .events-note { padding: 28px; }
-  .events-note h3 { margin-top: 20px; }
-  .event-detail img { max-height: 520px; object-position: center; }
-  .event-frame-tall { width: 100%; }
 }
