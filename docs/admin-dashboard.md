@@ -22,8 +22,10 @@ Serverul ascultă implicit numai pe calculatorul tău. `scripts/serve.mjs` este 
 
 - **Privire de ansamblu:** cereri de discutat, evenimente viitoare, încasări și cheltuieli pe lună, sarcini.
 - **Cereri:** toate detaliile formularului, căutare, filtrare, respingere/redeschidere. Acceptarea cere detaliile convenite și creează un singur eveniment; repetarea comenzii nu dublează evenimentul.
+- **Evenimente:** toate evenimentele ca fișe (viitoare, trecute, anulate), cu încasat din preț, rest și profit estimat; fiecare are o pagină proprie cu bani, necesar, încasări, client, sarcini și notițe. Detalii mai jos.
 - **Calendar:** lună, evenimente manuale sau acceptate, editare/anulare, avertizare la suprapuneri. Orele se interpretează în fusul orar al browserului; folosește Europe/Bucharest pentru echipa din România.
 - **Costuri & încasări:** sume în RON, categorii, referință factură/chitanță, asociere cu evenimentul, corectare cu istoric. Baza păstrează bani întregi, nu valori aproximative în lei. Prețul convenit nu este încasare; înregistrează separat avansul și fiecare plată. Detaliile evenimentului arată încasat, rămas și costuri.
+- **Profit & statistici:** profit, marjă, încasări și cheltuieli pe perioada aleasă, comparate cu perioada anterioară; grafic lunar, cheltuieli pe categorii, profit pe tip de eveniment, observații automate și tabelul cu profitul fiecărui eveniment, exportabil în Excel. Detalii mai jos.
 - **Planner:** sarcini cu termen și eveniment asociat, bifare/debifare.
 - **Echipă & date:** numai proprietarul adaugă/dezactivează administratori și exportă datele JSON. Administratorii pot gestiona operațiunile firmei; nu primesc administrarea conturilor.
 - Fiecare utilizator își poate schimba parola. Schimbarea parolei sau dezactivarea revocă sesiunile existente.
@@ -112,3 +114,29 @@ Pentru citirea Excel: `npm ci --prefix admin --ignore-scripts`. Dependența este
 Verificări suplimentare: `node scripts/test-admin-import.mjs` (CSV/XLSX, TVA exclus, prețuri precise, rânduri omise, previzualizare, autentificare/CSRF, confirmare repetată, plan/plăți, ștergere/restaurare și persistență).
 
 Verificare vizuală pentru această actualizare: importul Google Sheets furnizat a recunoscut 10 materiale și 440,52 RON fără TVA. Fluxul a fost testat într-o bază QA separată la 390 px și desktop 1440 px: confirmare, situație financiară, ștergere/restaurare și preselectarea evenimentului la încasare. Fără depășire orizontală la 390 px sau erori în consola browserului. Tabelul nu a fost importat automat în evidența reală a firmei. Backup SQLite creat înainte de repornirea serviciului actualizat.
+
+## Profit & statistici
+
+Secțiunea **Profit** din meniu calculează totul în browser, din datele deja încărcate de dashboard; nu adaugă tabele noi și nu modifică baza. Codul este în `admin/public/reports.js`, iar calculele sunt verificate de `node scripts/test-admin-reports.mjs`.
+
+- **Perioadă:** luna, trimestrul sau anul curent, ultimele 12 luni, tot istoricul sau un interval ales. Indicatorii se compară cu perioada de aceeași lungime de dinainte, dacă aceasta are înregistrări.
+- **Pe evenimente / Pe plăți:** „Pe evenimente” socotește toate plățile unui eveniment (avans, rest, costuri) la data evenimentului, ca profitul să fie pe eveniment; costurile fără eveniment intră la data plății. „Pe plăți” arată fluxul de numerar: fiecare sumă la data ei.
+- **Indicatori:** profit (sau pierdere), marjă = profit / încasări, încasări, cheltuieli (din care costuri generale), număr de evenimente, profit mediu pe eveniment încheiat, invitați și sume de încasat.
+- **Grafic lunar:** încasări și cheltuieli pe luni, cu linia profitului cumulat în perioadă; pentru perioade scurte se văd și lunile dinainte, estompate. „Vezi cifrele lunare” afișează aceleași valori în tabel.
+- **Stări pe eveniment:** *Urmează* (dată viitoare), *De încasat* (a avut loc, dar prețul convenit nu e încasat integral — nu se socotește pierdere; se arată și profitul estimat după încasare), *Profit*, *Pierdere*, *Fără plăți*, *Anulat*. Tipul vine din cererea acceptată; evenimentele adăugate manual apar ca „Adăugat manual”.
+- **Ce merită știut:** cel mai profitabil eveniment, evenimentele pe pierdere, bani de recuperat de la evenimente trecute, încasări viitoare după prețurile convenite, evenimente cu încasări dar fără costuri înregistrate și categoria cu cele mai mari cheltuieli.
+- **Tabelul pe evenimente** se poate sorta, căuta și filtra; numele evenimentului deschide situația lui financiară, de unde adaugi încasări și cheltuieli.
+- **Export Excel** descarcă un CSV cu separator `;`, virgulă zecimală și UTF-8, care se deschide corect în Excel în limba română.
+
+Înregistrările din coș nu intră în calcule. Este o evidență operațională de numerar, nu contabilitate: nu ține cont de TVA, impozite, amortizare sau facturi neplătite către furnizori.
+
+## Evenimente
+
+Secțiunea **Evenimente** (`admin/public/events.js`) adună tot ce ține de un eveniment, fără tabele noi în bază: folosește aceleași API-uri pentru evenimente, necesar, operațiuni financiare și sarcini.
+
+- **Lista:** fișe cu data, ora, locația, invitații, bara „încasat din preț”, restul de încasat, necesarul neplătit și profitul estimat. Filtre Viitoare / Trecute / Toate / Anulate, căutare după nume sau locație și totaluri pentru selecția curentă. Butonul **Deschide** din Acasă și Calendar, precum și numele din tabelul de profit, duc la pagina evenimentului.
+- **Pagina evenimentului:** preț convenit, încasat, rest de încasat, costuri (plătite + planificate) și profit estimat = preț − toate costurile (sau încasat − costuri, dacă nu există preț). Sub ele: **Necesar & costuri**, **Alte cheltuieli**, **Încasări** (cu „+ Avans” și „+ Rest”, care precompletează suma rămasă), **Client** (din cererea acceptată), **De pregătit** și **Notițe**.
+- **Necesar rapid:** produse prestabilite — cafea boabe, lapte, lapte vegetal, pahare 4/8/10/12 oz, capace, zahăr, agitatoare, sirop, gheață, apă, apă tonică, șervețele, barista, transport — plus produsele scrise manual anterior și „+ Produs nou”. Prețurile nu sunt inventate: la prima folosire completezi prețul pe unitate, apoi aplicația propune automat ultimul preț și ultima unitate pentru același produs. Totalul se calculează live, cu aceeași rotunjire ca serverul. **Am plătit** trece produsul în cheltuieli, ca până acum; produsele rămân „Planificat” până atunci.
+- Pe telefon, bara de jos arată Acasă, Cereri, Evenimente, Calendar, Profit și Costuri; Plannerul se deschide din meniul „Cont & echipă”.
+
+Calculele paginii și ale produselor prestabilite sunt verificate de `node scripts/test-admin-events.mjs`.
