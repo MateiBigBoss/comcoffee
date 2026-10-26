@@ -2,6 +2,10 @@
 
 Un singur site static, cu homepage animat, meniu fotografic de 12 băuturi și pagini Evenimente, Despre și Contact. Nu necesită instalarea de pachete sau build.
 
+## Administrarea firmei
+
+Dashboardul privat, cererile din formular, calendarul, plannerul și costurile folosesc serverul Node.js și baza de date SQLite din `admin/`. Pornire și cont proprietar: [docs/admin-dashboard.md](docs/admin-dashboard.md). Nu necesită pachete npm. Publicarea doar a folderului `site/` nu include dashboardul sau baza de date.
+
 ## Vezi site-ul
 
 Din rădăcina proiectului, cu Node.js instalat, pornește previzualizarea:

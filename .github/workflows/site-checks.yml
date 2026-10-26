@@ -34,6 +34,10 @@ jobs:
         run: node scripts/test-interior.mjs
       - name: Check booking form
         run: node scripts/test-contact.mjs
+      - name: Check business dashboard and database
+        run: node scripts/test-admin.mjs
+      - name: Check homepage album
+        run: node scripts/test-home-moments.mjs
       - name: Check patch whitespace
         if: github.event_name == 'pull_request'
         env:
