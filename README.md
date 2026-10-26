@@ -41,9 +41,10 @@ Din rădăcina proiectului, cu Node.js instalat:
     node scripts/test-menu-switcher.mjs
     node scripts/test-interior.mjs
     node scripts/test-contact.mjs
+    node scripts/test-home-moments.mjs
     git diff --check
 
-`check-site.mjs` semnalează și etichete HTML stricate, texte goale, `@import` plasat greșit și text sub 12 px. GitHub Actions rulează cele patru verificări la push și Pull Request. Acestea verifică fișierele site-ului, meniul, animațiile și comportamentul formularului; nu trimit emailuri. Pentru modificări de aspect verifică și site-ul în browser pe desktop și mobil, inclusiv tastatura și mișcarea redusă.
+`check-site.mjs` semnalează și etichete HTML stricate, texte goale, `@import` plasat greșit și text sub 12 px. GitHub Actions rulează aceste verificări (plus `test-logo-reveal.mjs`, fără `test-home-moments.mjs` deocamdată) la push și Pull Request. Acestea verifică fișierele site-ului, meniul, animațiile și comportamentul formularului; nu trimit emailuri. Pentru modificări de aspect verifică și site-ul în browser pe desktop și mobil, inclusiv tastatura și mișcarea redusă.
 
 ## Publicare și limite
 
