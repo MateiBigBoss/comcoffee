@@ -74,3 +74,9 @@ git push -u origin codex/business-dashboard
 ```
 
 Prima comandă actualizează PR #11 cu rezolvarea conflictelor; a doua salvează dashboardul pe ramura lui separată. Dacă GitHub anunță modificări noi sau respinge push-ul, nu folosi force-push; trebuie întâi integrate schimbările noi. PR pentru dashboard: https://github.com/MateiBigBoss/comcoffee/compare/master...codex/business-dashboard (disponibil după push). Niciuna dintre comenzi nu publică site-ul sau baza de date.
+
+## Actualizare mobilă
+
+Navigare fixă jos cu cinci destinații, contul și echipa într-un meniu separat, agenda lunii pe mobil, înregistrări financiare prezentate ca fișe, filtre de planner și butoane de apel/email în cereri. Formularele se deschid ca panouri pe înălțimea telefonului, cu acțiuni vizibile și câmpuri de minimum 16 px pentru evitarea zoomului automat pe iPhone.
+
+Verificat în browser la 320 și 390 px, plus desktop 1440 px: navigare, filtrare planner, deschidere/închidere formulare evenimente și costuri, fără depășire orizontală sau erori JavaScript. Nu au fost introduse înregistrări de probă în baza firmei. Testele serverului pe baza temporară și verificările site/meniu au trecut.
