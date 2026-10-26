@@ -20,6 +20,8 @@ try{
  assert.equal((await call('/admin/')).status,303);
  assert.equal((await call('/api/data')).status,401);
  assert.equal((await call('/admin/data/comcoffee.sqlite')).status,404);
+ {const r=await call('/admin/reports.js');assert.equal(r.status,200);assert.match(r.headers.get('content-type'),/javascript/);assert.match(await r.text(),/export function buildReport/);}
+ {const r=await call('/admin/events.js');assert.equal(r.status,200);assert.match(r.headers.get('content-type'),/javascript/);assert.match(await r.text(),/export function eventsView/);}
  assert.equal((await call('/api/login',{method:'POST',data:{email:'owner@example.test',password:'incorrect-password'}})).status,401);
  const owner=await login('owner@example.test');
  assert.equal((await call('/api/tasks',{method:'POST',...owner,data:null})).status,400);

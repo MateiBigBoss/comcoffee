@@ -152,7 +152,7 @@ export async function start({port=Number(process.env.PORT||4194),host=process.en
    if(req.method!=='GET')fail(405,'Metodă nepermisă.');
    if(path==='/admin'||path==='/admin/'){if(!user)return redirect('/admin/login');return send(200,await readFile(resolve(here,'public/dashboard.html')),'text/html; charset=utf-8');}
    if(path==='/admin/login'){if(user)return redirect('/admin/');return send(200,await readFile(resolve(here,'public/login.html')),'text/html; charset=utf-8');}
-   if(['/admin/app.js','/admin/admin.css','/admin/login.js','/admin/booking.js'].includes(path))return send(200,await readFile(resolve(here,'public',path.split('/').pop())),types[extname(path)]);
+   if(['/admin/app.js','/admin/reports.js','/admin/events.js','/admin/admin.css','/admin/login.js','/admin/booking.js'].includes(path))return send(200,await readFile(resolve(here,'public',path.split('/').pop())),types[extname(path)]);
    if(path.startsWith('/admin'))fail(404,'Pagină inexistentă.');
    const decoded=decodeURIComponent(path==='/'?'/index.html':path);if(decoded.split(/[\\/]/).some(p=>p.startsWith('.')||p.includes(':')))fail(404,'Pagină inexistentă.');
    const file=await realpath(resolve(root,'.'+decoded));const rel=relative(root,file);if(rel.startsWith('..'+sep)||rel==='..'||!types[extname(file)]||!(await stat(file)).isFile())fail(404,'Pagină inexistentă.');

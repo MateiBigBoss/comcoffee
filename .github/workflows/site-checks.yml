@@ -40,6 +40,10 @@ jobs:
         run: node scripts/test-admin-import.mjs
       - name: Check business dashboard and database
         run: node scripts/test-admin.mjs
+      - name: Check profit and statistics calculations
+        run: node scripts/test-admin-reports.mjs
+      - name: Check event page money and supply presets
+        run: node scripts/test-admin-events.mjs
       - name: Check homepage album
         run: node scripts/test-home-moments.mjs
       - name: Check patch whitespace
