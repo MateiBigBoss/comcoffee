@@ -80,3 +80,15 @@ Prima comandă actualizează PR #11 cu rezolvarea conflictelor; a doua salvează
 Navigare fixă jos cu cinci destinații, contul și echipa într-un meniu separat, agenda lunii pe mobil, înregistrări financiare prezentate ca fișe, filtre de planner și butoane de apel/email în cereri. Formularele se deschid ca panouri pe înălțimea telefonului, cu acțiuni vizibile și câmpuri de minimum 16 px pentru evitarea zoomului automat pe iPhone.
 
 Verificat în browser la 320 și 390 px, plus desktop 1440 px: navigare, filtrare planner, deschidere/închidere formulare evenimente și costuri, fără depășire orizontală sau erori JavaScript. Nu au fost introduse înregistrări de probă în baza firmei. Testele serverului pe baza temporară și verificările site/meniu au trecut.
+
+## Bonuri, facturi și necesarul evenimentelor
+
+În **Costuri & încasări**, fiecare operațiune are butonul **Documente**. După salvarea unei încasări/cheltuieli se deschide și panoul de atașamente. Sunt acceptate PDF, JPG/JPEG, PNG și WebP, maximum 10 MB per fișier și 10 fișiere per operațiune. Fișierele sunt descărcate doar printr-un endpoint autentificat, cu verificări de sesiune și acces; încărcarea cere și token CSRF. Tipul este verificat prin semnătura fișierului și extensie, nu doar prin numele declarat. Nu se face OCR sau scanare antivirus.
+
+Documentele sunt stocate ca BLOB în SQLite, nu în site/ și nu în Git. Backupul SQLite include și fișierele. Exportul JSON include doar metadatele documentelor, nu conținutul lor; pentru recuperarea completă folosește backupul SQLite. Migrarea la schema 2 adaugă tabelele fără ștergerea datelor existente.
+
+În calendar sau lista evenimentelor, **Necesar** deschide tabelul de produse/servicii: denumire, cantitate, unitate, preț unitar și total. Cantitățile acceptă maximum trei zecimale; prețurile sunt în RON, păstrate în bani întregi. Totalurile pe rând sunt rotunjite la ban, apoi însumate. Poți edita produsele înainte de înregistrarea plății.
+
+**Trece în cheltuieli** cere data plății, categoria și referința documentului. Confirmarea creează o singură cheltuială asociată evenimentului, apoi deschide atașamentele. Apăsările repetate nu dublează cheltuiala. După înregistrare, cantitatea/prețul produsului și suma/tipul/evenimentul cheltuielii sunt blocate pentru a păstra legătura; data, categoria, descrierea și referința rămân corectabile. Nu se efectuează nicio plată bancară prin acest buton.
+
+Verificări: calcule cu zecimale, valori invalide, conversie repetată, acces neautorizat, CSRF, extensii/tipuri nepermise, limită de fișier, descărcare identică, atașamente la încasări și cheltuieli și persistență după repornire. Testele au trecut inclusiv prin HTTP. Fluxul adăugare produs → calcul live → cheltuială → încărcare imagine a fost verificat în browser la 390 px, într-o bază demonstrativă separată, fără modificarea evidenței firmei.

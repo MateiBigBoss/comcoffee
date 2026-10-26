@@ -18,7 +18,11 @@ export function database(path){
  CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY,title TEXT NOT NULL,date TEXT NOT NULL DEFAULT '',done INTEGER NOT NULL DEFAULT 0,event_id INTEGER REFERENCES events(id),created TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
  CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY,user_id INTEGER REFERENCES users(id),action TEXT NOT NULL,entity TEXT NOT NULL,created TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
  CREATE INDEX IF NOT EXISTS events_date ON events(date); CREATE INDEX IF NOT EXISTS enquiries_created ON enquiries(created); CREATE INDEX IF NOT EXISTS ledger_date ON ledger(date);
- PRAGMA user_version=1;`);return db;
+ CREATE TABLE IF NOT EXISTS attachments(id INTEGER PRIMARY KEY,ledger_id INTEGER NOT NULL REFERENCES ledger(id),name TEXT NOT NULL,mime TEXT NOT NULL,size INTEGER NOT NULL,data BLOB NOT NULL,created TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
+ CREATE TABLE IF NOT EXISTS supplies(id INTEGER PRIMARY KEY,event_id INTEGER NOT NULL REFERENCES events(id),name TEXT NOT NULL,quantity INTEGER NOT NULL CHECK(quantity>0),unit TEXT NOT NULL,unit_price INTEGER NOT NULL CHECK(unit_price>=0),total INTEGER NOT NULL CHECK(total>=0),ledger_id INTEGER UNIQUE REFERENCES ledger(id),created TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
+ CREATE INDEX IF NOT EXISTS attachments_ledger ON attachments(ledger_id);
+ CREATE INDEX IF NOT EXISTS supplies_event ON supplies(event_id);
+ PRAGMA user_version=2;`);return db;
 }
 export async function createUser(db,email,password,role='admin'){
  email=String(email).trim().toLowerCase();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||email.length>254)throw Error('Email invalid.');
