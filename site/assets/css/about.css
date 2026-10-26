@@ -18,7 +18,7 @@
 .about-page .about-community { background: var(--cream); padding-block: 88px 96px; }
 .about-community-heading .eyebrow { margin-bottom: 32px; }
 .about-page .about-community-title { display: flex; align-items: center; gap: .015em; font-size: clamp(54px,10vw,146px); font-weight: 400; line-height: 1; letter-spacing: -.065em; }
-.about-community-title svg { display: block; width: 2.6em; height: auto; flex: none; mix-blend-mode: multiply; }
+.about-community-title svg { display: block; width: 2.6em; height: auto; flex: none; }
 /* Optical alignment of the wordmark ink and the adjacent text. */
 .about-community-title > span { position: relative; top: -.08em; font-weight: 400; }
 .about-community-body { display: grid; grid-template-columns: minmax(0,1.12fr) minmax(0,1fr); gap: clamp(36px,7vw,108px); margin-top: 52px; padding-top: 40px; border-top: 1px solid var(--line); }

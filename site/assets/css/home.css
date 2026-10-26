@@ -30,7 +30,7 @@
 .story-copy { min-width: 0; align-self: center; padding: 64px clamp(24px,4vw,72px) 64px var(--page-pad); }
 .story-copy .eyebrow { color: var(--muted); margin-bottom: 30px; }
 .community-title { display: flex; align-items: center; gap: .015em; font-size: clamp(44px,5.7vw,86px); line-height: 1; letter-spacing: -.065em; white-space: nowrap; }
-.community-title svg { display: block; width: 2.6em; height: auto; flex: none; mix-blend-mode: multiply; }
+.community-title svg { display: block; width: 2.6em; height: auto; flex: none; }
 .community-title span { font-weight: 400; }
 /* Optical alignment of the wordmark ink and the adjacent text. */
 .community-title > span { position: relative; top: -.08em; }
