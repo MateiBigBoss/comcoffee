@@ -1,0 +1,40 @@
+import assert from 'node:assert/strict';
+import {mkdtemp,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {start} from '../admin/server.mjs';
+import {createUser,database} from '../admin/db.mjs';
+import {csvRows,parseRows,googleExportURL,excelSheets} from '../admin/import.mjs';
+import ExcelJS from '../admin/node_modules/exceljs/excel.js';
+const csv='Nume eveniment:,Eveniment exemplu\nData eveniment:,30.08.2026\n\nArticol,Cantitate,U.M.,Pret unitar fara TVA (lei),TVA (%),Pret unitar cu TVA (lei),Total (lei),Furnizor,Observatii\nPahare,200,buc,0.1564,21,0.19,31.28,Furnizor test,Reciclabile\nCafea,1,kg,175.0000,,175.00,175.00,,\nApa,10,l,,,,,,\nCafea reducere,1,buc,122.5000,,122.50,#REF!,,\n,,,,,,,,\n,,,,,Total general (lei):,#REF!,,\n';
+const parsed=parseRows(csvRows(csv));assert.equal(parsed.items.length,2);assert.equal(parsed.total,20628);assert.equal(parsed.items[0].unit_price_4,1564);assert.equal(parsed.date,'2026-08-30');assert.equal(parsed.warnings.length,2);assert.match(parsed.items[0].notes,/Furnizor test/);
+assert.throws(()=>csvRows('"oops'),/CSV invalid/);assert.throws(()=>parseRows([['no headers']]),/coloanele/);assert.equal(csvRows('"Lapte, bun",2\r\n"Alt ""nume""",3')[1][0],'Alt "nume"');
+for(const url of ['http://127.0.0.1','https://docs.google.com.evil.test/spreadsheets/d/abcdefghij','https://user:pass@docs.google.com/spreadsheets/d/abcdefghij','https://docs.google.com:444/spreadsheets/d/abcdefghij','https://docs.google.com/spreadsheets/d/abcdefghij?gid=bad'])assert.throws(()=>googleExportURL(url));
+assert.match(googleExportURL('https://docs.google.com/spreadsheets/d/abcdefghij/edit#gid=123'),/format=csv&gid=123$/);
+const book=new ExcelJS.Workbook(),sheet=book.addWorksheet('Materiale');for(const row of csvRows(csv))sheet.addRow(row);sheet.getCell('G7').value={formula:'A1',result:{error:'#REF!'}};book.addWorksheet('Altă foaie').addRow(['Nu e un tabel']);const bytes=Buffer.from(await book.xlsx.writeBuffer());const sheets=await excelSheets(bytes);assert.equal(sheets.length,2);assert.equal(parseRows(sheets[0].rows).total,20628);await assert.rejects(excelSheets(Buffer.from('not excel')),/Excel/);
+const dir=await mkdtemp(join(tmpdir(),'com-import-')),dbPath=join(dir,'test.sqlite');const app=await start({port:0,dbPath});
+const request=(path,method='GET',data,auth={})=>fetch(app.origin+path,{method,headers:{Origin:app.origin,'Content-Type':'application/json',...auth},...(data===undefined?{}:{body:JSON.stringify(data)})});
+try{
+ await createUser(app.db,'import@example.test','Temporary-test-123!','owner');const login=await request('/api/login','POST',{email:'import@example.test',password:'Temporary-test-123!'});const Cookie=login.headers.get('set-cookie').split(';')[0],me=await(await request('/api/me','GET',undefined,{Cookie})).json(),auth={Cookie,'X-CSRF-Token':me.csrf};
+ const upload=(buffer=bytes,name='test.xlsx',headers=auth)=>fetch(app.origin+'/api/import/file',{method:'POST',headers:{Origin:app.origin,...headers,'X-File-Name':name},body:buffer});
+ assert.equal((await upload(bytes,'test.xlsx',{})).status,401);assert.equal((await upload(bytes,'test.xlsx',{Cookie})).status,403);assert.equal((await upload(Buffer.alloc(5*1024*1024+1))).status,413);
+ const preview=await(await upload()).json();assert.equal(preview.sheets[0].items.length,2);assert.match(preview.sheets[1].error,/coloanele/);assert.equal(app.db.prepare('SELECT count(*) AS n FROM events').get().n,0);
+ const event={token:preview.token,sheet:0,title:'Import QA',date:'2026-08-30',time:'09:00',duration:4,guests:25,location:'Test',price:1000,notes:'',mode:'expense',payment_date:'2026-08-29'};
+ assert.equal((await request('/api/import/confirm','POST',{...event,token:'bad'},auth)).status,400);assert.equal((await request('/api/import/confirm','POST',{...event,location:''},auth)).status,400);assert.equal(app.db.prepare('SELECT count(*) AS n FROM events').get().n,0);
+ let response=await request('/api/import/confirm','POST',event,auth);assert.equal(response.status,201);const saved=await response.json();response=await request('/api/import/confirm','POST',event,auth);assert.equal((await response.json()).duplicate,true);assert.equal(app.db.prepare('SELECT count(*) AS n FROM events').get().n,1);
+ const data=await(await request('/api/data','GET',undefined,auth)).json();assert.equal(data.ledger.reduce((s,e)=>s+e.amount,0),20628);assert(data.ledger.every(e=>e.event_id===saved.id));assert.equal(data.supplies[0].unit_price_4,1564);
+ const item=data.supplies[0],entry=data.ledger.find(e=>e.id===item.ledger_id);
+ assert.equal((await request('/api/supplies/'+item.id+'/delete','POST',{},{})).status,401);assert.equal((await request('/api/supplies/'+item.id+'/delete','POST',{},auth)).status,200);assert.equal(app.db.prepare('SELECT deleted FROM ledger WHERE id=?').get(entry.id).deleted,1);
+ assert.equal((await request('/api/supplies/'+item.id+'/expense','POST',{date:'2026-08-30',category:'Altele'},auth)).status,404);
+ assert.equal((await request('/api/ledger/'+entry.id+'/restore','POST',{},auth)).status,200);assert.equal(app.db.prepare('SELECT deleted FROM supplies WHERE id=?').get(item.id).deleted,0);
+ assert.equal((await request('/api/ledger/'+entry.id+'/delete','POST',{},auth)).status,200);assert.equal(app.db.prepare('SELECT deleted FROM supplies WHERE id=?').get(item.id).deleted,1);
+ assert.equal((await request('/api/supplies/'+item.id+'/restore','POST',{},auth)).status,200);assert.equal(app.db.prepare('SELECT deleted FROM ledger WHERE id=?').get(entry.id).deleted,0);
+ const preview2=await(await upload(Buffer.from(csv.replace('Eveniment exemplu','Alt eveniment')),'test.csv')).json();response=await request('/api/import/confirm','POST',{...event,token:preview2.token,mode:'plan'},auth);assert.equal(response.status,201);const plan=await response.json();assert.equal(app.db.prepare('SELECT count(*) AS n FROM ledger WHERE event_id=?').get(plan.id).n,0);
+ const manual=await request('/api/events/'+plan.id+'/supplies','POST',{name:'Capace',quantity:100,unit:'buc',unit_price:.1203},auth);assert.equal(manual.status,201);const manualId=(await manual.json()).id;assert.equal(app.db.prepare('SELECT total FROM supplies WHERE id=?').get(manualId).total,1203);
+ assert.equal((await request('/api/import/google','POST',{url:'http://localhost:1'},auth)).status,400);
+ await app.close();const db=database(dbPath);assert.equal(db.prepare('SELECT count(*) AS n FROM imports').get().n,2);assert.equal(db.prepare('SELECT unit_price_4 FROM supplies WHERE id=?').get(item.id).unit_price_4,1564);db.close();
+ // Simulate a v2 database and ensure migration preserves existing money and links.
+ const legacy=database(dbPath);legacy.exec('ALTER TABLE ledger DROP COLUMN deleted; ALTER TABLE supplies DROP COLUMN deleted; ALTER TABLE supplies DROP COLUMN unit_price_4; ALTER TABLE supplies DROP COLUMN notes; DROP TABLE imports; PRAGMA user_version=2;');legacy.close();
+ const upgraded=database(dbPath);assert.equal(upgraded.prepare('SELECT total,deleted FROM supplies WHERE id=?').get(item.id).total,3128);assert.equal(upgraded.prepare('SELECT deleted FROM supplies WHERE id=?').get(item.id).deleted,0);assert.equal(upgraded.prepare('SELECT amount FROM ledger WHERE id=?').get(entry.id).amount,3128);upgraded.close();
+ console.log('PASS import: CSV/XLSX, four decimal prices, no VAT, skipped rows, preview, auth/CSRF, limits, event association, plan vs paid, atomic confirmation, duplicate prevention, delete/restore and persistence');
+}finally{if(app.server.listening)await app.close();await rm(dir,{recursive:true,force:true});}

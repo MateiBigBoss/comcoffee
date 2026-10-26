@@ -4,7 +4,7 @@ Un singur site static, cu homepage animat, meniu fotografic de 12 băuturi și p
 
 ## Administrarea firmei
 
-Dashboardul privat, cererile din formular, calendarul, plannerul și costurile folosesc serverul Node.js și baza de date SQLite din `admin/`. Pornire și cont proprietar: [docs/admin-dashboard.md](docs/admin-dashboard.md). Nu necesită pachete npm. Publicarea doar a folderului `site/` nu include dashboardul sau baza de date.
+Dashboardul privat, cererile din formular, calendarul, plannerul și costurile folosesc serverul Node.js și baza de date SQLite din `admin/`. Pornire și cont proprietar: [docs/admin-dashboard.md](docs/admin-dashboard.md). Importul Excel necesită `npm ci --prefix admin --ignore-scripts`. Publicarea doar a folderului `site/` nu include dashboardul sau baza de date.
 
 ## Vezi site-ul
 

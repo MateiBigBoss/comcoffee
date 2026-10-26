@@ -74,6 +74,11 @@ try{
  const downloaded=await call('/api/attachments/'+file.id,owner);assert.equal(downloaded.status,200);assert.match(downloaded.headers.get('content-disposition'),/^attachment/);assert.deepEqual(Buffer.from(await downloaded.arrayBuffer()),pdf);
  const income=await(await call('/api/ledger',{method:'POST',...owner,data:{...ledger,kind:'income',amount:500,category:'Avans eveniment'}})).json();
  assert.equal((await upload(pdf,'factura.pdf',owner,income.id)).status,201);
+ assert.equal((await call('/api/ledger/'+payment.id+'/delete',{method:'POST',...owner,data:{}})).status,200);
+ assert.equal(app.db.prepare('SELECT deleted FROM supplies WHERE id=1').get().deleted,1);
+ assert.equal((await call('/api/attachments/'+file.id,owner)).status,200);
+ assert.equal((await call('/api/supplies/1/restore',{method:'POST',...owner,data:{}})).status,200);
+ assert.equal(app.db.prepare('SELECT deleted FROM ledger WHERE id=?').get(payment.id).deleted,0);
  const listing=await(await call('/api/data',owner)).json();assert.equal(listing.attachments[0].data,undefined);
  assert.equal((await call('/api/password',{method:'POST',...owner,data:{current:password,next:'New-test-password-123!'}})).status,200);
  assert.equal((await call('/api/data',owner)).status,401);

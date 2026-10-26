@@ -22,7 +22,10 @@ export function database(path){
  CREATE TABLE IF NOT EXISTS supplies(id INTEGER PRIMARY KEY,event_id INTEGER NOT NULL REFERENCES events(id),name TEXT NOT NULL,quantity INTEGER NOT NULL CHECK(quantity>0),unit TEXT NOT NULL,unit_price INTEGER NOT NULL CHECK(unit_price>=0),total INTEGER NOT NULL CHECK(total>=0),ledger_id INTEGER UNIQUE REFERENCES ledger(id),created TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
  CREATE INDEX IF NOT EXISTS attachments_ledger ON attachments(ledger_id);
  CREATE INDEX IF NOT EXISTS supplies_event ON supplies(event_id);
- PRAGMA user_version=2;`);return db;
+ CREATE TABLE IF NOT EXISTS imports(fingerprint TEXT PRIMARY KEY,event_id INTEGER NOT NULL REFERENCES events(id),created TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP); PRAGMA user_version=3;`);
+ for(const table of ['ledger','supplies'])if(!db.prepare('PRAGMA table_info('+table+')').all().some(c=>c.name==='deleted'))db.exec('ALTER TABLE '+table+' ADD COLUMN deleted INTEGER NOT NULL DEFAULT 0');
+ for(const [name,type]of [['unit_price_4','INTEGER'],['notes',"TEXT NOT NULL DEFAULT ''"]])if(!db.prepare('PRAGMA table_info(supplies)').all().some(c=>c.name===name))db.exec('ALTER TABLE supplies ADD COLUMN '+name+' '+type);
+ return db;
 }
 export async function createUser(db,email,password,role='admin'){
  email=String(email).trim().toLowerCase();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||email.length>254)throw Error('Email invalid.');

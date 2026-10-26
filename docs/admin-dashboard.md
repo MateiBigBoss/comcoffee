@@ -2,7 +2,7 @@
 
 ## Pornire pe calculatorul tău
 
-Necesită Node.js 22.13 sau mai nou, cu `node:sqlite` disponibil. Nu rulezi npm install. Din rădăcina acestui proiect:
+Necesită Node.js 22.13 sau mai nou, cu `node:sqlite` disponibil. Instalează dependența pentru importul Excel cu `npm ci --prefix admin --ignore-scripts`. Din rădăcina acestui proiect:
 
 ```powershell
 node admin/manage.mjs create-owner comcoffee.events@gmail.com
@@ -92,3 +92,23 @@ Documentele sunt stocate ca BLOB în SQLite, nu în site/ și nu în Git. Backup
 **Trece în cheltuieli** cere data plății, categoria și referința documentului. Confirmarea creează o singură cheltuială asociată evenimentului, apoi deschide atașamentele. Apăsările repetate nu dublează cheltuiala. După înregistrare, cantitatea/prețul produsului și suma/tipul/evenimentul cheltuielii sunt blocate pentru a păstra legătura; data, categoria, descrierea și referința rămân corectabile. Nu se efectuează nicio plată bancară prin acest buton.
 
 Verificări: calcule cu zecimale, valori invalide, conversie repetată, acces neautorizat, CSRF, extensii/tipuri nepermise, limită de fișier, descărcare identică, atașamente la încasări și cheltuieli și persistență după repornire. Testele au trecut inclusiv prin HTTP. Fluxul adăugare produs → calcul live → cheltuială → încărcare imagine a fost verificat în browser la 390 px, într-o bază demonstrativă separată, fără modificarea evidenței firmei.
+
+## Finanțe pe eveniment, coș și import de tabele
+
+Schema 3 adaugă ștergere recuperabilă, prețuri unitare cu patru zecimale și evidența importurilor. Datele vechi și bonurile sunt păstrate. În Calendar → Finanțe sau Costuri → Finanțe pe eveniment sunt afișate toate plățile evenimentului, indiferent de lună, cu total încasat, cheltuit, diferență de numerar și rest de încasat. Butoanele de adăugare preselectează evenimentul.
+
+Șterge mută în coș, fără eliminare definitivă. Pentru un produs trecut în cheltuieli, produsul și operațiunea financiară se șterg/restaurează împreună. Bonurile rămân disponibile în baza privată, iar înregistrările șterse sunt excluse din totalurile active. Coșul este accesibil din Costuri și din fiecare eveniment. Exportul JSON include și înregistrările marcate `deleted`.
+
+Calendar → Importă tabel acceptă linkuri Google Sheets accesibile fără autentificare sau fișiere `.xlsx` / `.csv` (maximum 5 MB). Pentru un tabel privat, exportă Excel și încarcă fișierul; aplicația nu solicită parola Google și nu schimbă permisiunile tabelului. Linkul este citit la cerere, fără sincronizare continuă. Foaia este aleasă prin `gid` în Google Sheets sau prin selectorul din previzualizarea Excel.
+
+Structura acceptată este cea furnizată de proprietar: `Nume eveniment:` și `Data eveniment:` în prima coloană, valorile în a doua, apoi antetul `Articol,Cantitate,U.M.,Pret unitar fara TVA (lei),TVA (%),Pret unitar cu TVA (lei),Total (lei),Furnizor,Observatii`. Sunt acceptate CSV cu virgulă sau punct și virgulă și date `ZZ.LL.AAAA` / `AAAA-LL-ZZ`. Un import creează un eveniment cu până la 300 materiale; nu interpretează arbitrar orice structură de workbook.
+
+TVA-ul nu se importă sau calculează. Prețul fără TVA și cantitatea determină totalul la ban; prețurile unitare păstrează maximum patru zecimale. Rândurile goale, cele fără nume, rezumatele și rândurile fără cantitate/unitate/preț sunt omise. Erorile de formulă sunt semnalate și omise. Furnizorul/observațiile, când există, sunt păstrate la produs; celulele opționale goale nu elimină un produs valid. Excel folosește rezultatele salvate ale formulelor, fără a executa formule sau macrocomenzi. Recalculează/salvează fișierul în Excel înainte de export dacă are formule fără rezultate.
+
+Previzualizarea nu scrie în baza de date. La confirmare completezi locația, invitații și celelalte detalii și alegi explicit necesar planificat (implicit, fără cheltuieli) sau materiale deja plătite, cu data plății. Nu sunt inventate încasări dintr-un tabel de cheltuieli; acestea se înregistrează separat. Confirmarea este tranzacțională; repetarea aceluiași conținut normalizat deschide evenimentul existent, fără dublare. Modificările tabelului nu actualizează automat un eveniment existent: verifică înainte de a importa o versiune diferită.
+
+Pentru citirea Excel: `npm ci --prefix admin --ignore-scripts`. Dependența este fixată în lockfile, cu override UUID 11.1.1; verificarea npm audit nu a raportat vulnerabilități la implementare. Citirea are limite de fișier, ZIP, foi/rânduri/coloane, timp și memorie și rulează într-un worker separat. Google exportă numai din hosturi acceptate, cu limită de răspuns și timeout. Datele de probă pentru teste sunt separate de baza firmei.
+
+Verificări suplimentare: `node scripts/test-admin-import.mjs` (CSV/XLSX, TVA exclus, prețuri precise, rânduri omise, previzualizare, autentificare/CSRF, confirmare repetată, plan/plăți, ștergere/restaurare și persistență).
+
+Verificare vizuală pentru această actualizare: importul Google Sheets furnizat a recunoscut 10 materiale și 440,52 RON fără TVA. Fluxul a fost testat într-o bază QA separată la 390 px și desktop 1440 px: confirmare, situație financiară, ștergere/restaurare și preselectarea evenimentului la încasare. Fără depășire orizontală la 390 px sau erori în consola browserului. Tabelul nu a fost importat automat în evidența reală a firmei. Backup SQLite creat înainte de repornirea serviciului actualizat.
