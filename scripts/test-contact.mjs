@@ -52,6 +52,7 @@ class Element {
     return event;
   }
   setCustomValidity(message) { this.validationMessage = message; }
+  getAttribute(name) { return this.attrs[name] ?? null; }
   setAttribute(name, value) { this.attrs[name] = String(value); }
   removeAttribute(name) { delete this.attrs[name]; }
 }
@@ -500,4 +501,14 @@ test('pageshow refreshes restored/autofilled values and clears stale navigation 
 
 test('enhancement is safe on pages without a booking form', () => {
   vm.runInNewContext(script, {document: {querySelector: () => null}});
+});
+
+test('database submission keeps the draft until server confirmation', () => {
+ const storage=new MemoryStorage(),app=setup({stepped:true,storage});
+ app.form.setAttribute('action','/api/enquiries');app.complete();app.click('data-goto=3');
+ assert.equal(app.form.dispatch('submit').defaultPrevented,false);
+ assert.notEqual(storage.getItem(DRAFT_KEY),null);
+ app.window.dispatch('pagehide');assert.notEqual(storage.getItem(DRAFT_KEY),null);
+ app.form.dispatch('booking:saved');assert.equal(storage.getItem(DRAFT_KEY),null);
+ app.window.dispatch('pagehide');assert.equal(storage.getItem(DRAFT_KEY),null);
 });

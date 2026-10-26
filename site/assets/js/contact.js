@@ -345,6 +345,7 @@
     syncChips();
     if (stepped) show(0, true);
   });
+  form.addEventListener('booking:saved', () => { sent = true; clearDraft(); });
   window.addEventListener('pagehide', saveDraft);
 
   // Autofill and browser back navigation can restore values after initialization.
@@ -381,8 +382,7 @@
       return;
     }
     // The request leaves for FormSubmit now; the local draft is no longer needed.
-    sent = true;
-    clearDraft();
+    if (form.getAttribute('action') !== '/api/enquiries') { sent = true; clearDraft(); }
     // No AJAX success message: FormSubmit handles CAPTCHA and its response page.
     // Do not disable fields or erase values; preserve the complete POST payload.
     if (status) status.textContent = 'Continui pe pagina securizată de trimitere. Cererea nu reprezintă încă o rezervare confirmată.';

@@ -34,6 +34,14 @@ jobs:
         run: node scripts/test-interior.mjs
       - name: Check booking form
         run: node scripts/test-contact.mjs
+      - name: Install spreadsheet reader
+        run: npm ci --prefix admin --ignore-scripts
+      - name: Check event imports and financial archive
+        run: node scripts/test-admin-import.mjs
+      - name: Check business dashboard and database
+        run: node scripts/test-admin.mjs
+      - name: Check homepage album
+        run: node scripts/test-home-moments.mjs
       - name: Check patch whitespace
         if: github.event_name == 'pull_request'
         env:
