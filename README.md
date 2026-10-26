@@ -45,13 +45,16 @@ Din rădăcina proiectului, cu Node.js instalat:
     node scripts/test-menu-switcher.mjs
     node scripts/test-interior.mjs
     node scripts/test-contact.mjs
+    node scripts/test-home-moments.mjs
     git diff --check
 
-`check-site.mjs` semnalează și etichete HTML stricate, texte goale, `@import` plasat greșit și text sub 12 px. GitHub Actions rulează cele patru verificări la push și Pull Request. Acestea verifică fișierele site-ului, meniul, animațiile și comportamentul formularului; nu trimit emailuri. Pentru modificări de aspect verifică și site-ul în browser pe desktop și mobil, inclusiv tastatura și mișcarea redusă.
+`check-site.mjs` semnalează și etichete HTML stricate, texte goale, `@import` plasat greșit, text sub 12 px (inclusiv în rem/em, `clamp()` și forma prescurtată `font:`) și orice diferență între header-ul și footer-ul celor cinci pagini. GitHub Actions rulează aceste verificări (plus `test-logo-reveal.mjs`, fără `test-home-moments.mjs` deocamdată) la push și Pull Request. Acestea verifică fișierele site-ului, meniul, animațiile și comportamentul formularului; nu trimit emailuri. Pentru modificări de aspect verifică și site-ul în browser pe desktop și mobil, inclusiv tastatura și mișcarea redusă.
 
 ## Publicare și limite
 
 Directorul de publicat este `site/`, fără `docs/`, `scripts/` sau fișierele pentru agenți. Repository-ul nu configurează publicarea automată.
+
+Acasă, Meniu, Evenimente și Despre au etichete Open Graph pentru previzualizarea linkurilor (WhatsApp, Facebook, Messenger), cu imaginea `assets/img/og-image.jpg` (1200×630). Domeniul final nu este stabilit, așa că `og:image` este o cale relativă; după publicare trebuie înlocuită cu adresa completă (de exemplu `https://domeniu/assets/img/og-image.jpg`) și adăugat `og:url`, altfel unele aplicații nu afișează imaginea. Pagina Contact nu are încă aceste etichete.
 
 Formularul trimite cereri prin FormSubmit către **comcoffee.events@gmail.com**, cu CAPTCHA și fără chei în proiect. Înainte de utilizarea publică, proprietarul trebuie să activeze adresa din emailul primit de la FormSubmit și să confirme livrarea unei cereri de probă. **Livrarea completă până în inbox nu a fost verificată.** O cerere nu confirmă automat rezervarea. Pașii de activare, datele transmise și limitele sunt în [docs/contact-setup.md](docs/contact-setup.md). Emailul direct, telefonul și Instagramul sunt disponibile ca alternative.
 

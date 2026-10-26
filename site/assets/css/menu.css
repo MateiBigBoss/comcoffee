@@ -115,3 +115,4 @@
   .drink-description { margin-inline:auto; max-width:42ch; min-height:5.25em; }
 }
 @media(max-width:370px) { .drink-description { font-size:14px; min-height:7em; } }
+@media(prefers-reduced-motion:reduce) { .drink-arrows button:hover,.drink-arrows button:active,.menu-contact-primary:hover { transform:none; } }

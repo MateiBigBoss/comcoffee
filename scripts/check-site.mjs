@@ -1,5 +1,5 @@
-// Dependency-free checks for the primary static site: links, tag syntax, empty text, CSS imports and
-// minimum text size. Not a full HTML validator or browser test.
+// Dependency-free checks for the primary static site: links, tag syntax, empty text, CSS imports,
+// minimum text size and the shared header/footer. Not a full HTML validator or browser test.
 import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs';
 import { resolve, dirname, relative, sep, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -11,6 +11,23 @@ const walk = dir => readdirSync(dir, { withFileTypes: true }).flatMap(e =>
   e.isDirectory() ? walk(resolve(dir, e.name)) : [resolve(dir, e.name)]);
 for (const name of ['index.html', 'cafea.html', 'contact.html', 'despre.html', 'evenimente.html']) {
   if (!existsSync(resolve(root, name))) errors.push(`Missing page: ${name}`);
+}
+// Header and footer are copied into every page; they must stay identical apart from the current page.
+const shared = {};
+for (const name of ['index.html', 'cafea.html', 'contact.html', 'despre.html', 'evenimente.html']) {
+  if (!existsSync(resolve(root, name))) continue;
+  const source = readFileSync(resolve(root, name), 'utf8');
+  for (const [part, pattern] of [['header', /<header class="nav">[\s\S]*?<\/header>/], ['footer', /<footer class="footer">[\s\S]*?<\/footer>/]]) {
+    const block = source.match(pattern)?.[0];
+    if (!block) { errors.push(`${name}: missing shared ${part}`); continue; }
+    if (part === 'header') {
+      const current = [...block.matchAll(/<a href="([^"]+)" aria-current="page">/g)].map(m => m[1]);
+      if (current.join() !== name) errors.push(`${name}: header must mark only ${name} as the current page`);
+    }
+    const normal = block.replace(/ aria-current="page"/g, '').replace(/href="#/g, 'href="contact.html#').replace(/\s+/g, ' ').replace(/> </g, '><');
+    shared[part] ??= { name, normal };
+    if (shared[part].normal !== normal) errors.push(`${name}: ${part} differs from ${shared[part].name}`);
+  }
 }
 const files = existsSync(root) ? walk(root) : [];
 for (const file of files) {
@@ -39,9 +56,11 @@ for (const file of files) {
     for (const match of source.matchAll(/@import\b/g)) {
       if (firstRule !== -1 && match.index > firstRule) errors.push(`${name}:${line(match.index)}: @import after the first rule is ignored by browsers`);
     }
-    // Readability floor shared by every page.
-    for (const match of source.matchAll(/font(?:-size)?\s*:\s*(?:\d{3}\s+)?(\d+(?:\.\d+)?)px/g)) {
-      if (Number(match[1]) < 12) errors.push(`${name}:${line(match.index)}: text smaller than 12px`);
+    // Readability floor shared by every page: px, rem/em (at 16px), clamp() minimums and the font shorthand.
+    const size = /font(?:-size)?\s*:\s*(?:(?:italic|oblique|normal|small-caps|bold|bolder|lighter|\d{3})\s+)*(?:clamp\(\s*)?(\d*\.?\d+)(px|rem|em)\b/g;
+    for (const match of source.matchAll(size)) {
+      const px = Number(match[1]) * (match[2] === 'px' ? 1 : 16);
+      if (px < 12) errors.push(`${name}:${line(match.index)}: text smaller than 12px (${match[1]}${match[2]})`);
     }
   }
   const pattern = extension === '.html' ? /\b(?:src|href)\s*=\s*["']([^"']+)["']/gi : /url\(\s*["']?([^\s"')]+)["']?\s*\)/gi;
@@ -67,4 +86,4 @@ for (const file of files) {
   }
 }
 if (errors.length) { console.error(errors.join('\n')); process.exitCode = 1; }
-else console.log(`PASS: primary site local links, fragments, CSS assets, tag syntax, empty text, 12px minimum and JavaScript syntax (${files.length} files).`);
+else console.log(`PASS: primary site local links, fragments, CSS assets, tag syntax, empty text, 12px minimum, shared header/footer and JavaScript syntax (${files.length} files).`);

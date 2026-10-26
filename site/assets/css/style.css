@@ -23,7 +23,7 @@
 @media (min-width: 1600px) { :root { --page-pad: max(80px, calc((100vw - 1440px) / 2)); } }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; scrollbar-gutter: stable; }
+html { scroll-behavior: smooth; scrollbar-gutter: stable; /* no sideways jump between short and long pages */ }
 body {
   font-family: var(--font-body);
   font-size: 1rem;
@@ -37,7 +37,6 @@ a { color: inherit; }
 button, input, select, textarea { font: inherit; }
 [hidden] { display: none !important; }
 main { min-width: 0; }
-main[id] { scroll-margin-top:108px; }
 :focus-visible { outline: 2px solid var(--sage); outline-offset: 3px; }
 ::selection { background: var(--sage); color: var(--paper); }
 
@@ -62,9 +61,10 @@ em { font-family: var(--font-accent); font-weight: 400; }
   padding-inline: var(--page-pad);
   background: var(--stone);
 }
-.wordmark { text-decoration: none; }
-.wordmark img { height: 26px; width: auto; }
-.nav .wordmark { justify-self: start; display:flex; align-items:center; min-height:44px; }
+/* The vector wordmark is cropped to its ink, so 22px is the visible letter height. */
+.wordmark { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
+.wordmark img { display: block; height: 22px; width: auto; }
+.nav .wordmark { justify-self: start; }
 .nav nav { display: flex; gap: 6px; min-width: 0; }
 .nav nav a {
   min-height: 44px;
@@ -109,7 +109,7 @@ em { font-family: var(--font-accent); font-weight: 400; }
 /* ---- footer: identical on every page ------------------------- */
 .footer { padding: 56px var(--page-pad) 28px; display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 34px; background: var(--stone); }
 .footer > div { min-width: 0; }
-.footer .wordmark { display: inline-block; margin-bottom: 12px; }
+.footer .wordmark { min-height: 0; margin-bottom: 22px; }
 .footer p, .footer a { font-size: 14px; line-height: 1.8; overflow-wrap: anywhere; }
 .footer a { text-decoration: none; }
 .footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
@@ -122,8 +122,7 @@ em { font-family: var(--font-accent); font-weight: 400; }
   .nav-cta { display: none; }
 }
 @media (max-width: 760px) {
-  main[id] { scroll-margin-top:20px; }
-  .nav { height: auto; grid-template-columns: minmax(0, 1fr); gap: 10px; padding-top: 18px; position: relative; }
+  .nav { height: auto; grid-template-columns: minmax(0, 1fr); gap: 0; padding-top: 9px; position: relative; }
   .nav .wordmark { justify-self: center; }
   .nav nav { justify-self: stretch; justify-content: space-between; gap: 0; border-block: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
   .nav nav a { padding: 8px 3px; font-size: 13px; }
@@ -135,6 +134,6 @@ em { font-family: var(--font-accent); font-weight: 400; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .page-link:hover span, .page-button:hover span, .menu-preview figure:hover img, .drink-arrows button:hover, .drink-arrows button:active, .menu-contact-primary:hover { transform:none; }
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .page-link:hover span, .page-button:hover span { transform: none; }
 }

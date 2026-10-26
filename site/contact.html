@@ -21,150 +21,203 @@
 <body class="interior contact-page">
   <a class="skip-link" href="#continut">Sari la conținut</a>
   <header class="nav">
-    <a class="wordmark" href="index.html" aria-label="com. — Acasă"><img src="assets/img/logo.png" alt="com." width="98" height="28"></a>
+    <a class="wordmark" href="index.html" aria-label="com. — Acasă"><img src="assets/img/logo.svg" alt="com." width="92" height="22"></a>
     <nav aria-label="Navigație principală"><a href="index.html">Acasă</a><a href="cafea.html">Meniu</a><a href="evenimente.html">Evenimente</a><a href="despre.html">Despre</a><a href="contact.html" aria-current="page">Contact</a></nav>
     <a class="nav-cta" href="#formular">Hai să vorbim <span aria-hidden="true">↗</span></a>
   </header>
   <main id="continut" tabindex="-1">
-    <section class="contact-intro page-section" aria-labelledby="titlu-contact">
-      <div data-reveal>
-        <h1 id="titlu-contact">Pune cafeaua<br>pe lista de <em>invitați.</em></h1>
-      </div>
-      <div class="contact-intro-note" data-reveal><p>Spune-ne data, locul și câți oameni vă adunați. Pregătim împreună detaliile cafelei.</p><a class="page-button" href="#formular">Cere o ofertă <span aria-hidden="true">↘</span></a></div>
-    </section>
-    <section class="contact-layout page-section" aria-labelledby="titlu-formular">
-      <aside class="contact-aside" aria-label="Contact direct și detaliile tale">
-        <div class="contact-note" data-reveal>
-          <h2>Începe cu<br> un „bună”.</h2>
-          <p>Spune-ne când, unde și câți oameni se adună. Discutăm apoi meniul, spațiul și toate detaliile care fac evenimentul al tău.</p>
-          <div class="contact-direct">
-            <a href="mailto:comcoffee.events@gmail.com"><span>Email</span><strong>comcoffee.events<wbr>@gmail.com</strong><i aria-hidden="true">↗</i></a>
-            <a href="tel:+40771793146"><span>Telefon</span><strong>+40 771 793 146</strong><i aria-hidden="true">↗</i></a>
-            <a href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener"><span>Instagram</span><strong>@com.coffee.events</strong><i aria-hidden="true">↗</i></a>
+    <section class="contact-booking" id="formular" aria-labelledby="titlu-contact" tabindex="-1">
+      <div class="contact-heading">
+        <div>
+          <h1 id="titlu-contact">Hai să vorbim<span aria-hidden="true">.</span></h1>
+          <p>Spune-ne când, unde și câți oameni se adună. Restul îl punem la punct împreună.</p>
+        </div>
+        <div class="contact-direct" aria-label="Contact direct">
+          <div class="contact-direct-item">
+            <a href="mailto:comcoffee.events@gmail.com"><span>Email</span><strong>comcoffee.events<wbr>@gmail.com</strong></a>
+            <button class="contact-copy" type="button" data-copy="comcoffee.events@gmail.com" aria-label="Copiază adresa de email" hidden>
+              <svg class="contact-copy-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg>
+              <svg class="contact-copy-done" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            </button>
           </div>
-          <div class="booking-summary" data-booking-summary hidden>
-            <p class="eyebrow">Momentul tău, pe scurt</p>
-            <dl>
-              <div><dt>Ocazia</dt><dd data-summary="tip">De ales</dd></div>
-              <div><dt>Data</dt><dd data-summary="data">De ales</dd></div>
-              <div><dt>Invitați</dt><dd data-summary="invitati">De estimat</dd></div>
+          <div class="contact-direct-item"><a href="tel:+40771793146"><span>Telefon</span><strong>+40 771 793 146</strong></a></div>
+          <div class="contact-direct-item"><a href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener"><span>Instagram</span><strong>@com.coffee.events <span aria-hidden="true">↗</span></strong></a></div>
+          <span class="contact-sr-only" data-copy-status aria-live="polite"></span>
+        </div>
+      </div>
+      <p class="contact-local-notice" data-local-preview hidden>Ai deschis o copie locală a site-ului. Pentru formular folosește versiunea online sau scrie-ne direct la <a href="mailto:comcoffee.events@gmail.com">comcoffee.events@gmail.com</a>.</p>
+      <noscript><p class="contact-local-notice">Formularul funcționează pe site-ul online, și fără JavaScript. Dacă ai deschis un fișier de pe calculator, scrie-ne direct la <a href="mailto:comcoffee.events@gmail.com">comcoffee.events@gmail.com</a>.</p></noscript>
+      <form class="booking-scene" data-booking-form action="https://formsubmit.co/comcoffee.events@gmail.com" method="POST" accept-charset="UTF-8">
+        <input type="hidden" name="_subject" value="com. — Cerere de ofertă pentru eveniment">
+        <input type="hidden" name="_template" value="table">
+        <input type="text" name="_honey" class="contact-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <ol class="booking-tabs" data-booking-progress data-step-ui hidden aria-label="Pașii cererii">
+          <li><button type="button" data-goto="0"><span>01</span> Ocazia</button></li>
+          <li><button type="button" data-goto="1"><span>02</span> Locul</button></li>
+          <li><button type="button" data-goto="2"><span>03</span> Contact</button></li>
+          <li><button type="button" data-goto="3"><span>04</span> Detalii</button></li>
+        </ol>
+        <div class="booking-body">
+          <div class="booking-steps">
+            <fieldset class="booking-group" data-step tabindex="-1">
+              <legend><span class="booking-eyebrow">Pasul 1 din 4</span><span class="booking-title">Ce sărbătorim?</span></legend>
+              <p class="booking-note">Alege ocazia, ziua și câți oameni așteptați. Câmpurile marcate cu <span aria-hidden="true">*</span><span class="contact-sr-only">asterisc</span> sunt obligatorii.</p>
+              <div class="booking-fields">
+                <fieldset class="booking-field booking-field-wide booking-choices">
+                  <legend>Ocazia <span aria-hidden="true">*</span></legend>
+                  <div class="choice-row">
+                    <label class="choice" for="tip-nunta"><input id="tip-nunta" type="radio" name="Tip eveniment" value="nunta" data-label="Nuntă" required aria-describedby="tip-error"><span class="choice-dot" style="--dot:#c99a86" aria-hidden="true"></span>Nuntă</label>
+                    <label class="choice" for="tip-corporate"><input id="tip-corporate" type="radio" name="Tip eveniment" value="corporate" data-label="Eveniment corporate" required aria-describedby="tip-error"><span class="choice-dot" style="--dot:#6f7d66" aria-hidden="true"></span>Corporate</label>
+                    <label class="choice" for="tip-targ-festival"><input id="tip-targ-festival" type="radio" name="Tip eveniment" value="targ-festival" data-label="Târg / festival" required aria-describedby="tip-error"><span class="choice-dot" style="--dot:#c4a24a" aria-hidden="true"></span>Târg / festival</label>
+                    <label class="choice" for="tip-petrecere-privata"><input id="tip-petrecere-privata" type="radio" name="Tip eveniment" value="petrecere-privata" data-label="Petrecere privată / botez" required aria-describedby="tip-error"><span class="choice-dot" style="--dot:#a57450" aria-hidden="true"></span>Petrecere / botez</label>
+                    <label class="choice" for="tip-altceva"><input id="tip-altceva" type="radio" name="Tip eveniment" value="altceva" data-label="Altă ocazie" required aria-describedby="tip-error"><span class="choice-dot" style="--dot:#8a8170" aria-hidden="true"></span>Altceva</label>
+                  </div>
+                  <small class="booking-error" id="tip-error" data-error-for="tip"></small>
+                </fieldset>
+                <div class="booking-field">
+                  <label for="data">Data evenimentului <span aria-hidden="true">*</span></label>
+                  <input id="data" name="Data evenimentului" type="date" required aria-describedby="data-error data-hint">
+                  <small class="booking-error" id="data-error" data-error-for="data"></small>
+                  <small id="data-hint">Dacă data e flexibilă, spune-ne la detalii.</small>
+                </div>
+                <div class="booking-field">
+                  <label for="invitati">Invitați <span aria-hidden="true">*</span></label>
+                  <div class="booking-stepper">
+                    <button type="button" data-adjust="invitati" data-by="-10" data-js-only hidden aria-label="Cu 10 invitați mai puțin">−</button>
+                    <input id="invitati" name="Număr estimat de invitați" type="number" min="1" max="3000" step="1" inputmode="numeric" placeholder="120" required aria-describedby="invitati-error">
+                    <button type="button" data-adjust="invitati" data-by="10" data-js-only hidden aria-label="Cu 10 invitați mai mult">+</button>
+                  </div>
+                  <small class="booking-error" id="invitati-error" data-error-for="invitati"></small>
+                </div>
+              </div>
+              <div class="booking-step-nav" data-step-ui hidden>
+                <button class="booking-next" type="button" data-step-next>Continuă <span aria-hidden="true">→</span></button>
+              </div>
+            </fieldset>
+            <fieldset class="booking-group" data-step tabindex="-1">
+              <legend><span class="booking-eyebrow">Pasul 2 din 4</span><span class="booking-title">Unde ne întâlnim?</span></legend>
+              <p class="booking-note">Localitatea ne ajută să verificăm disponibilitatea. Programul și locul exact le putem stabili și mai târziu.</p>
+              <div class="booking-fields">
+                <div class="booking-field">
+                  <label for="oras">Localitate / județ <span aria-hidden="true">*</span></label>
+                  <input id="oras" name="Localitate și județ" type="text" autocomplete="address-level2" minlength="2" maxlength="150" placeholder="Cluj-Napoca" required aria-describedby="oras-error">
+                  <small class="booking-error" id="oras-error" data-error-for="oras"></small>
+                </div>
+                <div class="booking-field">
+                  <label for="locatie">Locație / adresă <span>(opțional)</span></label>
+                  <input id="locatie" name="Locație și adresă" type="text" autocomplete="street-address" maxlength="250" placeholder="Numele locului">
+                </div>
+                <div class="booking-field">
+                  <label for="ora">Începem servirea la <span>(opțional)</span></label>
+                  <input id="ora" name="Ora de începere a servirii" type="time">
+                </div>
+                <div class="booking-field">
+                  <label for="durata">Câte ore servim? <span>(opțional)</span></label>
+                  <div class="booking-stepper">
+                    <button type="button" data-adjust="durata" data-by="-0.5" data-js-only hidden aria-label="Cu o jumătate de oră mai puțin">−</button>
+                    <input id="durata" name="Durata servirii în ore" type="number" min="0.5" max="12" step="0.5" inputmode="decimal" placeholder="4" aria-describedby="durata-error durata-hint">
+                    <button type="button" data-adjust="durata" data-by="0.5" data-js-only hidden aria-label="Cu o jumătate de oră mai mult">+</button>
+                  </div>
+                  <small class="booking-error" id="durata-error" data-error-for="durata"></small>
+                  <small id="durata-hint">Între 0,5 și 12 ore pe zi.</small>
+                </div>
+                <fieldset class="booking-field booking-field-wide booking-choices">
+                  <legend>Unde va sta barul? <span>(opțional)</span></legend>
+                  <div class="choice-row">
+                    <label class="choice" for="amplasare-stabilim"><input id="amplasare-stabilim" type="radio" name="Amplasarea barului" value="De stabilit" checked>Stabilim împreună</label>
+                    <label class="choice" for="amplasare-interior"><input id="amplasare-interior" type="radio" name="Amplasarea barului" value="Interior">În interior</label>
+                    <label class="choice" for="amplasare-acoperit"><input id="amplasare-acoperit" type="radio" name="Amplasarea barului" value="Exterior acoperit">Afară, acoperit</label>
+                    <label class="choice" for="amplasare-exterior"><input id="amplasare-exterior" type="radio" name="Amplasarea barului" value="Exterior">În aer liber</label>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="booking-step-nav" data-step-ui hidden>
+                <button class="booking-back" type="button" data-step-back aria-label="Pasul anterior">←</button>
+                <button class="booking-next" type="button" data-step-next>Continuă <span aria-hidden="true">→</span></button>
+              </div>
+            </fieldset>
+            <fieldset class="booking-group" data-step tabindex="-1">
+              <legend><span class="booking-eyebrow">Pasul 3 din 4</span><span class="booking-title">Cu cine vorbim?</span></legend>
+              <p class="booking-note">Te contactăm pe email sau la telefon ca să discutăm oferta.</p>
+              <div class="booking-fields">
+                <div class="booking-field booking-field-wide">
+                  <label for="nume">Numele tău <span aria-hidden="true">*</span></label>
+                  <input id="nume" name="name" type="text" autocomplete="name" minlength="2" maxlength="120" placeholder="Prenume și nume" required aria-describedby="nume-error">
+                  <small class="booking-error" id="nume-error" data-error-for="nume"></small>
+                </div>
+                <div class="booking-field">
+                  <label for="email">Email <span aria-hidden="true">*</span></label>
+                  <input id="email" name="email" type="email" autocomplete="email" maxlength="254" placeholder="nume@exemplu.ro" required aria-describedby="email-error">
+                  <small class="booking-error" id="email-error" data-error-for="email"></small>
+                </div>
+                <div class="booking-field">
+                  <label for="telefon">Telefon <span aria-hidden="true">*</span></label>
+                  <input id="telefon" name="Telefon" type="tel" autocomplete="tel" minlength="7" maxlength="25" placeholder="+40 7xx xxx xxx" required aria-describedby="telefon-error">
+                  <small class="booking-error" id="telefon-error" data-error-for="telefon"></small>
+                </div>
+                <div class="booking-field booking-field-wide">
+                  <label for="organizatie">Companie / organizator <span>(opțional)</span></label>
+                  <input id="organizatie" name="Companie sau organizator" type="text" autocomplete="organization" maxlength="150">
+                </div>
+              </div>
+              <div class="booking-step-nav" data-step-ui hidden>
+                <button class="booking-back" type="button" data-step-back aria-label="Pasul anterior">←</button>
+                <button class="booking-next" type="button" data-step-next>Continuă <span aria-hidden="true">→</span></button>
+              </div>
+            </fieldset>
+            <fieldset class="booking-group" data-step tabindex="-1">
+              <legend><span class="booking-eyebrow">Pasul 4 din 4</span><span class="booking-title">Ultimele detalii.</span></legend>
+              <p class="booking-note">Opțional, dar ne ajută să venim cu o ofertă potrivită din prima.</p>
+              <div class="booking-fields">
+                <div class="booking-field booking-field-wide">
+                  <label for="preferinte">Ce ți-ar plăcea în meniu? <span>(opțional)</span></label>
+                  <div class="booking-chips" role="group" aria-label="Sugestii din meniul nostru" data-js-only hidden>
+                    <button type="button" data-chip="Espresso" aria-pressed="false"><span class="choice-dot" style="--dot:#513222" aria-hidden="true"></span>Espresso</button>
+                    <button type="button" data-chip="Cappuccino" aria-pressed="false"><span class="choice-dot" style="--dot:#c6a784" aria-hidden="true"></span>Cappuccino</button>
+                    <button type="button" data-chip="Flat white" aria-pressed="false"><span class="choice-dot" style="--dot:#bd956e" aria-hidden="true"></span>Flat white</button>
+                    <button type="button" data-chip="Iced latte" aria-pressed="false"><span class="choice-dot" style="--dot:#b79c7d" aria-hidden="true"></span>Iced latte</button>
+                    <button type="button" data-chip="Cold brew" aria-pressed="false"><span class="choice-dot" style="--dot:#663c27" aria-hidden="true"></span>Cold brew</button>
+                    <button type="button" data-chip="Babyccino" aria-pressed="false"><span class="choice-dot" style="--dot:#e2d8c6" aria-hidden="true"></span>Babyccino</button>
+                  </div>
+                  <input id="preferinte" name="Preferințe pentru meniu" type="text" maxlength="300" placeholder="Espresso, băuturi cu lapte, ceva cu gheață…" aria-describedby="preferinte-hint">
+                  <small id="preferinte-hint">Atinge o sugestie sau scrie liber. Vezi tot <a href="cafea.html" target="_blank" rel="noopener">meniul <span class="contact-sr-only">(se deschide într-o filă nouă)</span>↗</a>.</small>
+                </div>
+                <div class="booking-field booking-field-wide">
+                  <label for="detalii">Ce ar mai fi bine să știm? <span>(opțional)</span></label>
+                  <textarea id="detalii" name="Detalii suplimentare" rows="4" maxlength="3000" placeholder="Program, temă, acces la locație, spațiu disponibil, curent sau întrebările tale." aria-describedby="detalii-count"></textarea>
+                  <small class="booking-count" id="detalii-count" data-count data-js-only hidden>0 / 3000</small>
+                </div>
+              </div>
+              <div class="booking-send">
+                <label class="booking-consent" for="acord">
+                  <input id="acord" name="Acord contact pentru ofertă" type="checkbox" value="Da" required>
+                  <span>Sunt de acord să fiu contactat(ă) de com. pentru această cerere. Datele completate sunt transmise prin <a href="https://formsubmit.co/privacy.pdf" target="_blank" rel="noopener">FormSubmit</a> către comcoffee.events@gmail.com, pentru a discuta oferta. <span aria-hidden="true">*</span></span>
+                </label>
+                <div class="booking-step-nav">
+                  <button class="booking-back" type="button" data-step-back data-step-ui hidden aria-label="Pasul anterior">←</button>
+                  <button class="booking-submit" type="submit">Trimite cererea <span aria-hidden="true">↗</span></button>
+                </div>
+                <p class="booking-status" data-booking-status role="status" aria-live="polite"></p>
+              </div>
+            </fieldset>
+          </div>
+          <aside class="booking-sheet" data-booking-summary hidden aria-label="Fișa evenimentului">
+            <p class="booking-eyebrow">Fișa evenimentului</p>
+            <dl class="booking-sheet-numbers">
+              <div><dt>Invitați</dt><dd data-summary="invitati">—</dd></div>
+              <div><dt>Durată</dt><dd data-summary="durata">—</dd></div>
             </dl>
-          </div>
+            <dl class="booking-sheet-rows">
+              <div><dt>Ocazia</dt><dd data-summary="tip">—</dd></div>
+              <div><dt>Data</dt><dd data-summary="data">—</dd></div>
+              <div><dt>Ora</dt><dd data-summary="ora">—</dd></div>
+              <div><dt>Locul</dt><dd data-summary="oras">—</dd></div>
+            </dl>
+            <p class="booking-draft" data-draft-note hidden><span>Salvat pe acest dispozitiv până trimiți cererea.</span> <button type="button" data-draft-clear>Șterge datele</button></p>
+          </aside>
         </div>
-        <figure class="contact-photo" data-reveal>
-          <img src="assets/img/events/latte-art-720.webp" srcset="assets/img/events/latte-art-360.webp 360w, assets/img/events/latte-art-720.webp 720w" sizes="(max-width: 800px) 90vw, 30vw" alt="Un barista com. toarnă laptele în cafea, la barul mobil." width="720" height="1080" loading="lazy" decoding="async">
-          <figcaption>Ne ocupăm de cafea.<br>Tu bucură-te de oameni.</figcaption>
-        </figure>
-      </aside>
-      <div class="contact-form-wrap">
-        <div class="contact-form-heading" id="formular" tabindex="-1" data-reveal>
-          <p class="eyebrow">Cerere de ofertă</p>
-          <h2 id="titlu-formular">Ce moment pregătim?</h2>
-          <p>Nu trebuie să ai totul stabilit. Completează câmpurile marcate cu <span aria-hidden="true">*</span><span class="contact-sr-only">asterisc</span>; restul îl punem la punct împreună.</p>
-        </div>
-        <p class="contact-local-notice" data-local-preview hidden>Ai deschis o copie locală a site-ului. Pentru formular folosește versiunea online sau scrie-ne direct la <a href="mailto:comcoffee.events@gmail.com">comcoffee.events@gmail.com</a>.</p>
-        <noscript><p class="contact-local-notice">Formularul funcționează pe site-ul online, și fără JavaScript. Dacă ai deschis un fișier de pe calculator, scrie-ne direct la <a href="mailto:comcoffee.events@gmail.com">comcoffee.events@gmail.com</a>.</p></noscript>
-        <form class="booking-form" data-booking-form action="https://formsubmit.co/comcoffee.events@gmail.com" method="POST" accept-charset="UTF-8">
-          <input type="hidden" name="_subject" value="com. — Cerere de ofertă pentru eveniment">
-          <input type="hidden" name="_template" value="table">
-          <input type="text" name="_honey" class="contact-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <fieldset class="booking-group">
-            <legend>Despre eveniment</legend>
-            <div class="booking-grid">
-              <div class="booking-field booking-field-wide">
-                <label for="tip">Ce sărbătorim? <span aria-hidden="true">*</span></label>
-                <select id="tip" name="Tip eveniment" required>
-                  <option value="">Alege tipul evenimentului</option>
-                  <option value="nunta">Nuntă</option>
-                  <option value="corporate">Eveniment corporate</option>
-                  <option value="targ-festival">Târg / festival</option>
-                  <option value="petrecere-privata">Petrecere privată / botez</option>
-                  <option value="altceva">Altă ocazie</option>
-                </select>
-              </div>
-              <div class="booking-field">
-                <label for="data">Data evenimentului <span aria-hidden="true">*</span></label>
-                <input id="data" name="Data evenimentului" type="date" required aria-describedby="data-hint">
-                <small id="data-hint">Dacă data e flexibilă, spune-ne în detalii.</small>
-              </div>
-              <div class="booking-field">
-                <label for="invitati">Număr estimat de invitați <span aria-hidden="true">*</span></label>
-                <input id="invitati" name="Număr estimat de invitați" type="number" min="1" step="1" inputmode="numeric" placeholder="De exemplu, 120" required>
-              </div>
-              <div class="booking-field">
-                <label for="ora">Ora de începere a servirii <span>(opțional)</span></label>
-                <input id="ora" name="Ora de începere a servirii" type="time">
-              </div>
-              <div class="booking-field">
-                <label for="durata">Câte ore să fim acolo? <span>(opțional)</span></label>
-                <input id="durata" name="Durata servirii în ore" type="number" min="0.5" step="0.5" inputmode="decimal" placeholder="De exemplu, 4">
-              </div>
-              <div class="booking-field">
-                <label for="oras">Localitate / județ <span aria-hidden="true">*</span></label>
-                <input id="oras" name="Localitate și județ" type="text" autocomplete="address-level2" maxlength="150" placeholder="Unde ne întâlnim?" required>
-              </div>
-              <div class="booking-field">
-                <label for="locatie">Locație / adresă <span>(opțional)</span></label>
-                <input id="locatie" name="Locație și adresă" type="text" autocomplete="street-address" maxlength="250" placeholder="Dacă ai ales deja locul">
-              </div>
-              <div class="booking-field booking-field-wide">
-                <label for="amplasare">Unde va sta barul? <span>(opțional)</span></label>
-                <select id="amplasare" name="Amplasarea barului">
-                  <option value="De stabilit">Stabilim împreună</option>
-                  <option value="Interior">În interior</option>
-                  <option value="Exterior acoperit">Afară, într-un spațiu acoperit</option>
-                  <option value="Exterior">În aer liber</option>
-                </select>
-              </div>
-            </div>
-          </fieldset>
-          <fieldset class="booking-group">
-            <legend>Cu cine povestim?</legend>
-            <div class="booking-grid">
-              <div class="booking-field booking-field-wide">
-                <label for="nume">Numele tău <span aria-hidden="true">*</span></label>
-                <input id="nume" name="name" type="text" autocomplete="name" maxlength="120" required>
-              </div>
-              <div class="booking-field">
-                <label for="email">Email <span aria-hidden="true">*</span></label>
-                <input id="email" name="email" type="email" autocomplete="email" maxlength="254" placeholder="nume@exemplu.ro" required>
-              </div>
-              <div class="booking-field">
-                <label for="telefon">Telefon <span aria-hidden="true">*</span></label>
-                <input id="telefon" name="Telefon" type="tel" autocomplete="tel" minlength="7" maxlength="25" placeholder="Inclusiv prefixul, dacă e cazul" required aria-describedby="telefon-hint">
-                <small id="telefon-hint">Un număr la care putem discuta detaliile.</small>
-              </div>
-              <div class="booking-field booking-field-wide">
-                <label for="organizatie">Companie / organizator <span>(opțional)</span></label>
-                <input id="organizatie" name="Companie sau organizator" type="text" autocomplete="organization" maxlength="150">
-              </div>
-            </div>
-          </fieldset>
-          <fieldset class="booking-group">
-            <legend>Detaliile fac diferența.</legend>
-            <div class="booking-grid">
-              <div class="booking-field booking-field-wide">
-                <label for="preferinte">Ce ți-ar plăcea în meniu? <span>(opțional)</span></label>
-                <input id="preferinte" name="Preferințe pentru meniu" type="text" maxlength="300" placeholder="Espresso, băuturi cu lapte, ceva cu gheață…" aria-describedby="preferinte-hint">
-                <small id="preferinte-hint">Te poți inspira din <a href="cafea.html" target="_blank" rel="noopener">meniul nostru <span class="contact-sr-only">(se deschide într-o filă nouă)</span>↗</a>.</small>
-              </div>
-              <div class="booking-field booking-field-wide">
-                <label for="detalii">Ce ar mai fi bine să știm? <span>(opțional)</span></label>
-                <textarea id="detalii" name="Detalii suplimentare" rows="5" maxlength="3000" placeholder="Program, temă, acces la locație, spațiu disponibil, curent sau întrebările tale."></textarea>
-              </div>
-            </div>
-          </fieldset>
-          <div class="booking-send">
-            <label class="booking-consent" for="acord">
-              <input id="acord" name="Acord contact pentru ofertă" type="checkbox" value="Da" required>
-              <span>Sunt de acord să fiu contactat(ă) de com. pentru această cerere. Datele completate sunt transmise prin <a href="https://formsubmit.co/privacy.pdf" target="_blank" rel="noopener">FormSubmit</a> către comcoffee.events@gmail.com, pentru a discuta oferta. <span aria-hidden="true">*</span></span>
-            </label>
-            <button class="page-button" type="submit">Trimite cererea <span aria-hidden="true">↗</span></button>
-            <p class="booking-disclaimer">La pasul următor confirmi că nu ești robot. Cererea este o invitație la discuție; rezervarea devine fermă după ce confirmăm împreună disponibilitatea și detaliile.</p>
-            <p class="booking-status" data-booking-status role="status" aria-live="polite"></p>
-          </div>
-        </form>
-      </div>
+      </form>
+      <p class="booking-disclaimer">La pasul următor confirmi că nu ești robot. Cererea este o invitație la discuție; rezervarea devine fermă după ce confirmăm împreună disponibilitatea și detaliile.</p>
     </section>
     <section class="contact-next page-section" aria-labelledby="titlu-urmator" data-reveal>
       <div><p class="eyebrow">Și apoi?</p><h2 id="titlu-urmator">De la mesaj,<br>la prima ceașcă.</h2></div>
@@ -176,7 +229,7 @@
     </section>
   </main>
   <footer class="footer">
-    <div><a class="wordmark" href="index.html" aria-label="com. — Acasă"><img src="assets/img/logo.png" alt="com." width="98" height="28"></a><p>Stand mobil cu cafea de specialitate.<br>Venim la evenimentul tău.</p></div>
+    <div><a class="wordmark" href="index.html" aria-label="com. — Acasă"><img src="assets/img/logo.svg" alt="com." width="92" height="22"></a><p>Stand mobil cu cafea de specialitate.<br>Venim la evenimentul tău.</p></div>
     <div><h2>Ne auzim</h2><p><a href="mailto:comcoffee.events@gmail.com">comcoffee.events@gmail.com</a></p><p><a href="tel:+40771793146">+40 771 793 146</a></p><p><a href="https://www.instagram.com/com.coffee.events/" target="_blank" rel="noopener">@com.coffee.events ↗</a></p></div>
     <div><h2>Ne vedem</h2><p>La nuntă. La birou. La petrecere.</p><p><a href="#formular">Hai să vorbim ↗</a></p></div>
     <p class="footer-legal">© 2026 com.</p>

@@ -22,7 +22,7 @@ export async function start({port=Number(process.env.PORT||4194),host=process.en
  const rate=(key,max,ms)=>{const now=Date.now();if(limits.size>10000){for(const [k,v]of limits)if(v.until<now)limits.delete(k);if(limits.size>10000)fail(503,'Încearcă din nou mai târziu.');}let l=limits.get(key);if(!l||l.until<now){l={count:0,until:now+ms};limits.set(key,l);}if(++l.count>max)fail(429,'Prea multe încercări. Încearcă din nou mai târziu.');};
  const audit=(user,action,entity)=>db.prepare('INSERT INTO audit(user_id,action,entity) VALUES(?,?,?)').run(user.id,action,String(entity));
  const server=createServer(async(req,res)=>{
-  const headers={'X-Content-Type-Options':'nosniff','Referrer-Policy':'same-origin','X-Frame-Options':'DENY','Cache-Control':'no-store','Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'"};
+  const headers={'X-Content-Type-Options':'nosniff','Referrer-Policy':'same-origin','X-Frame-Options':'DENY','Cache-Control':'no-store','Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'"};
   const send=(status,data,type='application/json; charset=utf-8',extra={})=>{res.writeHead(status,{...headers,'Content-Type':type,...extra});res.end(type.startsWith('application/json')?JSON.stringify(data):data);};
   const redirect=url=>send(303,'','text/plain',{Location:url});
   try{

@@ -1,6 +1,6 @@
 # Homepage: album interactiv
 
-Bază: 6cb05b8, versiunea locală verificată. Ramură: codex/home-moment-trail.
+Bază inițială: 6cb05b8, ramura codex/home-moment-trail (PR #11). Preluat pe claude/home-album, pornită din master 17d0d0e (după PR #10 și #12); vezi „Preluare pe master” mai jos.
 Scop: înlocuirea exclusivă a vechii secțiuni „Cafeaua e doar începutul.” cu un album fotografic delimitat. Titlu: „Locuri diferite. Aceeași bucurie.”
 Fișiere: site/index.html, site/assets/css/home.css, site/assets/css/moments.css, site/assets/js/home-moments.js.
 
@@ -26,3 +26,12 @@ Verificare: check-site, test-menu-switcher, test-home-moments și git diff --che
 | tabara-stand.webp | tabara/videotelefoneu/IMG_0289.jpeg |
 | tabara-cafea-in-mana.webp | tabara/videotelefoneu/IMG_0308.jpeg |
 | belis-impreuna.webp | belis/IMG_6199.jpg |
+
+## Preluare pe master
+
+Navigația din commitul 6cb05b8 nu a fost preluată: master avea deja header-ul comun din PR #10, iar pagina Contact a fost refăcută în PR #12. Au fost preluate doar cele două commituri ale albumului, cu următoarele adaptări:
+
+- `moments.css` folosește `--page-pad` (variabila `--home-pad` nu mai există), iar textele de 9–11 px sunt acum de 12 px, conform limitei din `check-site.mjs`.
+- Legătura „Vezi unde ne-am întâlnit” folosește `.page-link`, ca restul site-ului.
+- Regulile vechii secțiuni foto au fost scoase din `home.css`; cele trei imagini `-720.webp` din `assets/img/events/` care nu mai erau folosite au fost șterse. Celelalte imagini din acel folder rămân folosite în `despre.html`.
+- `test-home-moments.mjs` se rulează local; adăugarea lui în `.github/workflows/site-checks.yml` rămâne de făcut de proprietar (tokenul agentului nu are dreptul `workflow`).

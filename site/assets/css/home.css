@@ -1,4 +1,4 @@
-/* Home-only layout: hero with the animated logo, story, event photographs and a menu preview. */
+/* Home-only layout: hero with the animated logo, story and a menu preview; the photo album lives in moments.css. */
 
 /* ---- hero ------------------------------------------------------- */
 .brand-hero { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); align-items: center; gap: 6vw; min-height: 480px; padding: 64px var(--page-pad) 82px; background: var(--stone); }
@@ -43,14 +43,16 @@
 
 /* ---- menu preview ----------------------------------------------- */
 .home-menu { display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.4fr); align-items: center; gap: 40px; background: var(--sage-light); padding: 64px var(--page-pad); }
-.menu-intro .eyebrow { margin-bottom: 24px; }
 .menu-intro h2 { font-size: clamp(30px,3vw,46px); line-height: 1.1; letter-spacing: -.045em; }
 .menu-intro > p:not(.eyebrow) { max-width: 34ch; font-size: 15px; margin-top: 22px; }
 .menu-intro .page-link { margin-top: 16px; }
 .menu-preview { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
 .menu-preview figure { min-width: 0; }
-.menu-preview img { width: 100%; height: auto; aspect-ratio: .72; object-fit: contain; transition: transform 250ms ease; }
-.menu-preview figure:hover img { transform: translateY(-8px) rotate(-2deg); }
+.menu-preview img { width: 100%; height: auto; aspect-ratio: .72; object-fit: contain; }
+@media (hover:hover) and (prefers-reduced-motion:no-preference) {
+  .menu-preview img { transition: transform 250ms ease; }
+  .menu-preview figure:hover img { transform: translateY(-8px) rotate(-2deg); }
+}
 .menu-preview figcaption { font-size: 15px; font-weight: 600; text-align: center; margin-top: 10px; }
 
 @media (max-width: 1000px) {
