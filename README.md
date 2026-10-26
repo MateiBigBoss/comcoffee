@@ -43,7 +43,7 @@ Din rădăcina proiectului, cu Node.js instalat:
     node scripts/test-contact.mjs
     git diff --check
 
-GitHub Actions rulează cele patru verificări la push și Pull Request. Acestea verifică fișierele site-ului, meniul, animațiile și comportamentul formularului; nu trimit emailuri. Pentru modificări de aspect verifică și site-ul în browser pe desktop și mobil, inclusiv tastatura și mișcarea redusă.
+`check-site.mjs` semnalează și etichete HTML stricate, texte goale, `@import` plasat greșit și text sub 12 px. GitHub Actions rulează cele patru verificări la push și Pull Request. Acestea verifică fișierele site-ului, meniul, animațiile și comportamentul formularului; nu trimit emailuri. Pentru modificări de aspect verifică și site-ul în browser pe desktop și mobil, inclusiv tastatura și mișcarea redusă.
 
 ## Publicare și limite
 

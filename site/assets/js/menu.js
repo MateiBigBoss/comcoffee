@@ -23,7 +23,7 @@
       const promise = new Promise((resolve,reject) => {
         image.onload = () => image.decode().then(() => resolve(image), reject);
         image.onerror = reject;
-        image.src = `assets/img/menu/${choices[index].dataset.slug}.png`;
+        image.src = `assets/img/menu/${choices[index].dataset.slug}.webp`;
       }).catch(error => { cache.delete(index); throw error; });
       cache.set(index,promise);
     }
