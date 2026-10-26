@@ -38,7 +38,6 @@
 /* ---- craft --------------------------------------------------- */
 .about-page .about-craft { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.35fr); gap: clamp(40px,7vw,108px); padding-block: 96px; }
 .about-craft-intro { align-self: start; position: sticky; top: 124px; }
-.about-craft-intro .eyebrow { margin-bottom: 24px; }
 .about-craft-intro h2 { font-size: clamp(38px,4.1vw,62px); line-height: 1.05; letter-spacing: -.055em; }
 .about-craft-intro > p:not(.eyebrow) { max-width: 32ch; margin-top: 26px; font-size: 15px; line-height: 1.9; color: var(--muted); }
 .about-craft-list { min-width: 0; }

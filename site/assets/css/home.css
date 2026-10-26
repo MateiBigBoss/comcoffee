@@ -43,7 +43,6 @@
 
 /* ---- menu preview ----------------------------------------------- */
 .home-menu { display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.4fr); align-items: center; gap: 40px; background: var(--sage-light); padding: 64px var(--page-pad); }
-.menu-intro .eyebrow { margin-bottom: 24px; }
 .menu-intro h2 { font-size: clamp(30px,3vw,46px); line-height: 1.1; letter-spacing: -.045em; }
 .menu-intro > p:not(.eyebrow) { max-width: 34ch; font-size: 15px; margin-top: 22px; }
 .menu-intro .page-link { margin-top: 16px; }
