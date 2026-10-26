@@ -23,7 +23,7 @@
 @media (min-width: 1600px) { :root { --page-pad: max(80px, calc((100vw - 1440px) / 2)); } }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scrollbar-gutter: stable; /* no sideways jump between short and long pages */ }
 body {
   font-family: var(--font-body);
   font-size: 1rem;
@@ -135,4 +135,5 @@ em { font-family: var(--font-accent); font-weight: 400; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .page-link:hover span, .page-button:hover span { transform: none; }
 }

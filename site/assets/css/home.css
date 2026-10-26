@@ -48,8 +48,11 @@
 .menu-intro .page-link { margin-top: 16px; }
 .menu-preview { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
 .menu-preview figure { min-width: 0; }
-.menu-preview img { width: 100%; height: auto; aspect-ratio: .72; object-fit: contain; transition: transform 250ms ease; }
-.menu-preview figure:hover img { transform: translateY(-8px) rotate(-2deg); }
+.menu-preview img { width: 100%; height: auto; aspect-ratio: .72; object-fit: contain; }
+@media (hover:hover) and (prefers-reduced-motion:no-preference) {
+  .menu-preview img { transition: transform 250ms ease; }
+  .menu-preview figure:hover img { transform: translateY(-8px) rotate(-2deg); }
+}
 .menu-preview figcaption { font-size: 15px; font-weight: 600; text-align: center; margin-top: 10px; }
 
 @media (max-width: 1000px) {
