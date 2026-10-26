@@ -1,6 +1,8 @@
 # Corecturi după auditul Gemini
 
-- Navigația comună se rearanjează pe o coloană la 650 px și mai jos, cu ținte de minimum 44 px.
+> Notă istorică (26 octombrie 2026): unele puncte de mai jos sunt depășite. Navigația comună trece pe o coloană la 760 px și mai jos (nu 650 px), iar formularul de contact trimite acum prin FormSubmit; vezi [contact-setup.md](contact-setup.md). Starea curentă este în README.md.
+
+- Navigația comună se rearanjează pe o coloană la 650 px și mai jos (acum 760 px), cu ținte de minimum 44 px.
 - Evenimente, Despre și Contact au linkul „Sari la conținut” și destinație focusabilă. Stilul este comun.
 - Bara de derulare a documentului este vizibilă; mișcarea redusă rămâne respectată.
 - Textul legal și contoarele categoriilor folosesc #62665d pentru contrast mai bun.
