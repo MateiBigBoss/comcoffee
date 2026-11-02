@@ -5,6 +5,8 @@
   if (!form) return;
   const byId = id => form.querySelector(`#${id}`);
   const types = [...form.querySelectorAll('input[name="Tip eveniment"]')];
+  const menus = [...form.querySelectorAll('input[name="Meniu dorit"]')];
+  const customMenu = menus.find(input => input.value === 'Meniu custom');
   const date = byId('data');
   const guests = byId('invitati');
   const hours = byId('durata');
@@ -90,6 +92,13 @@
   const touched = new Set();
 
   const checkedType = () => types.find(input => input.checked);
+  const checkedMenu = () => menus.find(input => input.checked);
+  const prefItems = () => (prefs ? prefs.value.split(',').map(item => item.trim()).filter(Boolean) : []);
+  const menuLabel = menu => {
+    if (!menu) return '';
+    const count = menu === customMenu ? prefItems().length : 0;
+    return count ? `Custom · ${count === 1 ? '1 băutură' : `${count} băuturi`}` : menu.dataset.label;
+  };
   const updateSummary = () => {
     if (!summary) return;
     const set = (key, value) => {
@@ -106,6 +115,7 @@
     set('durata', hours && hours.value && !rules.get(hours)(hours.value) ? hoursLabel(Number(hours.value)) : '');
     set('ora', time ? time.value : '');
     set('oras', city && city.value.trim() && !rules.get(city)(city.value.trim()) ? city.value.trim() : '');
+    set('meniu', menuLabel(checkedMenu()));
   };
   const updateCount = () => {
     if (counter && details) counter.textContent = `${details.value.length} / ${details.maxLength}`;
@@ -161,6 +171,8 @@
     draftStep = Number.isInteger(draft.step) ? draft.step : 0;
   }
   if (draftNote) draftNote.hidden = !draft;
+  // A draft written before the menu choice existed: its drinks belong to a custom menu.
+  if (prefs && prefs.value && customMenu && !checkedMenu()) customMenu.checked = true;
 
   // Accept only known event types; never inject URL text into HTML.
   const requestedType = new URLSearchParams(window.location.search).get('tip');
@@ -209,9 +221,8 @@
     saveDraft();
   }));
 
-  // Menu suggestions toggle words in the same free-text field that is posted.
+  // Custom menu: each drink toggles a word in the same free-text field that is posted.
   const chips = [...document.querySelectorAll('[data-chip]')];
-  const prefItems = () => prefs.value.split(',').map(item => item.trim()).filter(Boolean);
   const same = (a, b) => a.toLocaleLowerCase('ro') === b.toLocaleLowerCase('ro');
   const syncChips = () => {
     const items = prefItems();
@@ -226,10 +237,17 @@
     if (next.length > prefs.maxLength) return;
     prefs.value = next;
     syncChips();
+    updateSummary();
     saveDraft();
   }));
   if (prefs) prefs.addEventListener('input', syncChips);
   syncChips();
+  // Drinks picked for a custom menu stay on screen if the visitor changes their mind,
+  // but are not sent with the classic or Signature menu.
+  form.addEventListener('formdata', event => {
+    const menu = checkedMenu();
+    if (prefs && menu && menu !== customMenu) event.formData.delete(prefs.name);
+  });
 
   // Copy the email address. In-app browsers (e.g. Instagram) may block the
   // Clipboard API, so fall back to a temporary selection.

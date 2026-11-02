@@ -138,7 +138,7 @@ function setup({protocol = 'https:', search = '', initial = {}, stepped = false,
   const status = new Element();
   const notice = new Element();
   const summary = new Element();
-  const summaryValues = new Map(['tip', 'data', 'invitati', 'durata', 'ora', 'oras'].map(key => [key, new Element()]));
+  const summaryValues = new Map(['tip', 'data', 'invitati', 'durata', 'ora', 'oras', 'meniu'].map(key => [key, new Element()]));
   summary.querySelector = selector => summaryValues.get(selector.match(/"([^"]+)"/)?.[1]);
   const window = new Element();
   window.location = {protocol, search};
@@ -260,6 +260,46 @@ test('summary updates through textContent on input/change without HTML injection
   }
   app.input('invitati', '1200');
   assert.equal(app.summaryValues.get('invitati').textContent, (1200).toLocaleString('ro-RO'));
+});
+
+test('the menu choice is optional, reaches the sheet and sends custom drinks only with a custom menu', () => {
+  const menus = controls.filter(control => control.attributes.name === 'Meniu dorit').map(control => control.attributes);
+  assert.deepEqual(menus.map(attrs => attrs.value), ['Meniu clasic', 'Selecția Signature', 'Meniu custom']);
+  assert.ok(menus.every(attrs => attrs.type === 'radio' && !Object.hasOwn(attrs, 'required') && !Object.hasOwn(attrs, 'checked')));
+  for (const drink of ['Espresso', 'Cortado', 'Macchiato', 'Flat White', 'Cappuccino', 'Long Black', 'Latte', 'Iced Latte', 'Espresso Tonic', 'Cold Brew', 'Cold Brew Tonic', 'Babyccino']) assert.ok(html.includes(`data-chip="${drink}"`), drink);
+  const app = setup();
+  const sent = menu => {
+    for (const id of ['meniu-clasic', 'meniu-signature', 'meniu-custom']) app.fields.get(id).checked = id === menu;
+    app.form.dispatch('change');
+    const deleted = [];
+    app.form.dispatch('formdata', {formData: {delete: name => deleted.push(name)}});
+    return deleted;
+  };
+  assert.equal(app.summaryValues.get('meniu').textContent, '—');
+  app.input('preferinte', 'Espresso, Latte');
+  assert.deepEqual(sent('meniu-clasic'), ['Preferințe pentru meniu']);
+  assert.equal(app.summaryValues.get('meniu').textContent, 'Meniu clasic');
+  assert.equal(app.fields.get('preferinte').value, 'Espresso, Latte', 'The picks stay on screen.');
+  assert.deepEqual(sent('meniu-custom'), []);
+  assert.equal(app.summaryValues.get('meniu').textContent, 'Custom · 2 băuturi');
+  app.input('preferinte', 'Espresso');
+  assert.equal(app.summaryValues.get('meniu').textContent, 'Custom · 1 băutură');
+  app.input('preferinte', '');
+  assert.equal(app.summaryValues.get('meniu').textContent, 'Meniu custom');
+  assert.deepEqual(sent(''), [], 'Without a choice the free text is kept.');
+});
+
+test('the menu choice survives in a draft and older drafts open as a custom menu', () => {
+  const storage = new MemoryStorage();
+  const first = setup({storage});
+  first.fields.get('meniu-signature').checked = true;
+  first.form.dispatch('change');
+  assert.equal(JSON.parse(storage.getItem(DRAFT_KEY)).values['Meniu dorit'], 'Selecția Signature');
+  assert.equal(setup({storage}).fields.get('meniu-signature').checked, true);
+  const older = new MemoryStorage({[DRAFT_KEY]: JSON.stringify({savedAt: new Date(2026, 9, 12).getTime(), step: 0, values: {preferinte: 'Espresso'}})});
+  const app = setup({storage: older});
+  assert.equal(app.fields.get('meniu-custom').checked, true);
+  assert.equal(app.summaryValues.get('meniu').textContent, 'Custom · 1 băutură');
 });
 
 test('date minimum uses the local day and revalidates after midnight', () => {

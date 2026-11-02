@@ -17,6 +17,7 @@
   let current = 0, desired = 0, category = 0, running = false, requestedDirection = 1;
   let failedTarget = null, retryCurrent = false, cancelPendingLoad = null;
   const bounds = () => category === 0 ? [0,6] : [7,11];
+  let syncRail = () => {};
   function load(index) {
     if (!cache.has(index)) {
       const image = new Image();
@@ -33,6 +34,7 @@
     tabs.forEach((tab,i) => tab.setAttribute('aria-pressed', String(i === category)));
     groups.forEach((group,i) => { group.hidden = i !== category; });
     choices.forEach((button,i) => button.setAttribute('aria-pressed', String(i === current)));
+    syncRail();
     prev.disabled = false;
     next.disabled = false;
   }
@@ -153,6 +155,78 @@
     choose(index, event.key==='Home'||event.key==='End' ? undefined : step);
   }));
   reduce.addEventListener('change',()=>{ if(reduce.matches) clearAnimations(); });
+
+  // Phones: every drink in one row to scroll through, and a swipe anywhere on the scene.
+  const scene = root.querySelector('.menu-experience');
+  const stepFrom = (index,direction) => { const [start,end]=index<7?[0,6]:[7,11]; const length=end-start+1; return start+((index-start+direction+length)%length); };
+  if (scene && wheel) {
+    const rail = document.createElement('div');
+    rail.className = 'drink-rail';
+    rail.setAttribute('role','group');
+    rail.setAttribute('aria-label','Toate băuturile');
+    const pills = choices.map((choice,i) => {
+      const pill = document.createElement('button');
+      pill.type = 'button';
+      const dot = document.createElement('span');
+      dot.className = 'drink-rail-dot';
+      dot.style.setProperty('--drink-color',choice.dataset.color);
+      pill.append(dot,choice.lastElementChild.textContent);
+      pill.addEventListener('click',() => choose(i,i>=desired?1:-1));
+      rail.append(pill);
+      return pill;
+    });
+    const hint = document.createElement('p');
+    hint.className = 'swipe-hint';
+    hint.textContent = 'Glisează ca să schimbi băutura';
+    scene.append(hint,rail);
+    let railAt = -1;
+    syncRail = () => {
+      pills.forEach((pill,i) => pill.setAttribute('aria-pressed',String(i === desired)));
+      if (railAt === desired || rail.scrollWidth <= rail.clientWidth) return;
+      railAt = desired;
+      const pill = pills[desired];
+      rail.scrollTo({left:pill.offsetLeft-(rail.clientWidth-pill.offsetWidth)/2,behavior:reduce.matches?'auto':'smooth'});
+    };
+    let gesture = null, swallowClick = false;
+    const reach = () => (wheelHost.clientWidth || 300) * .8;
+    scene.addEventListener('pointerdown',event => {
+      if (event.button || gesture || event.target.closest('a,.menu-tabs,.drink-arrows,.drink-rail')) return;
+      // A mouse keeps its text selection outside the cups.
+      if (event.pointerType === 'mouse' && !event.target.closest('.drink-stage')) return;
+      gesture = {id:event.pointerId,x:event.clientX,y:event.clientY,time:event.timeStamp,moving:false,live:!running && !reduce.matches};
+    });
+    scene.addEventListener('pointermove',event => {
+      if (!gesture || event.pointerId !== gesture.id) return;
+      const dx = event.clientX-gesture.x, dy = event.clientY-gesture.y;
+      if (!gesture.moving) {
+        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+        if (Math.abs(dy) > Math.abs(dx)) { gesture = null; return; }
+        gesture.moving = true;
+        scene.setPointerCapture(event.pointerId);
+        scene.classList.add('is-swiping');
+      }
+      if (gesture.live) wheel.drag(Math.max(-1,Math.min(1,-dx/reach())));
+    });
+    const release = (event,cancelled) => {
+      if (!gesture || event.pointerId !== gesture.id) return;
+      const {moving,live,x,time} = gesture;
+      gesture = null;
+      if (!moving) return;
+      scene.classList.remove('is-swiping');
+      swallowClick = !cancelled;
+      setTimeout(() => { swallowClick = false; });
+      const dx = event.clientX-x;
+      const fast = Math.abs(dx) > 24 && Math.abs(dx)/Math.max(1,event.timeStamp-time) > .45;
+      if (!cancelled && (Math.abs(dx) > reach()*.28 || fast)) {
+        const direction = dx < 0 ? 1 : -1;
+        hint.hidden = true;
+        choose(stepFrom(desired,direction),direction);
+      } else if (live) wheel.settle();
+    };
+    scene.addEventListener('pointerup',event => release(event,false));
+    scene.addEventListener('pointercancel',event => release(event,true));
+    scene.addEventListener('click',event => { if (swallowClick) { swallowClick = false; event.preventDefault(); event.stopPropagation(); } },true);
+  }
   root.querySelectorAll('[data-interactive]').forEach(el=>{el.hidden=false;});
   controls();
   load(0).catch(()=>{

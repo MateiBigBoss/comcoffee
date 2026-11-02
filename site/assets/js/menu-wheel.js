@@ -95,20 +95,44 @@ class CoffeeWheel {
     this.animations.forEach(animation => animation.cancel());
     this.animations = [];
   }
-  async animateShift(direction, entering = false, fading = false) {
+  // A finger holds the cups part-way along the arc; progress runs from -1 (previous) to 1 (next).
+  drag(progress) {
+    this.dragged = progress;
+    for (const slot of this.slots) this.pose(slot, slot.offset - progress);
+  }
+  // Released too early: the cups return to where they were.
+  async settle() {
+    const from = this.dragged || 0;
+    this.dragged = 0;
+    if (this.reduce.matches || !this.host.animate || !from) return this.render(this.current);
+    const running = [];
+    for (const slot of this.slots) {
+      const steps = [0, .5, 1].map(progress => this.shape(slot.offset - from * (1 - progress)));
+      const options = { duration: 320, easing: 'cubic-bezier(.23,1,.32,1)', fill: 'forwards' };
+      const orbit = slot.spoke.animate(steps.map(shape => ({ transform: this.orbit(shape.angle) })), options);
+      const cup = slot.card.animate(steps.map(shape => ({ transform: `translate(-50%, -50%) scale(${shape.scale})`, opacity: shape.opacity })), options);
+      this.animations.push(orbit, cup);
+      running.push(orbit.finished.catch(() => {}), cup.finished.catch(() => {}));
+    }
+    await Promise.all(running);
+    this.render(this.current);
+    this.cancel();
+  }
+  async animateShift(direction, entering = false, fading = false, from = 0) {
     if (this.reduce.matches || !this.host.animate) return;
     const promises = [];
     for (const slot of this.slots) {
       const orbitFrames = [], cupFrames = [];
       for (let step = 0; step <= 20; step++) {
         const progress = step / 20;
-        const position = slot.offset + (entering ? direction : 0) - direction * progress;
+        const position = slot.offset + (entering ? direction : 0) - direction * (from + (1 - from) * progress);
         const shape = this.shape(position);
         const fade = fading ? (entering ? progress : 1 - progress) : 1;
         orbitFrames.push({ offset:progress, transform:this.orbit(shape.angle) });
         cupFrames.push({ offset:progress, transform:`translate(-50%, -50%) scale(${shape.scale})`, opacity:shape.opacity * fade });
       }
-      const options = { duration: fading ? 460 : 920, easing: 'cubic-bezier(.4,0,.16,1)', fill: 'forwards' };
+      // A swipe already carried the cups part of the way, so only the rest of the arc remains.
+      const options = { duration: fading ? 460 : from ? Math.max(380, 920 * (1 - from)) : 920, easing: from ? 'cubic-bezier(.23,1,.32,1)' : 'cubic-bezier(.4,0,.16,1)', fill: 'forwards' };
       const orbit = slot.spoke.animate(orbitFrames, options);
       const cup = slot.card.animate(cupFrames, options);
       this.animations.push(orbit, cup);
@@ -119,11 +143,13 @@ class CoffeeWheel {
   async move(index, direction) {
     // Adjacent selections share the same cup throughout the entire arc.
     const adjacent = this.neighbor(this.current, direction) === index;
+    const from = adjacent ? Math.max(0, Math.min(.95, (this.dragged || 0) * direction)) : 0;
+    this.dragged = 0;
     this.cancel();
     this.theme(index);
     this.host.classList.add('is-turning');
     if (adjacent) {
-      await this.animateShift(direction);
+      await this.animateShift(direction, false, false, from);
       // Reuse the actual arriving image instead of swapping visible image sources.
       // Only the invisible far-side cup is recycled after crossing the boundary.
       for (const slot of this.slots) {

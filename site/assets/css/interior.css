@@ -11,7 +11,7 @@
 .interior [data-reveal].is-awaiting { opacity: 0; transform: translateY(24px); }
 .interior [data-reveal].is-awaiting:focus-within { opacity: 1; transform: none; }
 @media (max-width: 760px) {
-  .interior [id] { scroll-margin-top: 24px; }
+  .interior [id] { scroll-margin-top: 60px; }
   :where(.interior main) h1 { font-size: clamp(44px, 11vw, 76px); }
 }
 @media (prefers-reduced-motion: reduce) {

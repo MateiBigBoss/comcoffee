@@ -169,18 +169,38 @@
               <legend><span class="booking-eyebrow">Pasul 4 din 4</span><span class="booking-title">Ultimele detalii.</span></legend>
               <p class="booking-note">Opțional, dar ne ajută să venim cu o ofertă potrivită din prima.</p>
               <div class="booking-fields">
-                <div class="booking-field booking-field-wide">
-                  <label for="preferinte">Ce ți-ar plăcea în meniu? <span>(opțional)</span></label>
-                  <div class="booking-chips" role="group" aria-label="Sugestii din meniul nostru" data-js-only hidden>
-                    <button type="button" data-chip="Espresso" aria-pressed="false"><span class="choice-dot" style="--dot:#513222" aria-hidden="true"></span>Espresso</button>
-                    <button type="button" data-chip="Cappuccino" aria-pressed="false"><span class="choice-dot" style="--dot:#c6a784" aria-hidden="true"></span>Cappuccino</button>
-                    <button type="button" data-chip="Flat white" aria-pressed="false"><span class="choice-dot" style="--dot:#bd956e" aria-hidden="true"></span>Flat white</button>
-                    <button type="button" data-chip="Iced latte" aria-pressed="false"><span class="choice-dot" style="--dot:#b79c7d" aria-hidden="true"></span>Iced latte</button>
-                    <button type="button" data-chip="Cold brew" aria-pressed="false"><span class="choice-dot" style="--dot:#663c27" aria-hidden="true"></span>Cold brew</button>
-                    <button type="button" data-chip="Babyccino" aria-pressed="false"><span class="choice-dot" style="--dot:#e2d8c6" aria-hidden="true"></span>Babyccino</button>
+                <fieldset class="booking-field booking-field-wide booking-choices">
+                  <legend>Ce meniu vrei? <span>(opțional)</span></legend>
+                  <div class="menu-plans">
+                    <label class="choice plan" for="meniu-clasic"><input id="meniu-clasic" type="radio" name="Meniu dorit" value="Meniu clasic" data-label="Meniu clasic"><strong>Meniu clasic</strong><small>Espresso, Cortado, Macchiato, Flat White, Cappuccino, Long Black, Latte</small></label>
+                    <label class="choice plan" for="meniu-signature"><input id="meniu-signature" type="radio" name="Meniu dorit" value="Selecția Signature" data-label="Selecția Signature"><strong>Selecția Signature</strong><small>Tot meniul clasic, plus Iced Latte, Espresso Tonic, Cold Brew, Cold Brew Tonic, Babyccino</small></label>
+                    <label class="choice plan" for="meniu-custom"><input id="meniu-custom" type="radio" name="Meniu dorit" value="Meniu custom" data-label="Meniu custom"><strong>Meniu custom</strong><small>Îți faci meniul din toate băuturile noastre.</small></label>
                   </div>
-                  <input id="preferinte" name="Preferințe pentru meniu" type="text" maxlength="300" placeholder="Espresso, băuturi cu lapte, ceva cu gheață…" aria-describedby="preferinte-hint">
-                  <small id="preferinte-hint">Atinge o sugestie sau scrie liber. Vezi tot <a href="cafea.html" target="_blank" rel="noopener">meniul <span class="contact-sr-only">(se deschide într-o filă nouă)</span>↗</a>.</small>
+                </fieldset>
+                <div class="booking-field booking-field-wide menu-custom">
+                  <div class="menu-chip-groups" data-js-only hidden>
+                    <p class="menu-chip-title">Meniu clasic</p>
+                    <div class="booking-chips" role="group" aria-label="Meniu clasic">
+                      <button type="button" data-chip="Espresso" aria-pressed="false"><span class="choice-dot" style="--dot:#513222" aria-hidden="true"></span>Espresso</button>
+                      <button type="button" data-chip="Cortado" aria-pressed="false"><span class="choice-dot" style="--dot:#a57450" aria-hidden="true"></span>Cortado</button>
+                      <button type="button" data-chip="Macchiato" aria-pressed="false"><span class="choice-dot" style="--dot:#79513b" aria-hidden="true"></span>Macchiato</button>
+                      <button type="button" data-chip="Flat White" aria-pressed="false"><span class="choice-dot" style="--dot:#bd956e" aria-hidden="true"></span>Flat White</button>
+                      <button type="button" data-chip="Cappuccino" aria-pressed="false"><span class="choice-dot" style="--dot:#c6a784" aria-hidden="true"></span>Cappuccino</button>
+                      <button type="button" data-chip="Long Black" aria-pressed="false"><span class="choice-dot" style="--dot:#342b25" aria-hidden="true"></span>Long Black</button>
+                      <button type="button" data-chip="Latte" aria-pressed="false"><span class="choice-dot" style="--dot:#ddc6a7" aria-hidden="true"></span>Latte</button>
+                    </div>
+                    <p class="menu-chip-title">Selecția Signature</p>
+                    <div class="booking-chips" role="group" aria-label="Selecția Signature">
+                      <button type="button" data-chip="Iced Latte" aria-pressed="false"><span class="choice-dot" style="--dot:#b79c7d" aria-hidden="true"></span>Iced Latte</button>
+                      <button type="button" data-chip="Espresso Tonic" aria-pressed="false"><span class="choice-dot" style="--dot:#bd9a4b" aria-hidden="true"></span>Espresso Tonic</button>
+                      <button type="button" data-chip="Cold Brew" aria-pressed="false"><span class="choice-dot" style="--dot:#663c27" aria-hidden="true"></span>Cold Brew</button>
+                      <button type="button" data-chip="Cold Brew Tonic" aria-pressed="false"><span class="choice-dot" style="--dot:#947044" aria-hidden="true"></span>Cold Brew Tonic</button>
+                      <button type="button" data-chip="Babyccino" aria-pressed="false"><span class="choice-dot" style="--dot:#e2d8c6" aria-hidden="true"></span>Babyccino</button>
+                    </div>
+                  </div>
+                  <label for="preferinte">Băuturile din meniul tău</label>
+                  <input id="preferinte" name="Preferințe pentru meniu" type="text" maxlength="300" placeholder="Espresso, Latte, Cold Brew…" aria-describedby="preferinte-hint">
+                  <small id="preferinte-hint">Atinge băuturile dorite sau scrie liber. Vezi tot <a href="cafea.html" target="_blank" rel="noopener">meniul <span class="contact-sr-only">(se deschide într-o filă nouă)</span>↗</a>.</small>
                 </div>
                 <div class="booking-field booking-field-wide">
                   <label for="detalii">Ce ar mai fi bine să știm? <span>(opțional)</span></label>
@@ -212,6 +232,7 @@
               <div><dt>Data</dt><dd data-summary="data">—</dd></div>
               <div><dt>Ora</dt><dd data-summary="ora">—</dd></div>
               <div><dt>Locul</dt><dd data-summary="oras">—</dd></div>
+              <div><dt>Meniul</dt><dd data-summary="meniu">—</dd></div>
             </dl>
             <p class="booking-draft" data-draft-note hidden><span>Salvat pe acest dispozitiv până trimiți cererea.</span> <button type="button" data-draft-clear>Șterge datele</button></p>
           </aside>

@@ -1,4 +1,12 @@
-# Albumul paginii Evenimente
+# Pagina Evenimente
+
+## Ocaziile, cu click (noiembrie 2026)
+
+Cerută de proprietar: pagină simplă, doar cu text, fără fotografii, fără bandă sau rând care se derulează și fără câte un buton la fiecare ocazie. Lista din stânga (pe telefon, butoane care încap toate pe ecran, pe mai multe rânduri) schimbă textul și ce stabilim împreună pentru Nunți, Botezuri & familie, Zile de naștere, Petreceri private, Corporate și Târguri & festivaluri. Taburi accesibile: săgeți, Home, End. Ancorele `#nunti`, `#botezuri`, `#aniversari`, `#petreceri-private`, `#corporate`, `#targuri-festivaluri` deschid direct ocazia.
+
+Există un singur buton, rotunjit, sub ocazii. Deschide formularul cu tipul ocaziei selectate (`?tip=nunta`, `petrecere-privata`, `corporate`, `targ-festival`). Fără JavaScript, toate ocaziile sunt afișate una sub alta, iar butonul deschide formularul fără un tip ales. Fișiere: `site/evenimente.html`, `site/assets/css/events.css`, `site/assets/js/events.js`.
+
+## Istoric: albumul anterior
 
 Actualizare de text aprobată ulterior: povestea de pe Acasă și Despre folosește textul „O cafea bună. Un motiv să fim împreună.” și încheierea „com. — din grijă pentru cafea și drag de oameni.”. Au fost eliminate referințele la dans și numerotările decorative de pe pagini și din meniu (cantitățile și shoturile rămân). „unitate” are o corecție optică de -0,08 em față de poziția anterioară, în ambele titluri. Modificarea homepage-ului în această etapă este cerută explicit de proprietar. Testele de site, meniu și contact trec; instrumentul de browser rămâne indisponibil, deci alinierea trebuie confirmată vizual în previzualizare.
 
