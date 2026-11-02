@@ -24,6 +24,8 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; scrollbar-gutter: stable; /* no sideways jump between short and long pages */ }
+/* Phones: no grey flash on tap (every control has its own :active), no font inflation in landscape. */
+html { -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body {
   font-family: var(--font-body);
   font-size: 1rem;
@@ -35,6 +37,9 @@ body {
 img { max-width: 100%; display: block; }
 a { color: inherit; }
 button, input, select, textarea { font: inherit; }
+/* Taps fire at once (no double-tap-zoom wait); control labels are not selected by a long press. */
+a, button, summary, label, [role="button"], [role="tab"] { touch-action: manipulation; }
+button, summary, .page-button, .nav-cta { -webkit-user-select: none; user-select: none; }
 [hidden] { display: none !important; }
 main { min-width: 0; }
 :focus-visible { outline: 2px solid var(--sage); outline-offset: 3px; }
@@ -77,7 +82,7 @@ em { font-family: var(--font-accent); font-weight: 400; }
   white-space: nowrap;
   color: var(--muted);
 }
-.nav nav a:hover { color: var(--ink); }
+@media (hover: hover) and (pointer: fine) { .nav nav a:hover { color: var(--ink); } }
 .nav nav a[aria-current="page"] {
   color: var(--ink);
   text-decoration: underline 2px var(--sage);
@@ -86,15 +91,16 @@ em { font-family: var(--font-accent); font-weight: 400; }
 .nav nav a:focus-visible { outline-offset: -3px; }
 .nav-cta { justify-self: end; display: inline-flex; align-items: center; gap: 16px; min-height: 44px; font-size: 14px; font-weight: 600; text-decoration: none; }
 .nav-cta span { font-size: 20px; }
-.nav-cta:hover { color: var(--sage); }
+@media (hover: hover) and (pointer: fine) { .nav-cta:hover { color: var(--sage); } }
 
 /* ---- links and buttons --------------------------------------- */
 .page-link { display: inline-flex; align-items: center; justify-content: space-between; gap: 22px; min-height: 44px; padding-block: 12px; border-bottom: 1px solid var(--line-strong); font-size: 14px; text-decoration: none; }
 .page-link span, .page-button span { display: inline-block; transition: transform 200ms ease; }
-.page-link:hover span, .page-button:hover span { transform: translate(3px, -3px); }
-.page-link:hover { border-bottom-color: currentColor; }
-.page-button { display: inline-flex; align-items: center; justify-content: center; gap: 30px; min-height: 50px; padding: 16px 24px; font: 500 14px/1.4 var(--font-body); text-align: center; text-decoration: none; border: 1px solid var(--ink); border-radius: 0; background: var(--ink); color: var(--paper); cursor: pointer; transition: background 200ms ease, border-color 200ms ease; }
-.page-button:hover { background: var(--forest); border-color: var(--forest); }
+@media (hover: hover) and (pointer: fine) { .page-link:hover span, .page-button:hover span { transform: translate(3px, -3px); } }
+@media (hover: hover) and (pointer: fine) { .page-link:hover { border-bottom-color: currentColor; } }
+.page-button { display: inline-flex; align-items: center; justify-content: center; gap: 30px; min-height: 50px; padding: 16px 24px; font: 500 14px/1.4 var(--font-body); text-align: center; text-decoration: none; border: 1px solid var(--ink); border-radius: 0; background: var(--ink); color: var(--paper); cursor: pointer; transition: background 200ms ease, border-color 200ms ease, transform 160ms ease-out; }
+.page-button:active { transform: scale(.97); }
+@media (hover: hover) and (pointer: fine) { .page-button:hover { background: var(--forest); border-color: var(--forest); } }
 .page-button:disabled { opacity: .65; cursor: wait; }
 
 /* ---- closing invitation, shared by Acasă, Evenimente, Despre ---- */
@@ -103,7 +109,7 @@ em { font-family: var(--font-accent); font-weight: 400; }
 .page-cta h2 { max-width: 19ch; margin: 0 auto; font-size: clamp(36px, 4.6vw, 68px); line-height: 1.08; }
 .page-cta > p:not(.eyebrow) { max-width: 54ch; margin: 24px auto; font-size: 15px; line-height: 1.8; }
 .page-cta .page-button { margin-top: 12px; border-color: var(--cream); background: var(--cream); color: var(--ink); }
-.page-cta .page-button:hover { background: var(--sage-light); border-color: var(--sage-light); }
+@media (hover: hover) and (pointer: fine) { .page-cta .page-button:hover { background: var(--sage-light); border-color: var(--sage-light); } }
 .page-cta :focus-visible { outline-color: var(--cream); }
 
 /* ---- footer: identical on every page ------------------------- */
@@ -112,7 +118,7 @@ em { font-family: var(--font-accent); font-weight: 400; }
 .footer .wordmark { min-height: 0; margin-bottom: 22px; }
 .footer p, .footer a { font-size: 14px; line-height: 1.8; overflow-wrap: anywhere; }
 .footer a { text-decoration: none; }
-.footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
+@media (hover: hover) and (pointer: fine) { .footer a:hover { text-decoration: underline; text-underline-offset: 4px; } }
 .footer h2 { font-size: 12px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; line-height: 1.7; margin-bottom: 12px; color: var(--muted); }
 .footer-legal { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 18px; font-size: 12px; color: var(--muted); }
 
@@ -122,7 +128,8 @@ em { font-family: var(--font-accent); font-weight: 400; }
   .nav-cta { display: none; }
 }
 @media (max-width: 760px) {
-  .nav { height: auto; grid-template-columns: minmax(0, 1fr); gap: 0; padding-top: 9px; position: relative; }
+  /* Phones: the logo row scrolls away and the links stay pinned at the top of the screen. */
+  .nav { height: auto; grid-template-columns: minmax(0, 1fr); gap: 0; padding-top: 9px; position: sticky; top: -53px; }
   .nav .wordmark { justify-self: center; }
   .nav nav { justify-self: stretch; justify-content: space-between; gap: 0; border-block: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
   .nav nav a { padding: 8px 3px; font-size: 13px; }
@@ -132,8 +139,15 @@ em { font-family: var(--font-accent); font-weight: 400; }
 }
 @media (max-width: 400px) { .footer { grid-template-columns: minmax(0, 1fr); } }
 
+/* Touch screens: small text links get a finger-sized tap area without changing their look. */
+@media (pointer: coarse) {
+  .wordmark { display: inline-flex; align-items: center; min-height: 44px; }
+  .footer p a { display: inline-block; padding-block: 10px; }
+  .footer p { line-height: 1.4; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-  .page-link:hover span, .page-button:hover span { transform: none; }
+  @media (hover: hover) and (pointer: fine) { .page-link:hover span, .page-button:hover span { transform: none; } }
 }

@@ -155,12 +155,12 @@ for(let i=0;i<allFrames.length;i+=10) {
  assertSeparation(phase.filter((_,n)=>n%2),frames=>phase[phase.indexOf(frames)-1]);
 }
 // At rest the selected cup and upcoming preview fit within their clipped stage.
-for(const [width,mobile,height,cap] of [[252,true,460,280],[302,true,460,280],[346,true,530,280],[500,true,600,280],[400,false,740,330],[514,false,740,330],[550,false,740,330],[560,false,780,350],[720,false,780,350]]) {
+for(const [width,mobile,height,cap,rise=1] of [[252,true,320,280,.6],[302,true,370,280,.6],[346,true,370,280,.6],[500,true,430,280,.6],[700,true,620,280],[400,false,740,330],[514,false,740,330],[550,false,740,330],[560,false,780,350],[720,false,780,350]]) {
  const radius=Math.min(width*.7,cap),size=Math.min(width*.84,mobile?336:500);
  for(const spoke of wheelHost.children) {
   const card=spoke.children[0]; if(card.style.opacity===0) continue;
   const [dx,dy]=orbitXY(spoke.style.transform),scale=Number(card.style.transform.match(/scale\(([-.\d]+)\)/)[1]);
-  const x=width*.48+radius*dx,y=height/2+radius*dy,halfX=size*scale*.35,halfY=size*scale*.46;
+  const x=width*.48+radius*dx,y=height/2+radius*dy*rise,halfX=size*scale*.35,halfY=size*scale*.46;
   assert(x-halfX>=0 && x+halfX<=width && y-halfY>=0 && y+halfY<=height,`clipped cup at ${width}px`);
  }
 }

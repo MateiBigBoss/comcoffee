@@ -136,3 +136,9 @@ față de centrul fotografiei principale. Nu este mutată la marginea extremă.
 Butonul „anterioară” și tastatura permit în continuare revenirea; miniatura ascunsă
 nu mai este clicabilă. Testele verifică o singură miniatură vizibilă, ieșirea completă,
 separarea fotografiilor pe traseu și păstrarea nodului imaginii la sosire.
+
+## Glisare și telefon
+
+Paharele urmăresc degetul pe arcul existent (`CoffeeWheel.drag`), iar la eliberare mișcarea continuă de unde a rămas (`animateShift` cu `from`) sau revine (`settle`). Gestul pornește de oriunde din scenă pe ecrane tactile și doar de pe pahare cu mouse-ul, ca textul să rămână selectabil; `touch-action: pan-y` lasă derularea verticală paginii. Glisarea parcurge categoria circular, ca săgețile.
+
+Până la 900 px, paharul e primul, urmat de indiciul de glisare, de rândul orizontal cu toate cele 12 băuturi (generat în `menu.js`, centrat pe selecție), apoi de text și cantități. Până la 600 px scena e mai joasă (`--orbit-rise: .6`), iar paharul următor rămâne vizibil în dreapta-jos. Cu mișcare redusă, glisarea schimbă băutura fără animație. Lista „Alege direct o băutură” rămâne neschimbată.

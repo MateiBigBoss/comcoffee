@@ -25,9 +25,9 @@
 .contact-direct a { display: grid; gap: 2px; min-height: 44px; align-content: center; text-decoration: none; }
 .contact-direct a > span { font-size: 12px; color: var(--muted); }
 .contact-direct strong { font-size: 14px; font-weight: 500; white-space: nowrap; }
-.contact-direct a:hover strong { text-decoration: underline; text-underline-offset: 4px; }
+@media (hover: hover) and (pointer: fine) { .contact-direct a:hover strong { text-decoration: underline; text-underline-offset: 4px; } }
 .contact-copy { position: relative; display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--ink); cursor: pointer; transition: background .2s, border-color .2s, transform .2s; }
-.contact-copy:hover { background: var(--stone); transform: translateY(-2px); }
+@media (hover: hover) and (pointer: fine) { .contact-copy:hover { background: var(--stone); transform: translateY(-2px); } }
 .contact-copy svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .contact-copy-done, .contact-copy.is-copied .contact-copy-icon { display: none; }
 .contact-copy.is-copied .contact-copy-done { display: block; }
@@ -57,7 +57,7 @@
 .booking-tabs { list-style: none; width: max-content; max-width: 100%; display: flex; gap: 4px; margin: 0 auto 8px; padding: 5px; border: 1px solid #ffffff24; border-radius: 999px; background: #30291f12; }
 .booking-tabs button { min-height: 44px; padding: 10px 20px; border: 0; border-radius: 999px; background: transparent; color: #302a22; font: 500 13px var(--font-body); white-space: nowrap; cursor: pointer; transition: background .25s, color .25s, box-shadow .25s; }
 .booking-tabs button span { margin-right: 4px; font-variant-numeric: tabular-nums; opacity: .6; }
-.booking-tabs button:hover { background: #ffffff5c; }
+@media (hover: hover) and (pointer: fine) { .booking-tabs button:hover { background: #ffffff5c; } }
 .booking-tabs button[aria-current="step"] { background: var(--scene-pill); color: var(--scene-ink); box-shadow: 0 2px 6px #342d2210; }
 .booking-tabs button.is-done span { opacity: 1; }
 .booking-tabs button.is-done span::before { content: "✓ " / ""; }
@@ -98,7 +98,7 @@
   transition: border-color .2s, box-shadow .2s;
 }
 .booking-field :is(input,textarea)::placeholder { color: #28251f70; opacity: 1; font-weight: 400; }
-.booking-field :is(input,textarea):hover { border-bottom-color: var(--scene-ink); }
+@media (hover: hover) and (pointer: fine) { .booking-field :is(input,textarea):hover { border-bottom-color: var(--scene-ink); } }
 .booking-scene .booking-field :is(input,textarea):focus { outline: none; border-bottom-color: var(--scene-ink); box-shadow: 0 1px 0 var(--scene-ink); }
 .booking-field input::-webkit-calendar-picker-indicator { opacity: .55; cursor: pointer; }
 .booking-field input::-webkit-datetime-edit { padding: 0; }
@@ -116,7 +116,7 @@
 .booking-stepper:has(button:not([hidden])) input { text-align: center; font-size: 30px; font-weight: 600; letter-spacing: -.05em; font-variant-numeric: tabular-nums; appearance: textfield; -moz-appearance: textfield; }
 .booking-stepper input::-webkit-inner-spin-button, .booking-stepper input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 .booking-stepper button, .booking-back { flex: none; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid #39312538; border-radius: 50%; background: #ffffff20; color: inherit; font: 400 20px/1 var(--font-body); cursor: pointer; transition: background .2s, transform .2s; }
-.booking-stepper button:hover, .booking-back:hover { background: var(--scene-pill); transform: translateY(-2px); }
+@media (hover: hover) and (pointer: fine) { .booking-stepper button:hover, .booking-back:hover { background: var(--scene-pill); transform: translateY(-2px); } }
 .booking-stepper button:active, .booking-back:active { transform: translateY(0) scale(.94); }
 
 /* choices and menu suggestions: pills with a color dot, like the menu's drink list */
@@ -124,7 +124,7 @@
 .booking-choices > legend { margin-bottom: 10px; }
 .choice-row, .booking-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .choice, .booking-chips button { position: relative; display: inline-flex; align-items: center; gap: 9px; min-height: 44px; padding: 10px 18px; border: 1px solid #39312522; border-radius: 999px; background: #ffffff2e; color: var(--scene-ink); font: 500 14px var(--font-body); cursor: pointer; transition: background .25s, box-shadow .25s, transform .2s, border-color .25s; }
-.choice:hover, .booking-chips button:hover { background: #ffffff6b; transform: translateY(-2px); }
+@media (hover: hover) and (pointer: fine) { .choice:hover, .booking-chips button:hover { background: #ffffff6b; transform: translateY(-2px); } }
 .choice input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; border-radius: inherit; opacity: 0; cursor: pointer; }
 .choice:has(input:checked), .booking-chips button[aria-pressed="true"] { border-color: transparent; background: var(--scene-pill); box-shadow: 0 2px 8px #342d2214; }
 .choice:has(input:focus-visible) { outline: 2px solid #334c2e; outline-offset: 3px; }
@@ -134,16 +134,28 @@
 .booking-chips { margin-bottom: 6px; }
 .booking-chips button { min-height: 40px; padding: 8px 15px; font-size: 13px; }
 
+/* menu choice: three cards; the custom one opens the full drink list. Works without JavaScript. */
+.menu-plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px; }
+.choice.plan { display: grid; align-content: start; gap: 5px; padding: 15px 16px; border-radius: 14px; }
+.plan strong { font-size: 16px; font-weight: 600; letter-spacing: -.02em; }
+.plan small { font-weight: 400; }
+.menu-custom { display: none; }
+.booking-scene:has(#meniu-custom:checked) .menu-custom { display: flex; animation: booking-step-in .4s cubic-bezier(.22,.7,.2,1); }
+@supports not selector(:has(*)) { .menu-custom { display: flex; } }
+.menu-chip-groups { margin-bottom: 12px; }
+.menu-chip-title { margin: 0 0 8px; font-size: 12px; line-height: 1.5; color: var(--scene-soft); }
+.menu-chip-groups .booking-chips + .menu-chip-title { margin-top: 14px; }
+
 /* step navigation and sending */
 .booking-step-nav { grid-area: nav; display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-top: 34px; }
 .booking-next, .booking-submit { display: inline-flex; align-items: center; gap: 24px; min-height: 48px; padding: 10px 22px; border: 0; border-radius: 999px; font: 500 14px var(--font-body); cursor: pointer; transition: background .2s, transform .2s; }
 .booking-next { background: var(--scene-pill); color: var(--scene-ink); box-shadow: 0 2px 8px #3a2d2514; }
-.booking-next:hover { background: #fff; transform: translateY(-2px); }
+@media (hover: hover) and (pointer: fine) { .booking-next:hover { background: #fff; transform: translateY(-2px); } }
 .booking-submit { background: var(--scene-ink); color: var(--scene-pill); }
-.booking-submit:hover { background: var(--forest); transform: translateY(-2px); }
+@media (hover: hover) and (pointer: fine) { .booking-submit:hover { background: var(--forest); transform: translateY(-2px); } }
 .booking-next span, .booking-submit span { font-size: 18px; transition: transform .2s; }
-.booking-next:hover span { transform: translateX(3px); }
-.booking-submit:hover span { transform: translate(3px,-3px); }
+@media (hover: hover) and (pointer: fine) { .booking-next:hover span { transform: translateX(3px); } }
+@media (hover: hover) and (pointer: fine) { .booking-submit:hover span { transform: translate(3px,-3px); } }
 .booking-send { grid-column: 2; margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--scene-line); }
 .booking-send .booking-step-nav { margin-top: 22px; }
 .booking-consent { display: flex; align-items: flex-start; gap: 12px; font-size: 13px; line-height: 1.7; color: var(--scene-soft); cursor: pointer; }
@@ -168,7 +180,7 @@
 .booking-draft { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--scene-line); font-size: 12px; line-height: 1.5; color: var(--scene-soft); }
 .booking-draft span::before { content: "" / ""; display: inline-block; width: 6px; height: 6px; margin-right: 7px; border-radius: 50%; background: #4f6b3f; vertical-align: 1px; }
 .booking-draft button { min-height: 32px; padding: 0; border: 0; background: none; color: var(--scene-ink); font: 500 12px var(--font-body); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
-.booking-draft button:hover { color: var(--alert); }
+@media (hover: hover) and (pointer: fine) { .booking-draft button:hover { color: var(--alert); } }
 @keyframes sheet-set { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
 .booking-disclaimer { max-width: 80ch; margin-top: 18px; font-size: 13px; line-height: 1.8; color: var(--muted); }
@@ -214,7 +226,8 @@
   .booking-tabs li { flex: 1; min-width: 0; }
   .booking-tabs button { width: 100%; padding-inline: 4px; font-size: 12px; }
   .booking-tabs button span { display: none; }
-  .booking-tabs button.is-done span { display: inline; }
+  .booking-tabs button.is-done span { display: inline; margin-right: 0; font-size: 0; }
+  .booking-tabs button.is-done span::before { font-size: 12px; }
   .booking-fields { grid-template-columns: minmax(0,1fr); gap: 26px; }
   .booking-field :is(input,textarea) { font-size: 18px; }
   .booking-field textarea { font-size: 16px; }
@@ -222,4 +235,27 @@
   .booking-step-nav { justify-content: space-between; }
   .booking-next, .booking-submit { flex: 1; justify-content: space-between; }
   .booking-status { text-align: left; }
+}
+
+/* Phones: the form starts on the first screen; direct contact becomes three quick buttons. */
+@media (max-width: 760px) {
+  .contact-booking { scroll-margin-top: 54px; }
+  .booking-tabs { scroll-margin-top: 58px; }
+}
+@media (max-width: 600px) {
+  .contact-booking { padding-top: 22px; }
+  .contact-heading { gap: 14px; padding-bottom: 18px; }
+  .contact-heading p { margin-top: 6px; font-size: 14px; line-height: 1.55; }
+  .contact-direct { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; border: 0; }
+  .contact-direct-item { display: block; padding: 0; border: 0; }
+  .contact-direct-item:first-child, .contact-direct-item:last-of-type { padding: 0; }
+  .contact-direct-item + .contact-direct-item { border: 0; }
+  .contact-direct a { place-items: center; min-height: 46px; border: 1px solid var(--line-strong); border-radius: 999px; }
+  .contact-direct a > span { font-size: 13px; font-weight: 500; color: var(--ink); }
+  .contact-direct strong { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .contact-direct a:active { background: var(--stone); }
+  .contact-copy { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .booking-scene:has(#meniu-custom:checked) .menu-custom { animation: none; }
 }
