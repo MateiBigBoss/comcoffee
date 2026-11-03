@@ -31,21 +31,21 @@ Verificare vizuală efectuată în browser la desktop și 390/320 px; fără dep
 
 ## Cantități orientative — de confirmat de proprietar
 
-Convenție de lucru: 1 shot = 30 ml, 2 shoturi = 60 ml. Cantitatea este volumul total propus al porției; la băuturile reci este o referință de servire, de ajustat după gheață și rețeta reală. Boabele reprezintă shoturi, nu cantitatea de cofeină. Cold Brew și Cold Brew Tonic nu au simbol de boabă; Babyccino are boabă tăiată.
+Convenție de lucru: 1 shot = 9 g și 20 ml, 2 shoturi = 18 g și 40 ml. Cantitatea este volumul total propus al porției; la băuturile reci este o referință de servire, de ajustat după gheață și rețeta reală. Boabele reprezintă shoturi, nu cantitatea de cofeină. Cold Brew și Cold Brew Tonic nu au simbol de boabă; Babyccino are boabă tăiată.
 
 Valorile se editează în cafea.html, pe butonul fiecărei băuturi: data-volume (total ml), data-coffee-label, data-coffee-ml și data-beans (1, 2, none sau 0). Pentru Espresso se actualizează și valorile inițiale din drink-specs, folosite fără JavaScript.
 
 | Băutură | Total ml | Bază cafea | ml cafea | Boabe |
 |---|---:|---|---:|---|
-| espresso | 60 | Espresso | 60 | 2 |
-| cortado | 120 | Espresso | 60 | 2 |
-| macchiato | 60 | Espresso | 30 | 1 |
-| flat-white | 180 | Espresso | 60 | 2 |
-| cappuccino | 180 | Espresso | 30 | 1 |
-| long-black | 200 | Espresso | 60 | 2 |
-| latte | 250 | Espresso | 30 | 1 |
-| iced-latte | 350 | Espresso | 30 | 1 |
-| espresso-tonic | 300 | Espresso | 60 | 2 |
+| espresso | 40 | Espresso | 40 | 2 |
+| cortado | 80 | Espresso | 40 | 2 |
+| macchiato | 80 | Espresso | 20 | 1 |
+| flat-white | 200 | Espresso | 40 | 2 |
+| cappuccino | 200 | Espresso | 20 | 1 |
+| long-black | 140 | Espresso | 40 | 2 |
+| latte | 220 | Espresso | 20 | 1 |
+| iced-latte | 350 | Espresso | 40 | 2 |
+| espresso-tonic | 300 | Espresso | 40 | 2 |
 | cold-brew | 250 | Cold brew | 250 | none |
 | cold-brew-tonic | 300 | Cold brew | 120 | none |
-| babyccino | 150 | Cafea | 0 | 0 |
+| babyccino | 120 | Cafea | 0 | 0 |
