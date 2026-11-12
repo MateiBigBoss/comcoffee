@@ -6,9 +6,6 @@
   const stage = section.querySelector('[data-moment-stage]');
   const layer = section.querySelector('[data-moment-trail]');
   const feature = section.querySelector('[data-moment-feature]');
-  const button = section.querySelector('[data-moment-next]');
-  const hint = section.querySelector('[data-moment-hint]');
-  const status = section.querySelector('[data-moment-status]');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   const mouse = matchMedia('(hover: hover) and (pointer: fine) and (min-width: 701px)');
   const photos = Array.from(section.querySelectorAll('.moment-photo'), card => ({
@@ -39,7 +36,7 @@
     return cache.get(photo.src);
   }
   let visible = false, cursor = null, last = null, lastTime = 0, frame = 0;
-  let sequence = 0, featureIndex = 0, request = 0, scrollStep = -1, fadeTimer;
+  let sequence = 0, request = 0, scrollStep = -1, fadeTimer;
   let featureAnimation;
   const active = new Set();
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
@@ -50,7 +47,7 @@
     stage.classList.remove('is-tracing');
     last = null;
   }
-  async function selectPhoto(index, announce = false) {
+  async function selectPhoto(index) {
     const id = ++request;
     const photo = photos[featureOrder[index]];
     const image = await load(photo);
@@ -62,7 +59,6 @@
     if (!reduce.matches) featureAnimation = feature.animate([
       {opacity:.25, translate:'0 12px'}, {opacity:1, translate:'0 0'}
     ], {duration:420, easing:'cubic-bezier(.22,1,.36,1)'});
-    if (announce) status.textContent = photo.caption;
   }
   async function stamp(x, y, dx, dy) {
     const epoch = sequence++;
@@ -109,24 +105,18 @@
     } else {
       const box = stage.getBoundingClientRect();
       const step = Math.floor(clamp((innerHeight - box.top) / (innerHeight + box.height), 0, .999) * featureOrder.length);
-      if (step !== scrollStep) { scrollStep = step; featureIndex = step; selectPhoto(step); }
+      if (step !== scrollStep) { scrollStep = step; selectPhoto(step); }
     }
   }
   function schedule() { if (visible && !frame) frame = requestAnimationFrame(update); }
   stage.addEventListener('pointermove', event => {
     if (event.pointerType !== 'mouse' || !mouse.matches || reduce.matches) return;
-    if (event.target.closest('button,a')) { cursor = null; last = null; return; }
+    if (event.target.closest('a')) { cursor = null; last = null; return; }
     cursor = {x:event.clientX, y:event.clientY}; schedule();
   }, {passive:true});
   stage.addEventListener('pointerleave', () => { cursor = null; last = null; sequence++; });
-  button.hidden = false;
-  button.addEventListener('click', () => {
-    featureIndex = (featureIndex + 1) % featureOrder.length;
-    selectPhoto(featureIndex, true);
-  });
   function setMode() {
     clearTrail(); sequence++; cursor = null; scrollStep = -1;
-    hint.textContent = reduce.matches ? 'Un album de momente împreună.' : mouse.matches ? 'Mișcă mouse-ul. Descoperă momentele.' : 'Derulează și descoperă momentele.';
     schedule();
   }
   const observer = new IntersectionObserver(entries => {

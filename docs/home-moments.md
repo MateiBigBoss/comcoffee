@@ -35,3 +35,7 @@ Navigația din commitul 6cb05b8 nu a fost preluată: master avea deja header-ul 
 - Legătura „Vezi unde ne-am întâlnit” folosește `.page-link`, ca restul site-ului.
 - Regulile vechii secțiuni foto au fost scoase din `home.css`; cele trei imagini `-720.webp` din `assets/img/events/` care nu mai erau folosite au fost șterse. Celelalte imagini din acel folder rămân folosite în `despre.html`.
 - `test-home-moments.mjs` se rulează local; adăugarea lui în `.github/workflows/site-checks.yml` rămâne de făcut de proprietar (tokenul agentului nu are dreptul `workflow`).
+
+## Simplificare (noiembrie 2026)
+
+La cererea proprietarului au fost scoase indiciul din colțul de jos, butonul „Altă fotografie” și regiunea de stare aferentă. Fotografiile suplimentare apar doar la mișcarea mouse-ului sau la derulare pe telefon; nu mai există o cale din tastatură către ele. Cele trei fotografii fixe rămân vizibile fără JavaScript și cu mișcare redusă.
