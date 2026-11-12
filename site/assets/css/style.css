@@ -6,7 +6,8 @@
 
 :root {
   --paper: #FAFAF8;       /* page background */
-  --stone: #EEEFEB;       /* header, heroes, footer */
+  --stone: #EEEFEB;       /* heroes, footer */
+  --bar: #DFE1DA;         /* header band, one step darker than the heroes below it */
   --cream: #F5F1E5;       /* warm sections */
   --sage-light: #DBE2CE;  /* green panels */
   --sage: #59634C;        /* accent: italics, focus, active link */
@@ -64,7 +65,7 @@ em { font-family: var(--font-accent); font-weight: 400; }
   gap: 16px;
   height: 88px;
   padding-inline: var(--page-pad);
-  background: var(--stone);
+  background: var(--bar);
 }
 /* The vector wordmark is cropped to its ink, so 22px is the visible letter height. */
 .wordmark { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }

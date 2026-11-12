@@ -1,10 +1,11 @@
 /* A bounded photographic playground; images remain visible without JavaScript. */
-.moment-section { background:#f3efe5; scroll-margin-top:88px; }
-.moment-stage { position:relative; isolation:isolate; overflow:hidden; height:740px; color:#f5f1e5; background:#293a30; }
-.moment-stage::before { content:""; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at 50% 42%,#49634a55,transparent 65%); }
+.moment-section { scroll-margin-top:88px; }
+.moment-stage { position:relative; isolation:isolate; overflow:hidden; height:740px; color:var(--cream); background:var(--forest); }
 .moment-topline,.moment-bottomline { position:absolute; left:var(--page-pad); right:var(--page-pad); display:flex; justify-content:space-between; align-items:center; gap:24px; z-index:5; }
-.moment-topline { top:32px; border-bottom:1px solid #e8ead42a; padding-bottom:20px; }
-.moment-topline > span { font-size:12px; color:#d3dbc9; }
+.moment-topline { top:28px; min-height:44px; }
+.moment-link { display:inline-flex; align-items:center; gap:14px; min-height:44px; font-size:13px; text-decoration:none; white-space:nowrap; }
+.moment-link span { display:inline-block; transition:transform 200ms ease; }
+@media (hover:hover) and (pointer:fine) { .moment-link:hover { text-decoration:underline; text-underline-offset:6px; } .moment-link:hover span { transform:translate(3px,-3px); } }
 .moment-title { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; pointer-events:none; z-index:2; padding:70px 24px 110px; }
 .moment-title h2 { font-family:var(--font-body); font-size:clamp(48px,6vw,90px); font-weight:500; line-height:.98; letter-spacing:-.065em; }
 .moment-title h2 em { font-family:Georgia,serif; font-weight:400; color:#d5dfb9; }
@@ -26,9 +27,6 @@
 .moment-trail { position:absolute; inset:75px 0 80px; pointer-events:none; z-index:3; overflow:hidden; contain:layout paint; }
 .moment-trail img { position:absolute; width:clamp(150px,17vw,235px); height:clamp(185px,21vw,290px); object-fit:cover; border:6px solid #f1ede3; box-shadow:0 16px 35px #101b1640; will-change:transform,opacity; }
 .moment-stage.is-tracing .moment-photos { opacity:.2; }
-.moment-footer { padding:30px var(--page-pad); display:flex; align-items:center; justify-content:space-between; gap:24px; }
-.moment-footer > p { font-size:clamp(18px,2vw,25px); line-height:1.4; letter-spacing:-.035em; }
-.moment-footer :focus-visible { outline-color:#293a30; }
 @media(max-width:1000px) and (min-width:701px) {
  .moment-stage { height:690px; }
  .moment-photo:nth-child(1) { top:90px; left:5%; }
@@ -37,8 +35,7 @@
 }
 @media(max-width:700px) {
  .moment-stage { height:700px; }
- .moment-topline { top:24px; padding-bottom:16px; }
- .moment-topline > span { display:none; }
+ .moment-topline { top:18px; gap:0 12px; flex-wrap:wrap; }
  .moment-title { inset:95px 0 auto; padding:0 18px; }
  .moment-title h2 { font-size:clamp(35px,8.8vw,60px); }
  .moment-title p { font-size:12px; margin:22px 0 0; max-width:26ch; }
@@ -53,7 +50,6 @@
  .moment-hint { max-width:19ch; line-height:1.5; }
  .moment-next { font-size:12px; flex:none; }
  .moment-next span { margin-left:10px; }
- .moment-footer { align-items:flex-start; flex-direction:column; gap:12px; padding-block:24px; }
 }
 @media(prefers-reduced-motion:reduce) {
  .moment-trail { display:none; }

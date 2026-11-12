@@ -1,10 +1,13 @@
 /* Home-only layout: hero with the animated logo, story and a menu preview; the photo album lives in moments.css. */
+.home { --section-pad: clamp(56px, 8vw, 112px); }
 
 /* ---- hero ------------------------------------------------------- */
-.brand-hero { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); align-items: center; gap: 6vw; min-height: 480px; padding: 64px var(--page-pad) 82px; background: var(--stone); }
+/* The hero is the whole first screen: one line, one action, the logo. The cap keeps it from stretching on tall monitors. */
+.brand-hero { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); align-items: center; gap: 6vw; min-height: clamp(480px, calc(100svh - 88px), 860px); padding: 64px var(--page-pad) 96px; background: var(--stone); }
 .hero-message { min-width: 0; }
 .hero-message h1 { font-size: clamp(56px, 6.8vw, 108px); line-height: .98; letter-spacing: -.065em; font-weight: 500; color: var(--ink); }
-.home-actions { margin-top: 32px; }
+.hero-lead { max-width: 34ch; text-wrap: balance; margin-top: 28px; font-size: clamp(16px,1.3vw,19px); line-height: 1.55; color: var(--muted); }
+.home-actions { margin-top: 36px; }
 .hero-copy { min-width: 0; width: 100%; max-width: 600px; justify-self: end; }
 .brand-lockup { margin: 0; mix-blend-mode: multiply; }
 .brand-logo { width: 100%; height: auto; display: block; overflow: visible; }
@@ -27,7 +30,7 @@
 
 /* ---- story ------------------------------------------------------ */
 .home-story { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,1fr); background: var(--cream); scroll-margin-top: 100px; }
-.story-copy { min-width: 0; align-self: center; padding: 64px clamp(24px,4vw,72px) 64px var(--page-pad); }
+.story-copy { min-width: 0; align-self: center; padding: var(--section-pad) clamp(24px,4vw,72px) var(--section-pad) var(--page-pad); }
 .story-copy .eyebrow { color: var(--muted); margin-bottom: 30px; }
 .community-title { display: flex; align-items: center; gap: .015em; font-size: clamp(44px,5.7vw,86px); line-height: 1; letter-spacing: -.065em; white-space: nowrap; }
 .community-title svg { display: block; width: 2.6em; height: auto; flex: none; }
@@ -39,10 +42,9 @@
 .story-copy .page-link { margin-top: 20px; }
 .story-image { min-height: 620px; position: relative; overflow: hidden; }
 .story-image img { height: 100%; width: 100%; position: absolute; object-fit: cover; }
-.story-image figcaption { position: absolute; inset: auto 20px 20px; background: var(--cream); padding: 14px 18px; font-size: 14px; }
 
 /* ---- menu preview ----------------------------------------------- */
-.home-menu { display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.4fr); align-items: center; gap: 40px; background: var(--sage-light); padding: 64px var(--page-pad); }
+.home-menu { display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.4fr); align-items: center; gap: 40px; background: var(--sage-light); padding: var(--section-pad) var(--page-pad); }
 .menu-intro h2 { font-size: clamp(30px,3vw,46px); line-height: 1.1; letter-spacing: -.045em; }
 .menu-intro > p:not(.eyebrow) { max-width: 34ch; font-size: 15px; margin-top: 22px; }
 .menu-intro .page-link { margin-top: 16px; }
@@ -56,7 +58,7 @@
 .menu-preview figcaption { font-size: 15px; font-weight: 600; text-align: center; margin-top: 10px; }
 
 @media (max-width: 1000px) {
-  .brand-hero { gap: 36px; min-height: 430px; }
+  .brand-hero { gap: 36px; min-height: clamp(430px, calc(100svh - 88px), 720px); }
   .hero-message h1 { font-size: clamp(54px,7.8vw,78px); }
   .home-story { grid-template-columns: minmax(0,1.2fr) minmax(0,1fr); }
   .community-title { font-size: clamp(36px,5.3vw,54px); }
@@ -64,15 +66,16 @@
   .menu-preview { max-width: 650px; width: 100%; justify-self: center; }
 }
 @media (max-width: 760px) {
-  .brand-hero { grid-template-columns: minmax(0,1fr); gap: 48px; padding-block: 46px; min-height: auto; }
+  .brand-hero { grid-template-columns: minmax(0,1fr); align-content: center; gap: 56px; padding-block: 46px 64px; min-height: calc(100svh - 108px); }
   .hero-copy { max-width: 440px; justify-self: center; }
   .hero-message h1 { font-size: clamp(54px,13.4vw,88px); }
-  .home-actions { margin-top: 26px; }
+  .hero-lead { margin-top: 20px; }
+  .home-actions { margin-top: 28px; }
   .home-story { grid-template-columns: minmax(0,1fr); scroll-margin-top: 20px; }
   .story-image { min-height: 0; aspect-ratio: 1; }
-  .story-copy { padding: 42px var(--page-pad) 50px; }
+  .story-copy { padding: 48px var(--page-pad) 56px; }
   .community-title { font-size: clamp(38px,9.7vw,66px); }
-  .home-menu { padding: 46px var(--page-pad); }
+  .home-menu { padding: 56px var(--page-pad); }
   .menu-preview { gap: 6px; }
   .menu-preview figcaption { font-size: 13px; }
 }
