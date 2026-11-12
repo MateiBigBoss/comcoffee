@@ -5,7 +5,7 @@
 /* The hero is the whole first screen: one line, one action, the logo. The cap keeps it from stretching on tall monitors. */
 .brand-hero { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); align-items: center; gap: 6vw; min-height: clamp(480px, calc(100svh - 88px), 860px); padding: 64px var(--page-pad) 96px; background: var(--stone); }
 .hero-message { min-width: 0; }
-.hero-message h1 { font-size: clamp(56px, 6.8vw, 108px); line-height: .98; letter-spacing: -.065em; font-weight: 500; color: var(--ink); }
+.hero-message h1 { font-size: clamp(56px, 6.8vw, 108px); line-height: .98; letter-spacing: -.065em; font-weight: 500; color: #000; }
 .home-actions { margin-top: 36px; }
 .hero-copy { min-width: 0; width: 100%; max-width: 600px; justify-self: end; }
 .brand-lockup { margin: 0; mix-blend-mode: multiply; }
