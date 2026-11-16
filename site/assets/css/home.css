@@ -2,41 +2,15 @@
 .home { --section-pad: clamp(56px, 8vw, 112px); }
 
 /* ---- hero ------------------------------------------------------- */
-/* The hero is the whole first screen: a deep green stage with light and grain for depth, the line as large
-   as the screen allows, then one action and the animated logo. The cap keeps it from stretching on tall monitors. */
-.brand-hero {
-  position: relative; overflow: hidden;
-  display: grid; grid-template-columns: minmax(0,1fr) auto; grid-template-rows: 1fr auto; align-items: end; gap: clamp(28px,4vw,56px) 6vw;
-  min-height: clamp(480px, calc(100svh - 90px), 900px); padding: clamp(36px,4.5vw,64px) var(--page-pad) clamp(40px,5vw,72px);
-  color: var(--cream);
-  background:
-    radial-gradient(90% 70% at 12% 0%, color-mix(in srgb, var(--sage) 70%, transparent), transparent 70%),
-    radial-gradient(60% 80% at 100% 100%, color-mix(in srgb, var(--accent) 62%, transparent), transparent 68%),
-    radial-gradient(120% 120% at 50% 40%, transparent 40%, color-mix(in srgb, var(--ink) 55%, transparent)),
-    var(--forest-deep);
-}
-/* fine film grain over the light, so the colour reads as a surface instead of a flat fill */
-.brand-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .28; mix-blend-mode: overlay; background-image: url("../img/grain.svg"); }
-.hero-message { display: contents; }
-/* each layer of shadow is one step of the letters' thickness; the last, soft one is the shadow they cast */
-.hero-message h1 {
-  position: relative; grid-column: 1 / -1; align-self: center;
-  font-size: clamp(60px, 19.4vw, 330px); line-height: .86; letter-spacing: -.075em; font-weight: 600; color: var(--cream);
-  text-shadow:
-    .006em .006em 0 var(--hero-edge), .012em .012em 0 var(--hero-edge), .018em .018em 0 var(--hero-edge), .024em .024em 0 var(--hero-edge),
-    .03em .03em 0 var(--hero-edge), .036em .036em 0 var(--hero-edge), .042em .042em 0 var(--hero-edge),
-    .07em .09em .12em color-mix(in srgb, var(--ink) 60%, transparent);
-  --hero-edge: color-mix(in srgb, var(--accent) 78%, var(--ink));
-}
-.home-actions { position: relative; }
-.brand-hero .page-button { border-color: var(--accent-on-dark); background: var(--accent-on-dark); color: var(--ink); }
-@media (hover: hover) and (pointer: fine) { .brand-hero .page-button:hover { border-color: var(--cream); background: var(--cream); } }
-.brand-hero :focus-visible { outline-color: var(--cream); }
-.hero-copy { position: relative; min-width: 0; width: clamp(180px, 24vw, 360px); justify-self: end; }
+/* The hero is the whole first screen: the line as large as the screen allows, then one action. The cap keeps it from stretching on tall monitors. */
+.brand-hero { display: grid; align-content: center; gap: clamp(28px,4vw,56px); min-height: clamp(480px, calc(100svh - 88px), 860px); padding: clamp(36px,4.5vw,64px) var(--page-pad) clamp(40px,5vw,72px); background: var(--stone); }
+.hero-message { min-width: 0; }
+.hero-message h1 { font-size: clamp(60px, 19.4vw, 330px); line-height: .86; letter-spacing: -.075em; font-weight: 600; color: #000; }
+.home-actions { margin-top: clamp(28px,4vw,56px); }
 .brand-lockup { margin: 0; }
 .brand-logo { width: 100%; height: auto; display: block; overflow: visible; }
 /* Letters rise from below one after another; nothing clips them, they fade in instead. */
-.brand-letter { fill: var(--cream); fill-rule: evenodd; will-change: transform, opacity; animation: brand-rise 900ms cubic-bezier(.22,1,.36,1) both; }
+.brand-letter { fill: #000; fill-rule: evenodd; will-change: transform, opacity; animation: brand-rise 900ms cubic-bezier(.22,1,.36,1) both; }
 .letter-o { animation-delay: 320ms; }
 .letter-m { animation-delay: 640ms; }
 .brand-texture { opacity:0; pointer-events:none; transition:opacity 180ms ease; animation:brand-texture-ready 1600ms step-end both; }
@@ -82,15 +56,14 @@
 .menu-preview figcaption { font-size: 15px; font-weight: 600; text-align: center; margin-top: 10px; }
 
 @media (max-width: 1000px) {
-  .brand-hero { min-height: clamp(430px, calc(100svh - 90px), 760px); }
+  .brand-hero { min-height: clamp(430px, calc(100svh - 88px), 760px); }
   .home-story { grid-template-columns: minmax(0,1.2fr) minmax(0,1fr); }
   .community-title { font-size: clamp(36px,5.3vw,54px); }
   .home-menu { grid-template-columns: 1fr; gap: 28px; }
   .menu-preview { max-width: 650px; width: 100%; justify-self: center; }
 }
 @media (max-width: 760px) {
-  .brand-hero { grid-template-columns: minmax(0,1fr); grid-template-rows: 1fr auto auto; min-height: calc(100svh - 110px); }
-  .hero-copy { width: min(56vw, 240px); justify-self: start; }
+  .brand-hero { min-height: calc(100svh - 108px); }
   .home-story { grid-template-columns: minmax(0,1fr); scroll-margin-top: 20px; }
   .story-image { min-height: 0; aspect-ratio: 1; }
   .story-copy { padding: 48px var(--page-pad) 56px; }

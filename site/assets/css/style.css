@@ -14,7 +14,6 @@
   --accent: #A84A22;      /* espresso-crema copper, the one loud colour: active link, the italic line of an h1, the main button; at least 4.9:1 on paper, stone and cream */
   --accent-on-dark: #F2AE84; /* the same accent on forest, 4.7:1 */
   --forest: #424D39;      /* dark green sections */
-  --forest-deep: #232B1F; /* the home hero stage, darker than forest so light and copper show on it */
   --ink: #1E201C;         /* text */
   --muted: #545A4E;       /* secondary text, at least 5.3:1 on every light background */
   --line: #CDD1C4;        /* dividers */
