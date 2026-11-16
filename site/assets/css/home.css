@@ -16,7 +16,7 @@
     var(--forest-deep);
 }
 /* fine film grain over the light, so the colour reads as a surface instead of a flat fill */
-.brand-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .28; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.brand-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .28; mix-blend-mode: overlay; background-image: url("../img/grain.svg"); }
 .hero-message { display: contents; }
 /* each layer of shadow is one step of the letters' thickness; the last, soft one is the shadow they cast */
 .hero-message h1 {
