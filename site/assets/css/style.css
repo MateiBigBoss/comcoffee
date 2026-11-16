@@ -10,7 +10,9 @@
   --bar: #DFE1DA;         /* header band, one step darker than the heroes below it */
   --cream: #F5F1E5;       /* warm sections */
   --sage-light: #DBE2CE;  /* green panels */
-  --sage: #59634C;        /* accent: italics, focus, active link */
+  --sage: #59634C;        /* quiet green: italics in text, focus, markers */
+  --accent: #A84A22;      /* espresso-crema copper, the one loud colour: active link, the italic line of an h1, the main button; at least 4.9:1 on paper, stone and cream */
+  --accent-on-dark: #F2AE84; /* the same accent on forest, 4.7:1 */
   --forest: #424D39;      /* dark green sections */
   --ink: #1E201C;         /* text */
   --muted: #545A4E;       /* secondary text, at least 5.3:1 on every light background */
@@ -86,13 +88,13 @@ em { font-family: var(--font-accent); font-weight: 400; }
 @media (hover: hover) and (pointer: fine) { .nav nav a:hover { color: var(--ink); } }
 .nav nav a[aria-current="page"] {
   color: var(--ink);
-  text-decoration: underline 2px var(--sage);
+  text-decoration: underline 2px var(--accent);
   text-underline-offset: 6px;
 }
 .nav nav a:focus-visible { outline-offset: -3px; }
 .nav-cta { justify-self: end; display: inline-flex; align-items: center; gap: 16px; min-height: 44px; font-size: 14px; font-weight: 600; text-decoration: none; }
 .nav-cta span { font-size: 20px; }
-@media (hover: hover) and (pointer: fine) { .nav-cta:hover { color: var(--sage); } }
+@media (hover: hover) and (pointer: fine) { .nav-cta:hover { color: var(--accent); } }
 
 /* ---- links and buttons --------------------------------------- */
 .page-link { display: inline-flex; align-items: center; justify-content: space-between; gap: 22px; min-height: 44px; padding-block: 12px; border-bottom: 1px solid var(--line-strong); font-size: 14px; text-decoration: none; }
@@ -109,8 +111,8 @@ em { font-family: var(--font-accent); font-weight: 400; }
 .page-cta .eyebrow { color: var(--sage-light); margin-bottom: 22px; }
 .page-cta h2 { max-width: 19ch; margin: 0 auto; font-size: clamp(36px, 4.6vw, 68px); line-height: 1.08; }
 .page-cta > p:not(.eyebrow) { max-width: 54ch; margin: 24px auto; font-size: 15px; line-height: 1.8; }
-.page-cta .page-button { margin-top: 12px; border-color: var(--cream); background: var(--cream); color: var(--ink); }
-@media (hover: hover) and (pointer: fine) { .page-cta .page-button:hover { background: var(--sage-light); border-color: var(--sage-light); } }
+.page-cta .page-button { margin-top: 12px; border-color: var(--accent-on-dark); background: var(--accent-on-dark); color: var(--ink); }
+@media (hover: hover) and (pointer: fine) { .page-cta .page-button:hover { background: var(--cream); border-color: var(--cream); } }
 .page-cta :focus-visible { outline-color: var(--cream); }
 
 /* ---- footer: identical on every page ------------------------- */
