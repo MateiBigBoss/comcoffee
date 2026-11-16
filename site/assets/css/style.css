@@ -14,6 +14,7 @@
   --accent: #A84A22;      /* espresso-crema copper, the one loud colour: active link, the italic line of an h1, the main button; at least 4.9:1 on paper, stone and cream */
   --accent-on-dark: #F2AE84; /* the same accent on forest, 4.7:1 */
   --forest: #424D39;      /* dark green sections */
+  --forest-deep: #232B1F; /* the home hero stage, darker than forest so light and copper show on it */
   --ink: #1E201C;         /* text */
   --muted: #545A4E;       /* secondary text, at least 5.3:1 on every light background */
   --line: #CDD1C4;        /* dividers */
@@ -68,6 +69,8 @@ em { font-family: var(--font-accent); font-weight: 400; }
   height: 88px;
   padding-inline: var(--page-pad);
   background: var(--bar);
+  /* the line that closes the header band on every page */
+  border-bottom: 2px solid color-mix(in srgb, var(--ink) 28%, transparent);
 }
 /* The vector wordmark is cropped to its ink, so 22px is the visible letter height. */
 .wordmark { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
