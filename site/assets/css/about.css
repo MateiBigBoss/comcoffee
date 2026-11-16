@@ -1,5 +1,6 @@
 /* About page: the people and the story. */
 .about-page em { color: var(--sage); }
+.about-page h1 em { color: var(--accent); }
 
 /* ---- hero ---------------------------------------------------- */
 .about-page .about-hero { display: grid; grid-template-columns: minmax(0,1.12fr) minmax(0,1fr); align-items: center; gap: clamp(36px,7vw,108px); background: var(--stone); padding-block: 56px 64px; }

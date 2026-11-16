@@ -1,11 +1,15 @@
 /* Evenimente: click through the occasions, text only; one button under them.
    Hovers are gated to fine pointers; everything that moves is still with prefers-reduced-motion. */
 .events-page { --ev-ease: cubic-bezier(.23, 1, .32, 1); }
-.events-page h1 em { color: var(--sage); }
+.events-page h1 em { color: var(--accent); }
 .ev-occasions { background: var(--paper); }
-.ev-intro { margin-bottom: clamp(36px, 4.5vw, 64px); }
+.ev-intro { position: relative; margin-bottom: clamp(36px, 4.5vw, 64px); }
 .ev-intro .eyebrow { margin-bottom: 22px; }
-.ev-intro h1 { font-size: clamp(44px, 5.8vw, 88px); line-height: 1.02; letter-spacing: -.065em; }
+/* the headline is the page's poster: very large, with the cup standing beside its last letters */
+.ev-intro h1 { position: relative; z-index: 1; font-size: clamp(48px, 11vw, 144px); line-height: .94; letter-spacing: -.065em; }
+.ev-cup { position: absolute; z-index: 2; right: clamp(0px, 3vw, 64px); bottom: -5%; width: clamp(170px, 25vw, 360px); pointer-events: none; }
+.ev-cup::before { content: ""; position: absolute; inset: auto 6% 0 6%; height: 20%; border-radius: 50%; background: var(--accent); opacity: .45; filter: blur(24px); }
+.ev-cup img { position: relative; width: 100%; height: auto; }
 
 /* ---- occasions explorer -------------------------------------- */
 .ev-explorer { display: grid; grid-template-columns: minmax(200px, .42fr) minmax(0, 1.58fr); gap: clamp(24px, 3vw, 40px) clamp(24px, 4vw, 56px); scroll-margin-top: 88px; }
@@ -36,8 +40,8 @@
 .ev-explorer.is-enhanced .ev-button { grid-column: 2; }
 /* the box hugs its text, so the list spans both rows and the button sits right under the box */
 @media (min-width: 861px) { .ev-explorer.is-enhanced { grid-template-rows: auto 1fr; } .ev-explorer.is-enhanced .ev-tabs { grid-row: 1 / span 2; } .ev-explorer.is-enhanced .ev-button { align-self: start; } }
-.ev-button { justify-self: start; border-radius: 999px; background: var(--ink); color: var(--paper); transition: background 200ms ease, transform 160ms ease-out; }
-@media (hover: hover) and (pointer: fine) { .ev-button:hover { background: var(--forest); color: var(--paper); } }
+.ev-button { justify-self: start; border-radius: 999px; border-color: var(--accent); background: var(--accent); color: var(--paper); transition: background 200ms ease, border-color 200ms ease, transform 160ms ease-out; }
+@media (hover: hover) and (pointer: fine) { .ev-button:hover { background: color-mix(in srgb, var(--accent), var(--ink) 22%); border-color: color-mix(in srgb, var(--accent), var(--ink) 22%); color: var(--paper); } }
 
 /* ---- responsive ---------------------------------------------- */
 @media (max-width: 1100px) {
@@ -45,6 +49,8 @@
   .events-page .ev-panel h2 { font-size: clamp(28px, 3.4vw, 40px); }
 }
 @media (max-width: 860px) {
+  /* the cup steps down under the headline instead of crowding it */
+  .ev-cup { position: relative; right: auto; bottom: auto; width: min(46vw, 220px); margin: -8px 0 0 auto; }
   .ev-explorer.is-enhanced { grid-template-columns: 1fr; gap: 18px; scroll-margin-top: 60px; }
   .ev-explorer.is-enhanced .ev-button { grid-column: 1; }
   /* tabs become pills that wrap, all visible at once */
