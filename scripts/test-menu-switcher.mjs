@@ -101,7 +101,7 @@ elements.get('[data-drink-prev]').click();await pause(40);assert.equal(elements.
 tabs[1].click();await pause(40);assert.equal(elements.get('[data-drink-name]').textContent,'Iced Latte');assert.equal(groups[0].hidden,true);
 assertWheel('iced-latte','#b79c7d');
 choices[8].click();tabs[0].click();await pause(70);assert.equal(elements.get('[data-drink-name]').textContent,'Espresso');assert.equal(groups[1].hidden,true);
-tabs[1].click();await pause(40);fail=true;choices[9].click();await pause(30);assert.equal(elements.get('[data-drink-name]').textContent,'Iced Latte');assert.match(elements.get('[data-menu-status]').textContent,/nu s-a încărcat/);
+tabs[1].click();await pause(40);fail=true;choices[9].click();await pause(30);assert.equal(elements.get('[data-drink-name]').textContent,'Iced Latte');assert.match(elements.get('[data-menu-status]').textContent,/did not load/);
 assert.equal(elements.get('[data-menu-retry]').hidden,false);
 elements.get('[data-menu-retry]').click();await pause(40);assert.equal(elements.get('[data-drink-name]').textContent,'Cold Brew');
 assert.equal(elements.get('[data-drink-beans]').hidden,true);

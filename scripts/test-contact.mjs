@@ -205,7 +205,7 @@ test('HTML submits the complete booking by native POST with CAPTCHA and validati
   assert.equal(byId.get('email').type, 'email');
   assert.equal(byId.get('data').type, 'date');
   assert.equal(byId.get('acord').type, 'checkbox');
-  assert.doesNotMatch(html + script, /cererea a fost trimisă|rezervarea (?:ta )?este confirmată/i);
+  assert.doesNotMatch(html + script, /enquiry has been sent|(?:your )?booking is confirmed/i);
 });
 
 test('without JavaScript every step is visible and only enhancement controls start hidden', () => {
@@ -244,7 +244,7 @@ test('summary updates through textContent on input/change without HTML injection
   app.input('invitati', '150');
   assert.equal(app.summaryValues.get('invitati').textContent, '150');
   app.input('data', '2026-11-14');
-  assert.equal(app.summaryValues.get('data').textContent, new Date(2026, 10, 14, 12).toLocaleDateString('ro-RO', {day: 'numeric', month: 'long', year: 'numeric'}));
+  assert.equal(app.summaryValues.get('data').textContent, new Date(2026, 10, 14, 12).toLocaleDateString('en-GB', {day: 'numeric', month: 'long', year: 'numeric'}));
   app.input('data', '');
   assert.equal(app.summaryValues.get('data').textContent, '—');
   assert.equal(app.summaryValues.get('data').classList.contains('is-set'), false);
@@ -254,12 +254,12 @@ test('summary updates through textContent on input/change without HTML injection
   assert.equal(app.summaryValues.get('oras').textContent, '—', 'Only a real place reaches the sheet.');
   app.input('ora', '14:00');
   assert.equal(app.summaryValues.get('ora').textContent, '14:00');
-  for (const [value, label] of [['4', '4 ore'], ['1', '1 oră'], ['0.5', '0,5 ore'], ['57', '—'], ['', '—']]) {
+  for (const [value, label] of [['4', '4 hours'], ['1', '1 hour'], ['0.5', '0.5 hours'], ['57', '—'], ['', '—']]) {
     app.input('durata', value);
     assert.equal(app.summaryValues.get('durata').textContent, label, value);
   }
   app.input('invitati', '1200');
-  assert.equal(app.summaryValues.get('invitati').textContent, (1200).toLocaleString('ro-RO'));
+  assert.equal(app.summaryValues.get('invitati').textContent, (1200).toLocaleString('en-GB'));
 });
 
 test('the menu choice is optional, reaches the sheet and sends custom drinks only with a custom menu', () => {
@@ -278,14 +278,14 @@ test('the menu choice is optional, reaches the sheet and sends custom drinks onl
   assert.equal(app.summaryValues.get('meniu').textContent, '—');
   app.input('preferinte', 'Espresso, Latte');
   assert.deepEqual(sent('meniu-clasic'), ['Preferințe pentru meniu']);
-  assert.equal(app.summaryValues.get('meniu').textContent, 'Meniu clasic');
+  assert.equal(app.summaryValues.get('meniu').textContent, 'Classic menu');
   assert.equal(app.fields.get('preferinte').value, 'Espresso, Latte', 'The picks stay on screen.');
   assert.deepEqual(sent('meniu-custom'), []);
-  assert.equal(app.summaryValues.get('meniu').textContent, 'Custom · 2 băuturi');
+  assert.equal(app.summaryValues.get('meniu').textContent, 'Custom · 2 drinks');
   app.input('preferinte', 'Espresso');
-  assert.equal(app.summaryValues.get('meniu').textContent, 'Custom · 1 băutură');
+  assert.equal(app.summaryValues.get('meniu').textContent, 'Custom · 1 drink');
   app.input('preferinte', '');
-  assert.equal(app.summaryValues.get('meniu').textContent, 'Meniu custom');
+  assert.equal(app.summaryValues.get('meniu').textContent, 'Custom menu');
   assert.deepEqual(sent(''), [], 'Without a choice the free text is kept.');
 });
 
@@ -299,7 +299,7 @@ test('the menu choice survives in a draft and older drafts open as a custom menu
   const older = new MemoryStorage({[DRAFT_KEY]: JSON.stringify({savedAt: new Date(2026, 9, 12).getTime(), step: 0, values: {preferinte: 'Espresso'}})});
   const app = setup({storage: older});
   assert.equal(app.fields.get('meniu-custom').checked, true);
-  assert.equal(app.summaryValues.get('meniu').textContent, 'Custom · 1 băutură');
+  assert.equal(app.summaryValues.get('meniu').textContent, 'Custom · 1 drink');
 });
 
 test('date minimum uses the local day and revalidates after midnight', () => {
@@ -343,7 +343,7 @@ test('HTTP submission preserves all values and delegates to the native POST', ()
       assert.equal(app.form.validityReports, 0);
       assert.deepEqual([...app.fields].map(([id, field]) => [id, field.value, field.checked]), before);
       assert.ok([...app.fields.values()].every(field => !field.disabled));
-      assert.match(app.status.textContent, /nu reprezintă încă o rezervare confirmată/);
+      assert.match(app.status.textContent, /not yet a confirmed booking/);
       assert.equal(app.notice.hidden, true);
     }
   }
@@ -433,9 +433,9 @@ test('realistic limits reject impossible values with Romanian messages', () => {
     }
   }
   app.input('durata', '57');
-  assert.match(app.fields.get('durata').validationMessage, /Cel mult 12 ore/);
+  assert.match(app.fields.get('durata').validationMessage, /At most 12 hours/);
   app.input('invitati', '5000');
-  assert.match(app.fields.get('invitati').validationMessage, /spune-ne la detalii/);
+  assert.match(app.fields.get('invitati').validationMessage, /tell us in the details/);
 });
 
 test('a draft survives leaving the page and returns to the same step, without consent', () => {
@@ -482,7 +482,7 @@ test('old, corrupt or blocked storage is ignored and the form still works', () =
   assert.equal(blocked.form.dispatch('submit').defaultPrevented, false);
 });
 
-test('sending or "Șterge datele" removes the draft', () => {
+test('sending or "Clear the details" removes the draft', () => {
   const storage = new MemoryStorage();
   const app = setup({stepped: true, storage});
   app.complete();
@@ -510,7 +510,7 @@ test('file previews do not send and explain the direct email alternative honestl
   app.complete();
   assert.equal(app.notice.hidden, false);
   assert.equal(app.form.dispatch('submit').defaultPrevented, true);
-  assert.match(app.status.textContent, /Copia locală nu trimite cereri/);
+  assert.match(app.status.textContent, /The local copy does not send enquiries/);
   assert.match(app.status.textContent, /comcoffee\.events@gmail\.com/);
   assert.equal(app.fields.get('email').value, 'test@example.invalid');
 });
@@ -527,7 +527,7 @@ test('pageshow refreshes restored/autofilled values and clears stale navigation 
   app.setDate(new Date(2026, 9, 13));
   app.window.dispatch('pageshow');
   assert.equal(app.status.textContent, '');
-  assert.equal(app.summaryValues.get('tip').textContent, 'Eveniment corporate');
+  assert.equal(app.summaryValues.get('tip').textContent, 'Corporate event');
   assert.equal(app.summaryValues.get('invitati').textContent, '80');
   assert.equal(app.fields.get('data').min, '2026-10-13');
   assert.notEqual(app.fields.get('data').validationMessage, '');

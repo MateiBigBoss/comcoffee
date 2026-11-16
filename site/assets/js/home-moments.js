@@ -14,15 +14,15 @@
     caption:card.querySelector('figcaption').textContent
   }));
   photos.push(
-    {"src":"assets/img/moments/belis-echipa.webp","alt":"Doi barista com. pregătesc cafeaua la stand.","caption":"Cafeaua, pregătită cu grijă."},
-    {"src":"assets/img/moments/belis-barul.webp","alt":"Meniul și espressorul de pe barul mobil com.","caption":"Ne găsești la bar."},
-    {"src":"assets/img/moments/belis-o-cafea.webp","alt":"Un invitat ia un pahar de cafea de la stand.","caption":"O cafea, înainte de povești."},
-    {"src":"assets/img/moments/belis-iced-latte.webp","alt":"Espresso turnat peste lapte și gheață.","caption":"Pentru zile cu soare."},
-    {"src":"assets/img/moments/familie-espresso.webp","alt":"Un barista pregătește espresso la un eveniment în familie.","caption":"Împreună, la momentele voastre."},
-    {"src":"assets/img/moments/familie-latte-art.webp","alt":"Lapte turnat cu grijă într-un pahar de cafea.","caption":"Grijă, până la ultimul detaliu."},
-    {"src":"assets/img/moments/tabara-stand.webp","alt":"Standul com. pregătit pentru servire în tabără.","caption":"Cafeaua vine și în tabără."},
-    {"src":"assets/img/moments/tabara-cafea-in-mana.webp","alt":"Un pahar de cafea cu latte art, ținut în mână în aer liber.","caption":"Un moment doar pentru tine."},
-    {"src":"assets/img/moments/belis-impreuna.webp","alt":"Oameni adunați în jurul standului com. în grădină.","caption":"Încă puțin de stat împreună."}
+    {"src":"assets/img/moments/belis-echipa.webp","alt":"Two com. baristas preparing coffee at the bar.","caption":"Coffee, made with care."},
+    {"src":"assets/img/moments/belis-barul.webp","alt":"The menu and espresso machine on the com. mobile bar.","caption":"Find us at the bar."},
+    {"src":"assets/img/moments/belis-o-cafea.webp","alt":"A guest takes a cup of coffee from the bar.","caption":"A coffee before the stories."},
+    {"src":"assets/img/moments/belis-iced-latte.webp","alt":"Espresso poured over milk and ice.","caption":"For sunny days."},
+    {"src":"assets/img/moments/familie-espresso.webp","alt":"A barista preparing espresso at a family event.","caption":"Together, at your moments."},
+    {"src":"assets/img/moments/familie-latte-art.webp","alt":"Milk poured carefully into a cup of coffee.","caption":"Care, down to the last detail."},
+    {"src":"assets/img/moments/tabara-stand.webp","alt":"The com. bar set up to serve at a camp.","caption":"Coffee comes to camp too."},
+    {"src":"assets/img/moments/tabara-cafea-in-mana.webp","alt":"A cup of coffee with latte art, held in a hand outdoors.","caption":"A moment just for you."},
+    {"src":"assets/img/moments/belis-impreuna.webp","alt":"People gathered around the com. bar in the garden.","caption":"A little longer together."}
   );
   // Keep the central album photo distinct from the two fixed photographs.
   const featureOrder = photos.map((_, index) => index).filter(index => index !== 0 && index !== 2);

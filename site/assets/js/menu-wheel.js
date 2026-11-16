@@ -78,7 +78,7 @@ class CoffeeWheel {
       const src = `assets/img/menu/${choice.dataset.slug}.webp`;
       if (slot.image.getAttribute('src') !== src || (refresh && slot.offset === 0)) slot.image.src = src;
       slot.label.textContent = '';
-      slot.card.setAttribute('aria-label', `Alege ${name}`);
+      slot.card.setAttribute('aria-label', `Choose ${name}`);
       slot.card.disabled = slot.offset !== 1;
       slot.card.setAttribute('aria-hidden', String(slot.card.disabled));
       this.pose(slot, slot.offset);

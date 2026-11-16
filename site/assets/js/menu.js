@@ -42,7 +42,7 @@
     const button = choices[index];
     const name = button.lastElementChild.textContent;
     photo.src = image.src;
-    photo.alt = `${name} în paharul com.`;
+    photo.alt = `${name} in the com. cup`;
     root.querySelector('[data-drink-name]').textContent = name;
     root.querySelector('[data-drink-note]').textContent = button.dataset.note;
     root.querySelector('[data-drink-description]').textContent = button.dataset.description;
@@ -54,8 +54,8 @@
     const beans = root.querySelector('[data-drink-beans]');
     beans.hidden = button.dataset.beans === 'none';
     beans.setAttribute('data-beans', button.dataset.beans);
-    beans.setAttribute('aria-label', button.dataset.beans === '0' ? 'Fără cafea' : button.dataset.beans === '1' ? '1 shot de espresso' : `${button.dataset.beans} shoturi de espresso`);
-    root.querySelector('[data-drink-counter]').textContent = index < 7 ? 'Meniu clasic' : 'Selecția Signature';
+    beans.setAttribute('aria-label', button.dataset.beans === '0' ? 'No coffee' : button.dataset.beans === '1' ? '1 espresso shot' : `${button.dataset.beans} espresso shots`);
+    root.querySelector('[data-drink-counter]').textContent = index < 7 ? 'Classic menu' : 'Signature selection';
     current = index;
     controls();
   }
@@ -75,7 +75,7 @@
         retryCurrent = false;
         const target = desired;
         let image;
-        status.textContent = 'Pregătim fotografia…';
+        status.textContent = 'Preparing the photo…';
         // A slow old request must not hold up the latest selection. Keep the
         // download cached, but release this wait as soon as the visitor chooses.
         try {
@@ -84,7 +84,7 @@
             new Promise(resolve => { cancelPendingLoad = () => resolve(null); })
           ]);
         }
-        catch { if(target !== desired) continue; failedTarget=target; desired=current; category=current<7?0:1; controls(); status.textContent='Fotografia nu s-a încărcat. Poți reîncerca sau alege altă băutură.'; retry.hidden=false; break; }
+        catch { if(target !== desired) continue; failedTarget=target; desired=current; category=current<7?0:1; controls(); status.textContent='The photo did not load. You can try again or choose another drink.'; retry.hidden=false; break; }
         finally { cancelPendingLoad = null; }
         if (!image) continue;
         if (target !== desired) continue;
@@ -163,7 +163,7 @@
     const rail = document.createElement('div');
     rail.className = 'drink-rail';
     rail.setAttribute('role','group');
-    rail.setAttribute('aria-label','Toate băuturile');
+    rail.setAttribute('aria-label','All drinks');
     const pills = choices.map((choice,i) => {
       const pill = document.createElement('button');
       pill.type = 'button';
@@ -177,7 +177,7 @@
     });
     const hint = document.createElement('p');
     hint.className = 'swipe-hint';
-    hint.textContent = 'Glisează ca să schimbi băutura';
+    hint.textContent = 'Swipe to change the drink';
     scene.append(hint,rail);
     let railAt = -1;
     syncRail = () => {
@@ -232,7 +232,7 @@
   load(0).catch(()=>{
     if (current !== 0 || desired !== 0 || running) return;
     failedTarget=0;
-    status.textContent='Fotografia nu s-a încărcat. Poți reîncerca sau alege altă băutură.';
+    status.textContent='The photo did not load. You can try again or choose another drink.';
     retry.hidden=false;
   });
   // Fetch likely next image only, instead of downloading the whole menu on arrival.

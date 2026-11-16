@@ -25,8 +25,8 @@
   const EMPTY = '—';
   const MAX_YEARS_AHEAD = 2;
   const isoDay = day => `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, '0')}-${String(day.getDate()).padStart(2, '0')}`;
-  const formatNumber = value => value.toLocaleString('ro-RO');
-  const hoursLabel = value => `${formatNumber(value)} ${value === 1 ? 'oră' : value >= 20 ? 'de ore' : 'ore'}`;
+  const formatNumber = value => value.toLocaleString('en-GB');
+  const hoursLabel = value => `${formatNumber(value)} ${value === 1 ? 'hour' : 'hours'}`;
 
   // Realistic limits. Each rule returns a Romanian message, or '' when the value is acceptable.
   // Empty required fields are left to `required`; the inline message for them is written below.
@@ -34,34 +34,34 @@
     [date, value => {
       const today = new Date();
       const latest = new Date(today.getFullYear() + MAX_YEARS_AHEAD, today.getMonth(), today.getDate());
-      if (value < isoDay(today)) return 'Alege o dată de astăzi înainte.';
-      if (value > isoDay(latest)) return `Primim cereri pentru următorii ${MAX_YEARS_AHEAD} ani. Pentru o dată mai îndepărtată, scrie-ne direct.`;
+      if (value < isoDay(today)) return 'Choose a date from today onwards.';
+      if (value > isoDay(latest)) return `We take enquiries for the next ${MAX_YEARS_AHEAD} years. For a later date, write to us directly.`;
       return '';
     }],
     [guests, value => {
       const count = Number(value);
-      if (!Number.isInteger(count) || count < 1) return 'Scrie un număr întreg de invitați, de la 1 în sus.';
-      if (count > Number(guests.max)) return `Cel mult ${formatNumber(Number(guests.max))} de invitați în formular. Pentru un eveniment mai mare, spune-ne la detalii.`;
+      if (!Number.isInteger(count) || count < 1) return 'Enter a whole number of guests, 1 or more.';
+      if (count > Number(guests.max)) return `At most ${formatNumber(Number(guests.max))} guests in the form. For a bigger event, tell us in the details.`;
       return '';
     }],
     [hours, value => {
       const count = Number(value);
-      if (!Number.isFinite(count) || count < Number(hours.min)) return 'Cel puțin o jumătate de oră (0,5).';
-      if (count > Number(hours.max)) return `Cel mult ${hours.max} ore pe zi. Pentru evenimente mai lungi sau de mai multe zile, spune-ne la detalii.`;
-      if (!Number.isInteger(count * 2)) return 'Folosește ore întregi sau jumătăți de oră, de exemplu 4 sau 4,5.';
+      if (!Number.isFinite(count) || count < Number(hours.min)) return 'At least half an hour (0.5).';
+      if (count > Number(hours.max)) return `At most ${hours.max} hours a day. For longer or multi-day events, tell us in the details.`;
+      if (!Number.isInteger(count * 2)) return 'Use whole or half hours, for example 4 or 4.5.';
       return '';
     }],
-    [city, value => ((value.match(/\p{L}/gu) || []).length < 2 ? 'Scrie localitatea, de exemplu Cluj-Napoca.' : '')],
+    [city, value => ((value.match(/\p{L}/gu) || []).length < 2 ? 'Enter the town, for example Cluj-Napoca.' : '')],
     [name, value => {
-      if (/\d/.test(value) || !/^[\p{L}\s.'’-]+$/u.test(value)) return 'Numele poate conține doar litere, spații și cratime.';
-      if ((value.match(/\p{L}/gu) || []).length < 2) return 'Scrie numele întreg.';
+      if (/\d/.test(value) || !/^[\p{L}\s.'’-]+$/u.test(value)) return 'The name can contain only letters, spaces and hyphens.';
+      if ((value.match(/\p{L}/gu) || []).length < 2) return 'Enter your full name.';
       return '';
     }],
-    [email, value => (/^[^\s@]+@[^\s@]+\.[^\s@.]{2,}$/.test(value) ? '' : 'Verifică adresa de email, de exemplu nume@exemplu.ro.')],
+    [email, value => (/^[^\s@]+@[^\s@]+\.[^\s@.]{2,}$/.test(value) ? '' : 'Check the email address, for example name@example.com.')],
     [phone, value => {
       const digits = value.replace(/\D/g, '');
       const valid = /^[+\d\s().-]+$/.test(value) && digits.length >= 7 && digits.length <= 15;
-      return valid ? '' : 'Introdu un număr de telefon valid, cu 7–15 cifre. Poți folosi +, spații, puncte, paranteze sau cratime.';
+      return valid ? '' : 'Enter a valid phone number with 7–15 digits. You can use +, spaces, dots, brackets or hyphens.';
     }],
   ].filter(([control]) => control));
   const validate = control => {
@@ -83,7 +83,7 @@
     if (!target) return;
     const invalid = !control.checkValidity();
     let message = '';
-    if (invalid) message = control.type === 'radio' ? 'Alege ocazia.' : rules.get(control) && control.value.trim() ? control.validationMessage : 'Completează acest câmp.';
+    if (invalid) message = control.type === 'radio' ? 'Choose the occasion.' : rules.get(control) && control.value.trim() ? control.validationMessage : 'Fill in this field.';
     target.textContent = message;
     if (control.type !== 'radio') control.setAttribute('aria-invalid', String(invalid));
     const field = control.closest && control.closest('.booking-field');
@@ -97,7 +97,7 @@
   const menuLabel = menu => {
     if (!menu) return '';
     const count = menu === customMenu ? prefItems().length : 0;
-    return count ? `Custom · ${count === 1 ? '1 băutură' : `${count} băuturi`}` : menu.dataset.label;
+    return count ? `Custom · ${count === 1 ? '1 drink' : `${count} drinks`}` : menu.dataset.label;
   };
   const updateSummary = () => {
     if (!summary) return;
@@ -110,7 +110,7 @@
     const type = checkedType();
     set('tip', type ? type.dataset.label : '');
     const parsed = date.value ? new Date(`${date.value}T12:00:00`) : null;
-    set('data', parsed && !Number.isNaN(parsed.getTime()) ? parsed.toLocaleDateString('ro-RO', {day:'numeric', month:'long', year:'numeric'}) : '');
+    set('data', parsed && !Number.isNaN(parsed.getTime()) ? parsed.toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'}) : '');
     set('invitati', guests.value && !rules.get(guests)(guests.value) ? formatNumber(Number(guests.value)) : '');
     set('durata', hours && hours.value && !rules.get(hours)(hours.value) ? hoursLabel(Number(hours.value)) : '');
     set('ora', time ? time.value : '');
@@ -271,9 +271,9 @@
         try { await navigator.clipboard.writeText(button.dataset.copy); }
         catch { legacyCopy(button.dataset.copy); }
         button.classList.add('is-copied');
-        if (copyStatus) copyStatus.textContent = 'Adresa de email a fost copiată.';
+        if (copyStatus) copyStatus.textContent = 'The email address has been copied.';
       } catch {
-        if (copyStatus) copyStatus.textContent = 'Nu am putut copia adresa. Folosește linkul de email.';
+        if (copyStatus) copyStatus.textContent = 'We could not copy the address. Use the email link.';
       }
       clearTimeout(timer);
       timer = setTimeout(() => {
@@ -349,7 +349,7 @@
     show(open === -1 ? reachable : open, false);
   }
 
-  // "Șterge": empty the form and forget the saved draft.
+  // "Clear": empty the form and forget the saved draft.
   if (draftClear) draftClear.addEventListener('click', () => {
     form.reset();
     clearDraft();
@@ -378,7 +378,7 @@
   form.addEventListener('submit', event => {
     if (isLocalFile) {
       event.preventDefault();
-      if (status) status.textContent = 'Copia locală nu trimite cereri. Folosește site-ul online sau scrie-ne la comcoffee.events@gmail.com.';
+      if (status) status.textContent = 'The local copy does not send enquiries. Use the online site or write to us at comcoffee.events@gmail.com.';
       return;
     }
     if (stepped && current < steps.length - 1) {
@@ -403,6 +403,6 @@
     if (form.getAttribute('action') !== '/api/enquiries') { sent = true; clearDraft(); }
     // No AJAX success message: FormSubmit handles CAPTCHA and its response page.
     // Do not disable fields or erase values; preserve the complete POST payload.
-    if (status) status.textContent = 'Continui pe pagina securizată de trimitere. Cererea nu reprezintă încă o rezervare confirmată.';
+    if (status) status.textContent = 'You continue on the secure sending page. The enquiry is not yet a confirmed booking.';
   });
 })();
